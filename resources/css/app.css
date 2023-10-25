@@ -1,0 +1,17 @@
+@import 'bootstrap';
+
+body {    
+    background: rgba(24, 169, 136, 0.5);    
+}
+
+#cLogin {
+    width: 700px;
+    height: 400px;
+    margin: auto;
+    border: 1px solid;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    text-align: center;
+    border-radius: 25px;
+
+}
