@@ -13,5 +13,106 @@ body {
     padding: 30px;
     text-align: center;
     border-radius: 25px;
+    
 
+}
+
+.tarjeta{
+    max-width: calc(33.33% - 20px); /* Aproximadamente 33.33% del ancho del contenedor con espacio entre las tarjetas */
+    width: 100%; 
+    position: relative;
+    height: 350px;
+    margin: 20px;
+  }
+
+.tarjeta .face{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: .5s;
+}
+
+.tarjeta .froont{
+  transform: perspective(600px)rotateY(0deg);
+  box-shadow: 0 5px 10px #0000;
+}
+
+.tarjeta .froont img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tarjeta .froont h2{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 45px;
+  line-height:45px;
+  color: white;
+  background: rgba(0, 0, 0,.4);
+  text-align: center;
+}
+
+.tarjeta .atras{
+  transform: perspective(600px)rotateY(180deg);
+  background: rgba(3, 35, 54);
+  padding: 15px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  box-shadow: 0,5px, 10px #0000;
+}
+
+.tarjeta .atras .enlace{
+  border-radius: solid 1px #f3f3f3;
+  height: 50px;
+  line-height: 50px;
+}
+
+.tarjeta .atras .enlace a{
+  color: white;
+}
+
+.tarjeta .atras h3{
+  font-size: 30px;
+  margin-top: 20px;
+  letter-spacing: 2px;
+}
+
+.tarjeta .atras p{
+  letter-spacing: 1px;
+}
+
+.tarjeta:hover .froont{
+  transform: perspective(600px)rotateY(180deg);
+}
+
+.tarjeta:hover .atras{
+  transform: perspective(600px)rotateY(360deg);
+}
+
+.major{
+  margin:auto;
+  padding: 10px;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: whitesmoke;
+}
+
+.upper{
+  padding: 10px;
+  background-color: whitesmoke;
+}
+
+.inside{
+  float:left; 
+  width: 300px;
+  text-align:center;
 }

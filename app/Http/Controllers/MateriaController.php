@@ -1,17 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Materia;
+use App\Models\Carrera;
 use Illuminate\Http\Request;
 
 class MateriaController extends Controller
 {
-   
+
     public function index()
     {
-        $materias = Materia::orderBy('grado')
-        ->get();
-    return view('materias.index', ['materias' => $materias]);
+        $carreras = Carrera::get();
+        return view('materias.index', ['carreras' => $carreras]);
     }
 
     public function create()
@@ -19,15 +20,15 @@ class MateriaController extends Controller
         return view('materias.create', ['materia' => new Materia()]);
     }
 
-   
+
     public function store(Request $request)
     {
         $request->validate([
             'nombre' => ['required', 'min:4'],
             'plan' => ['required', 'max:50'],
             'grado' => ['required'],
-            'turno' => ['required'], 
-            'carrera_id' => ['required'],                          
+            'turno' => ['required'],
+            'carrera_id' => ['required'],
         ]);
 
         Materia::create([
@@ -36,19 +37,22 @@ class MateriaController extends Controller
             'grado' => $request->input('grado'),
             'turno' => $request->input('turno'),
             'carrera_id' => $request->input('carrera_id'),
-
-         
         ]);
 
-        return to_route('materias.index')->with('status', 'Materia registrada con exito');
+        return to_route('materias.create')->with('status', 'Materia registrada con exito');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request)
     {
-        //
+        $CarreraID = $request->input('carrera_id');
+        $TurnoID = $request->input('turno_id');
+        $materias = Materia::where('carrera_id', $CarreraID)
+            ->where('turno', $TurnoID)
+            ->get();
+            return view('materias.show', ['materias' => $materias]);
     }
 
     /**
@@ -59,17 +63,15 @@ class MateriaController extends Controller
         return view('materias.edit', ['materia' => $materia]);
     }
 
-  
+
     public function update(Request $request, Materia $materia)
     {
-
-      
         $request->validate([
             'nombre' => ['required', 'min:4'],
             'plan' => ['required'],
-            'grado' => ['required'], 
-            'turno' => ['required'],  
-            'carrera_id' => ['required'],              
+            'grado' => ['required'],
+            'turno' => ['required'],
+            'carrera_id' => ['required'],
         ]);
 
         $materia = Materia::find($materia);
@@ -84,10 +86,10 @@ class MateriaController extends Controller
         return to_route('materias.index')->with('status', 'Materia actualizada con exito');
     }
 
-   
+
     public function destroy(Materia $materia)
     {
-        $materia->delete();              
-        return to_route('materias.index')->with('status', 'Materia eliminada');
+        $materia->delete();
+        return to_route('materias.show')->with('status', 'Materia eliminada');
     }
 }

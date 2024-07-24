@@ -1,8 +1,8 @@
 <x-app-layout>
     <br>
-    <div class="container" style="margin:auto;padding: 30px;box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);border-radius: 25px;background-color: whitesmoke;">
+    <div class="major container">
         <h2>Registrar Materia</h2>
-        <form action="{{route('materias.store')}}" method="post" class="needs-validation">
+        <form action="{{ route('materias.store') }}" method="post" class="needs-validation">
             @csrf
             @include('materias.form-fields')
             <div style="margin: 10px;">

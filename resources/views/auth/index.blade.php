@@ -5,7 +5,7 @@
                 <h3>Usuarios</h3>
             </div>
             @auth
-            <a href="{{ route('usuarios.registro') }}" class="btn btn-primary">Registrar</a>
+            <a href="{{ route('register') }}" class="btn btn-primary">Registrar</a>
             @endauth
         </div>
     </x-slot>
@@ -20,6 +20,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">Correo</th>
+                        <th scope="col">Tipo</th>
                         <th scope="col">Actualizar</th>
                         <th scope="col">Eliminar</th>
                     </tr>
@@ -30,7 +31,8 @@
                         <th scope="row">{{$usuario->id }}</th>
                         <td>{{$usuario->name }}</td>
                         <td>{{$usuario->email }}</td>
-                        <td><a href="" class="btn btn-primary">Editar</a></td>
+                        <td>{{$usuario->tipo_id }}</td>
+                        <td><a href="" class="btn btn-outline-primary">Editar</a></td>
                         <td>
                             <form action="" method="post">
                                 @csrf

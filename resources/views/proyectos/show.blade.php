@@ -1,6 +1,6 @@
 <x-app-layout>
     <br>
-    <div class="container" style="margin:auto;padding: 10px;background-color:white;padding: 40px;border-radius: 25px;">
+    <div class="major container">
         <h1>ID: {{$proyecto->id}}</h1> <br>
         <h2>{{$proyecto->nombre}}</h2> <br>
              

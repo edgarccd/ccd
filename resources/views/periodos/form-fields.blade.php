@@ -1,9 +1,9 @@
 <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value="{{old('nombre',$periodo->nombre)}}">
+    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value="{{old('nombre',$periodo->nombre)}}" required>
     <label for="nombre">Nombre</label>
 </div>
 <div class="form-floating">
-    <input type="text" class="form-control" id="ciclo" name="ciclo" placeholder="Ciclo" value="{{old('ciclo',$periodo->ciclo)}}">
+    <input type="text" class="form-control" id="ciclo" name="ciclo" placeholder="Ciclo" value="{{old('ciclo',$periodo->ciclo)}}" required>
     <label for="ciclo">Ciclo</label>
 </div>
 <div class="form-check form-check-reverse">
