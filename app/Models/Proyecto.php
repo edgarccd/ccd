@@ -11,5 +11,7 @@ class Proyecto extends Model
         'nombre',
         'descripcion', 
         'ruta',
+        'tipo',
+        'activo',
     ];
 }

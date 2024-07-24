@@ -1,9 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <div style="padding: 10px;background-color: whitesmoke;">
+        <div class="upper">
             @auth
 
-            <div style="float:left; width: 300px;text-align:center;">
+            <div class="inside">
                 <h3>Divisiones</h3>
             </div>
             <a href="{{route('divisiones.create')}}" class="btn btn-primary">Registrar</a>
@@ -14,7 +14,7 @@
 
     <main class="container">
         <br>
-        <div class="container" style="margin:auto;padding: 10px;box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);border-radius: 10px;background-color: whitesmoke;">
+        <div class="major container">
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>

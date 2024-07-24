@@ -75,6 +75,7 @@ class CarreraController extends Controller
             $carrera->save();
             return to_route('carreras.index')->with('status', 'Carrera actualizada');
     } 
+    
     public function destroy(Carrera $carrera)
     {      
         $carrera->delete();              

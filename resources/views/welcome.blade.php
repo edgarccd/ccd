@@ -18,4 +18,5 @@
             </div>           
         </div>
     </div>
+    <footer style="background-color: black; height:55px;width:100%;color:azure;text-align: center;padding: 15px;">©2024 Ciudad Creativa Digital</footer>
 </x-layouts.app>

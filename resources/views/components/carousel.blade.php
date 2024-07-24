@@ -10,4 +10,5 @@
       <img src="/images/carousel/laboratorios.jpg" class="d-block w-100">
     </div>
   </div>
+  
 </div>

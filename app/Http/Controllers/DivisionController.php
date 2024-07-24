@@ -35,14 +35,6 @@ class DivisionController extends Controller
         return to_route('divisiones.index')->with('status', 'Division registrada con exito');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
    
     public function edit(Division $division)
     {

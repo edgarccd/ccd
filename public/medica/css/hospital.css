@@ -1,0 +1,299 @@
+* {
+    margin: 0;
+    padding: 0;
+
+}
+
+.body {
+    background-color: #004c4c;
+    color: aliceblue;
+    font-family: Verdana;
+}
+
+#inicio {
+    width: 100%;
+    height: 600px;
+    background-image: url(../img/hospital.jpg);
+}
+
+#inicioAplicacion {
+    width: 100%;
+    height: 600px;
+    background-image: url(../img/hospitalDentro.jpg);
+}
+#login {
+    width: 100%;
+    height: 500px;
+
+}
+.agrupar {
+    background-color: gainsboro;
+    width: 960px;  
+    margin: 15px auto;
+    padding: 10px;
+    font-family: Verdana;
+    color: #5b78a7;
+    text-align: center;
+}
+
+.cabecera {
+    background-color: #011f4b;
+    text-align: center;
+    color: #b3cde0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 20px;
+}
+
+.seccion {
+    width: 60%;
+    float: left;
+    margin: 20px;
+
+}
+
+#registros table {
+    border: 1px solid;
+    width: 100%;
+}
+
+#registros th {
+    background-color: #03396c;
+    color: white;
+    font-size: small;
+}
+
+#registros td {
+    text-align: center;
+
+}
+
+#registros tr:hover {
+    background-color: #b3cde0;
+}
+
+#registros {
+    margin-top: 20px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);
+    width: 900px;
+    padding: 10px;
+    font-family: Verdana;
+    color: #03396c;
+    text-align: center;
+    font-size: smaller;
+}
+
+a:link,
+a:visited {
+    background-color: #005b96;
+    color: azure;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover,
+a:active {
+    background-color: #03396c;
+    color: white;
+}
+
+
+article {
+    background-color: #6497b1;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #b3cde0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+article footer {
+    text-align: right;
+    padding: 10px;
+    color: #b3cde0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#mensaje {
+    margin-top: 30px;
+    text-align: center;
+    font-family: Verdana;
+    color: red;
+    font-size: medium;
+}
+
+.columna {
+    width: 30%;
+    float: right;
+    margin: 20px;
+
+
+}
+
+.columna blockquote {
+    padding: 20px;
+    border: 1px solid black;
+    margin-left: 25px;
+    margin-top: 60px;
+    text-align: center;
+    background-image: url(../img/paciente.jpg);
+    font-family: Verdana;
+    height: 140px;
+
+}
+
+.pie {
+    clear: both;
+    text-align: center;
+    background-color: #03396c;
+    padding: 10px;
+    color: #b3cde0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#forma {
+    width: 600px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);
+    height: 330px;
+    padding: 10px;
+    margin: auto;
+    font-family: Verdana;
+    color: #6497b1;
+
+}
+
+#formaLogin {
+    width: 600px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);
+    height: 250px;
+    padding: 15px;
+    margin-top: 10%;
+    margin-left: 15%;
+    margin-bottom: 5%;
+    font-family: Verdana;
+    color: #6497b1;
+    text-align: center;
+}
+
+#formaLogin table {
+    margin: auto;
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#forma table {
+    margin: auto;
+    padding: 30px;
+
+}
+
+input[type=text],
+input[type=password],
+input[type=date] {
+    height: 30px;
+    width: 200px;
+    float: left;
+}
+
+input[type=submit] {
+    height: 30px;
+    width: 100%;
+    background-color: #005b96;
+    color: azure;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    font-weight: 400;
+    font-size: 15px;
+
+}
+
+input.error {
+    background-color: azure;
+    border: 1px solid red;
+}
+
+button {
+    height: 30px;
+    width: 30%;
+    background-color: #005b96;
+    color: azure;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.enfoco {
+    background-color: #b3cde0;
+    border: 2px solid #011f4b;
+}
+
+/* menu */
+
+#menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* items del menu */
+#menu ul li {
+    background-color: #2e518b;
+    width: 20%;
+}
+
+/* enlaces del menu */
+#menu ul a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 15px;
+    padding: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* items del menu */
+#menu ul li {
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+/* efecto al pasar el ratón por los items del menu */
+#menu ul li:hover {
+    background: #5b78a7;
+}
+
+/* menu desplegable */
+#menu ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #eee;
+    padding: 0;
+}
+
+/* items del menu desplegable */
+#menu ul ul li {
+    float: none;
+    width: 150px;
+}
+
+/* enlaces de los items del menu desplegable */
+#menu ul ul a {
+    line-height: 120%;
+    padding: 10px 15px;
+}
+
+/* items del menu desplegable al pasar el ratón */
+#menu ul li:hover>ul {
+    display: block;
+}

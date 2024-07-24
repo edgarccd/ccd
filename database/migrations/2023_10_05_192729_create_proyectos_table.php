@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('descripcion');
             $table->string('ruta');
+            $table->tinyInteger('tipo');
+            $table->tinyInteger('activo');
             $table->timestamps();
         });
     }

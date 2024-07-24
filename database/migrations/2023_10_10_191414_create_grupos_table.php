@@ -16,10 +16,12 @@ return new class extends Migration
             $table->string('grado');
             $table->string('grupo');
             $table->Integer('turno_id');
-            $table->Integer('maestro_id');
+            $table->Integer('maestro_tutor_id');
             $table->Integer('maestro_eje_id');
             $table->Integer('periodo_id');
-            $table->Integer('carrera_id');            
+            $table->foreign('periodo_id')->references('id')->on('periodos');
+            $table->Integer('carrera_id');  
+            $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade')->onUpdate('cascade');          
             $table->timestamps();
         });
     }

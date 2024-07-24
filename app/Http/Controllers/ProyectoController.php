@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Proyecto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Proyecto;
 
 //php artisan make:controller nombreController -r   para crear el controlador con todos los metodos
 
@@ -28,7 +28,7 @@ class ProyectoController extends Controller
         $request->validate([
             'nombre' => ['required', 'min:4'],
             'descripcion' => ['required'],
-            'ruta' => ['required'],            
+            'ruta' => ['required'],
 
         ]);
 
@@ -36,7 +36,8 @@ class ProyectoController extends Controller
             'nombre' => $request->input('nombre'),
             'descripcion' => $request->input('descripcion'),
             'ruta' => $request->input('ruta'),
-
+            'tipo' => 1,
+            'activo' => 1,
         ]);
 
         session()->flash('status', 'Proyecto Registrado con exito');
@@ -59,7 +60,7 @@ class ProyectoController extends Controller
         $request->validate([
             'nombre' => ['required', 'min:4'],
             'descripcion' => ['required'],
-            'ruta' => ['required'],            
+            'ruta' => ['required'],
         ]);
 
         $proyecto = Proyecto::find($proyecto);

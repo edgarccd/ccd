@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Periodo;
+use Illuminate\Http\Request;
 
 class PeriodoController extends Controller
 {
@@ -33,14 +33,13 @@ class PeriodoController extends Controller
     {
         $request->validate([
             'nombre' => ['required', 'min:4'],
-            'ciclo' => ['required'],                     
+            'ciclo' => ['required'],
         ]);
 
         Periodo::create([
             'nombre' => $request->input('nombre'),
             'ciclo' => $request->input('ciclo'),
-            'activo' => 1,
-    
+            'activo' => 0,
 
         ]);
 
@@ -60,9 +59,17 @@ class PeriodoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Periodo $periodo)
     {
-        //
+        $psel = Periodo::where('id', $periodo->id)->first();
+        if ($psel->activo == 0) {
+            $psel->activo = 1;
+        } else {
+            $psel->activo = 0;
+        }
+        $psel->save();
+        return to_route('periodos.index')->with('status', 'Periodo actualizado');
+
     }
 
     public function update(Request $request, string $id)
@@ -70,7 +77,6 @@ class PeriodoController extends Controller
         //
     }
 
-   
     public function destroy(Periodo $periodo)
     {
         $periodo->delete();
