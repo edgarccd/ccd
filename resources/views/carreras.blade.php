@@ -5,7 +5,7 @@
             style="width: 500px;height:50%;box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);float:left;margin: auto;">
             <img src="./images/itieid.jpg" class="card-img-top" alt="...">
             <div class="card-body">
-                <p class="card-text">Nuevo modelo Educativo</p>
+                <p class="card-text">Nuevo Modelo Educativo</p>
             </div>
         </div>
         <div style="display:flex;flex-flow:row wrap;margin: auto;padding: 10px;" class="container">
