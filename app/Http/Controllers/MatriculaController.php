@@ -225,30 +225,27 @@ class MatriculaController extends Controller
             'apellido_pat' => ['required', 'min:4'],
             'apellido_mat' => ['required', 'min:4'],
         ]);
-
-        $persona = Persona::find($persona);
+        
         $persona->nombre = $request->input('nombre');
         $persona->apellido_pat = $request->input('apellido_pat');
         $persona->apellido_mat = $request->input('apellido_mat');
         $persona->updated_at = now();
         $persona->save();
 
-        $g = Grupo::find($grupo);
-
         $alumnos = DB::table('grupo_alumnos')
             ->select('personas.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre', 'grupos.grado', 'grupos.grupo', 'grupos.turno_id', 'grupo_alumnos.alumno_id', 'alumnos.matricula')
             ->join('grupos', 'grupo_alumnos.grupo_id', '=', 'grupos.id')
             ->join('alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
             ->join('personas', 'alumnos.persona_id', '=', 'personas.id')
-            ->where('grupo_alumnos.grupo_id', $grupo)
+            ->where('grupo_alumnos.grupo_id', $grupo->id)
             ->orderBy('personas.apellido_pat', 'asc')
             ->orderBy('personas.apellido_mat', 'asc')
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-        $carrera = Carrera::where('id', $g->carrera_id)->get();
+        $carrera = Carrera::where('id', $grupo->carrera_id)->get();
 
-        return view('matricula.show-alumnos', ['alumnos' => $alumnos, 'grupo' => $g, 'carrera' => $carrera]);
+        return view('matricula.show-alumnos', ['alumnos' => $alumnos, 'grupo' => $grupo, 'carrera' => $carrera]);
     }
 
     public function destroy(Alumno $alumno, Grupo $grupo)
