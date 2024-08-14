@@ -277,8 +277,8 @@ class MatriculaController extends Controller
             'nombre' => $request->input('nombre'),
             'apellido_pat' => $request->input('apellido_pat'),
             'apellido_mat' => $request->input('apellido_mat'),
-            'sexo' => " ",
-            'correo' => " ",
+            'sexo' => $request->input('sexo'),
+            'correo' => $request->input('correo'),
             'direccion' => " ",
             'telefono' => " ",
         ]);
