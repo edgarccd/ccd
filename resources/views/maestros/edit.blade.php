@@ -2,7 +2,7 @@
     <br>
     <div class="major container">
         <h2>Editar Maestro</h2>
-        <form action="{{route('maestros.update',$maestro)}}" method="post">
+        <form action="{{route('maestros.update',$persona->id)}}" method="post">
             @csrf @method('PATCH')
             @include('maestros.form-fields')
             <div style="margin: 10px;">

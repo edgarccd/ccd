@@ -27,14 +27,14 @@
                     <tbody>
                         @foreach ($maestros as $maestro)
                             <tr>
-                                <td>{{ $maestro->persona->apellido_pat }}</td>
-                                <td>{{ $maestro->persona->apellido_mat }}</td>
-                                <td>{{ $maestro->persona->nombre }}</td>
+                                <td>{{ $maestro->apellido_pat }}</td>
+                                <td>{{ $maestro->apellido_mat }}</td>
+                                <td>{{ $maestro->nombre }}</td>
                                 <td></td>
-                                <td><a href="{{ route('maestros.edit', $maestro) }}"
+                                <td><a href="{{ route('maestros.edit', $maestro->id) }}"
                                         class="btn btn-outline-primary">Editar</a></td>
                                 <td>
-                                    <form action="{{ route('maestros.destroy', $maestro) }}" method="post">
+                                    <form action="{{ route('maestros.destroy', $maestro->id) }}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button type="submit" class="btn btn-outline-danger">Eliminar</button>

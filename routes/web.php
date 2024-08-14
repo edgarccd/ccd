@@ -133,8 +133,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/maestros/create', [MaestroController::class, 'create'])->name('maestros.create');
     Route::post('/maestros/store', [MaestroController::class, 'store'])->name('maestros.store');
     Route::delete('/maestros/{maestro}', [MaestroController::class, 'destroy'])->name('maestros.destroy');
-    Route::get('/maestros/{maestro}/edit', [MaestroController::class, 'edit'])->name('maestros.edit');
-    Route::patch('/maestros/{maestro}', [MaestroController::class, 'update'])->name('maestros.update');
+    Route::get('/maestros/{persona}/edit', [MaestroController::class, 'edit'])->name('maestros.edit');
+    Route::patch('/maestros/{persona}', [MaestroController::class, 'update'])->name('maestros.update');
 });
 
 Route::middleware('auth')->group(function () {

@@ -7,6 +7,7 @@ use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 
 class MaestroController extends Controller
@@ -14,7 +15,15 @@ class MaestroController extends Controller
     
     public function index()
     {
-        $maestros = Maestro::get();
+        
+             
+        $maestros = DB::table('maestros')
+        ->join('personas','maestros.persona_id', '=', 'personas.id')
+        ->orderBy('personas.apellido_pat', 'asc')
+        ->orderBy('personas.apellido_mat', 'asc')
+        ->orderBy('personas.nombre', 'asc')
+        ->get();
+
         return view('maestros.index', ['maestros' => $maestros]);
     }
   
@@ -66,22 +75,21 @@ class MaestroController extends Controller
         //
     }
   
-    public function edit(Maestro $maestro)
+    public function edit(Persona $persona)
     {
-        $persona=Persona::where('id',$maestro->persona_id)->get()->first();    
+        $maestro=Maestro::where('persona_id',$persona->id)->get()->first();
         return view('maestros.edit', ['maestro' => $maestro,'persona'=>$persona]);
     }
 
    
-    public function update(Request $request, $maestro)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'nombre' => ['required', 'min:4'],
-            'apellido_pat' => ['required', 'max:255'],    
-                        
+            'apellido_pat' => ['required', 'max:255'],                            
         ]);
 
-        $maestro = Maestro::find($maestro);
+        $maestro = Maestro::where('persona_id',$id)->get()->first();
         $maestro->nomina = $request->input('nomina');
         $maestro->save();
 
@@ -94,7 +102,6 @@ class MaestroController extends Controller
         $persona->direccion = $request->input('direccion');
         $persona->telefono = $request->input('telefono');
         $persona->save();
-
 
         return to_route('maestros.index')->with('status', 'Maestro actualizado con exito');
     }
