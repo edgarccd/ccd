@@ -14,12 +14,12 @@
 
 <div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
-        <label class="form-check-label" for="inlineRadio1">Hombre</label>
+        <input class="form-check-input" type="radio" name="sexo" id="inlineRadio1" value="1"{{ old('sexo', $persona->sexo) == 1 ? 'checked' : '' }}>
+        <label class="form-check-label" for="inlineRadio1" >Hombre</label>
     </div>
     <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
-        <label class="form-check-label" for="inlineRadio2">Mujer</label>
+        <input class="form-check-input" type="radio" name="sexo" id="inlineRadio2" value="2"{{ old('sexo', $persona->sexo) == 2 ? 'checked' : '' }}>
+        <label class="form-check-label" for="inlineRadio2" >Mujer</label>
     </div>
 
 </div>

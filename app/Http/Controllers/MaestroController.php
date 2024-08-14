@@ -33,7 +33,7 @@ class MaestroController extends Controller
             'nombre' => strtoupper($request->input('nombre')),
             'apellido_pat' => strtoupper($request->input('apellido_pat')),
             'apellido_mat' => strtoupper($request->input('apellido_mat')),
-            'sexo' => $request->input('inlineRadioOptions'),
+            'sexo' => $request->input('sexo'),
             'correo' => $request->input('correo'),
             'direccion' => $request->input('direccion'),
             'telefono' => $request->input('telefono'),
@@ -54,6 +54,7 @@ class MaestroController extends Controller
             'email' => $persona->correo,
             'password' => Hash::make($persona->correo),
             'persona_id' =>  $persona->id,
+            'tipo_id' => 4
         ]);
 
         session()->flash('status', 'Maestro Registrado con exito');
@@ -88,7 +89,7 @@ class MaestroController extends Controller
         $persona->nombre = $request->input('nombre');
         $persona->apellido_pat = $request->input('apellido_pat');
         $persona->apellido_mat = $request->input('apellido_mat');
-        $persona->sexo = 1;
+        $persona->sexo = $request->input('sexo');
         $persona->correo = $request->input('correo');
         $persona->direccion = $request->input('direccion');
         $persona->telefono = $request->input('telefono');
