@@ -229,8 +229,15 @@ class MatriculaController extends Controller
         $persona->nombre = $request->input('nombre');
         $persona->apellido_pat = $request->input('apellido_pat');
         $persona->apellido_mat = $request->input('apellido_mat');
+        $persona->correo = $request->input('correo');
+        $persona->sexo = $request->input('sexo');
         $persona->updated_at = now();
         $persona->save();
+
+        $alumno=Alumno::where('persona_id',$persona->id)->get()->first();
+        $alumno->matricula=$request->input('matricula');
+        $alumno->save();
+
 
         $alumnos = DB::table('grupo_alumnos')
             ->select('personas.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre', 'grupos.grado', 'grupos.grupo', 'grupos.turno_id', 'grupo_alumnos.alumno_id', 'alumnos.matricula')
