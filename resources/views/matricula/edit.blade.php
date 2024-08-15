@@ -1,7 +1,7 @@
 <x-app-layout>
     <br>
     <div class="major container">
-        <h2>Editar Nombre</h2>
+        <h2>Editar Alumno</h2>
         <form action="{{ route('matricula.update', [$persona,$grupo]) }}" method="post">
             @csrf @method('PATCH')
             @include('matricula.form-fields')

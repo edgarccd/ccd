@@ -51,8 +51,8 @@
                     <input id="correo" name="correo" type="text" class="form-control"
                     aria-label="Text input with segmented dropdown button" placeholder="Correo" required>
                     <select class="form-select" id="sexo" name="sexo" required>
-                        <option value="1">Hombre</option>
-                        <option value="2">Mujer</option>             
+                        <option value="2">Hombre</option>
+                        <option value="1">Mujer</option>             
                     </select>
             </div>
         </form>
