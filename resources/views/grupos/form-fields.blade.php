@@ -1,7 +1,7 @@
 <x-select-carrera />
 <label for="grado">Grado</label>
-<select name="grado" id="grado" class="form-select">
-    <option value="0">--Seleccionar--</option>
+<select name="grado" id="grado" class="form-select" required>
+    <option selected disabled value="">-- Seleccionar --</option>
     <option value="1">1ero</option>
     <option value="2">2do</option>
     <option value="3">3ero</option>

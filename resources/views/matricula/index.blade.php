@@ -15,9 +15,9 @@
             <header>
                 <h3>Carrera</h3>
             </header>
-            <form action="{{ route('matricula.showGrupos', 0) }}" method="get">
+            <form action="{{ route('matricula.showGrupos', 0) }}" method="get" class="needs-validation" novalidate>
                 <select name="carrera_id" id="carrera_id" class="form-select" required>
-                    <option value=0>--Seleccionar--</option>
+                    <option selected disabled value="">-- Seleccionar --</option>
                     @foreach ($carreras as $carrera)
                         <option value={{ $carrera->id }}>{{ $carrera->nombre }}</option>
                     @endforeach
@@ -25,5 +25,25 @@
                 <button type="submit" class="btn btn-primary">Cargar</button>
             </form>
         </div>
+        <script>
+            (() => {
+                'use strict'
+    
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+    
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+    
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            })()
+        </script>
     </main>
 </x-app-layout>
