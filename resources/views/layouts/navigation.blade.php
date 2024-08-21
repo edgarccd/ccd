@@ -22,8 +22,8 @@
                             <li><a class="dropdown-item" href="{{ route('aulas.index') }}">Aulas</a></li>
                         </ul>
                     </li>
-                    @endif
-                    @if (Auth::user()->tipo_id == 6||Auth::user()->tipo_id == 1)
+                @endif
+                @if (Auth::user()->tipo_id == 1)
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -31,11 +31,11 @@
                         </a>
                         <ul class="dropdown-menu">
                             @if (Auth::user()->tipo_id == 1)
-                            <li><a class="dropdown-item" href="{{ route('usuarios.index') }}">Usuarios</a></li>
-                            <li><a class="dropdown-item" href="{{ route('maestros.index') }}">Maestros</a></li>
-                            <li><a class="dropdown-item" href="{{ route('coordinadores.index') }}">Coordinadores</a></li>
-                            <li><a class="dropdown-item" href="{{ route('periodos.index') }}">Periodos</a></li>
-                            <li><a class="dropdown-item" href="{{ route('grupos.index') }}">Grupos</a></li>
+                                <li><a class="dropdown-item" href="{{ route('usuarios.index') }}">Usuarios</a></li>
+                                <li><a class="dropdown-item" href="{{ route('maestros.index') }}">Maestros</a></li>
+                                <li><a class="dropdown-item" href="{{ route('coordinadores.index') }}">Coordinadores</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('periodos.index') }}">Periodos</a></li>
                             @endif
 
 
@@ -43,18 +43,20 @@
                     </li>
                 @endif
                 @if (Auth::user()->tipo_id == 1)
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Proyectos
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('ejes.index',Auth::user()) }}">Asignar Profesores Ejes</a></li>
-                        <li><a class="dropdown-item" href="{{ route('equipos.index',Auth::user()) }}">Estructurar Equipos de Trabajo</a></li>
-                        <li><a class="dropdown-item" href="#">Asignar Horarios</a></li>
-                        <li><a class="dropdown-item" href="#">Calificar Proyectos</a></li>
-                    </ul>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Proyectos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Asignar
+                                    Profesores Ejes</a></li>
+                            <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Estructurar
+                                    Equipos de Trabajo</a></li>
+                            <li><a class="dropdown-item" href="#">Asignar Horarios</a></li>
+                            <li><a class="dropdown-item" href="#">Calificar Proyectos</a></li>
+                        </ul>
+                    </li>
                 @endif
                 @if (Auth::user()->tipo_id == 1)
                     <li class="nav-item dropdown">
@@ -67,7 +69,7 @@
                         </ul>
                     </li>
                 @endif
-
+                <li><a class="nav-link" href="{{ route('grupos.index') }}">Grupos</a></li>
                 <li><a class="nav-link" href="{{ route('matricula.index') }}">Matricula</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.edit') }}">Perfil</a>
