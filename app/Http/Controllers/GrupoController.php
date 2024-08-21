@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrera;
-use App\Models\Coordinador;
 use App\Models\Grupo;
 use App\Models\GrupoMateria;
-use App\Models\Maestro;
 use App\Models\Materia;
 use App\Models\Periodo;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,7 +44,7 @@ class GrupoController extends Controller
 
         $grupo = Grupo::latest('id')->first();
 
-        $materias = Materia::where('grado',$grupo->grado)
+        $materias = Materia::where('grado', $grupo->grado)
             ->where('carrera_id', $grupo->carrera_id)
             ->where('turno', $grupo->turno_id)
             ->get();
@@ -60,20 +57,33 @@ class GrupoController extends Controller
             ]);
         }
         return to_route('grupos.create')->with('status', 'Grupo registrado con exito');
-        
+
     }
 
     public function showMaterias(Grupo $grupo)
     {
         $materias = DB::table('grupos')
-            ->select('grupos.grado', 'grupos.grupo', 'materias.nombre')
+            ->select('grupos.grado', 'grupos.grupo', 'materias.nombre', 'materias.id')
             ->join('grupo_materias', 'grupo_materias.grupo_id', '=', 'grupos.id')
             ->join('materias', 'materias.id', '=', 'grupo_materias.materia_id')
             ->where('grupos.id', $grupo->id)
             ->get();
 
         $carrera = Carrera::where('id', $grupo->carrera_id)->get();
-        return view('grupos.show-materias', ['materias' => $materias, 'carrera' => $carrera, 'grupo' => $grupo]);
+
+        $maestros = DB::table('maestros')
+            ->select('maestros.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre')
+            ->join('personas', 'maestros.persona_id', '=', 'personas.id')
+            ->orderBy('personas.apellido_pat', 'asc')
+            ->orderBy('personas.apellido_mat', 'asc')
+            ->orderBy('personas.nombre', 'asc')
+            ->get();
+
+            $grupoMateria = GrupoMateria::where('grupo_id', $grupo->id)            
+            ->get();
+
+        return view('grupos.show-materias', ['materias' => $materias, 'carrera' => $carrera, 'grupo' => $grupo, 'maestros' => $maestros,'grupoMateria'=>$grupoMateria]);
+
     }
 
     public function showGrupos(Request $request, $idCarrera)
@@ -99,12 +109,46 @@ class GrupoController extends Controller
         return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera]);
     }
 
-
     public function destroy(Grupo $grupo)
     {
         GrupoMateria::where('grupo_id', $grupo->id)->delete();
         $grupo->delete();
         return to_route('grupos.index')->with('status', 'Grupo eliminada');
+    }
+
+    public function maestroStore(Grupo $grupo, Request $request)
+    {
+        $materias = DB::table('grupos')
+            ->select('grupos.grado', 'grupos.grupo', 'materias.nombre', 'materias.id')
+            ->join('grupo_materias', 'grupo_materias.grupo_id', '=', 'grupos.id')
+            ->join('materias', 'materias.id', '=', 'grupo_materias.materia_id')
+            ->where('grupos.id', $grupo->id)
+            ->get();
+
+        foreach ($materias as $materia) {
+            $name = "materia_" . $materia->id;
+            $gp = GrupoMateria::where('grupo_id', $grupo->id)
+                ->where('materia_id', $materia->id)
+                ->update([
+                    'maestro_id' => $request->input($name),
+                ]);
+        }
+        $carrera = Carrera::where('id', $grupo->carrera_id)->get();
+
+        $maestros = DB::table('maestros')
+            ->select('maestros.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre')
+            ->join('personas', 'maestros.persona_id', '=', 'personas.id')
+            ->orderBy('personas.apellido_pat', 'asc')
+            ->orderBy('personas.apellido_mat', 'asc')
+            ->orderBy('personas.nombre', 'asc')
+            ->get();
+
+        $grupoMateria = GrupoMateria::where('grupo_id', $grupo->id)
+            
+            ->get();
+
+        return view('grupos.show-materias', ['materias' => $materias, 'carrera' => $carrera, 'grupo' => $grupo, 'maestros' => $maestros, 'grupoMateria' => $grupoMateria]);
+
     }
 
 }

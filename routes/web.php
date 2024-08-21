@@ -105,6 +105,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/grupos', [GrupoController::class, 'index'])->name('grupos.index');
     Route::get('/grupos/create', [GrupoController::class, 'create'])->name('grupos.create');
     Route::post('/grupos/store', [GrupoController::class, 'store'])->name('grupos.store');
+    Route::get('/grupos/maestroStore/{grupo}', [GrupoController::class, 'maestroStore'])->name('grupos.maestroStore');
     Route::get('/grupos/{grupo}/edit', [GrupoController::class, 'edit'])->name('grupos.edit');
     Route::patch('/grupos/{grupo}', [GrupoController::class, 'update'])->name('grupos.update');
     Route::delete('/grupos/{grupo}', [GrupoController::class, 'destroy'])->name('grupos.destroy');

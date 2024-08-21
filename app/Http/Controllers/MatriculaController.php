@@ -6,6 +6,7 @@ use App\Models\Alumno;
 use App\Models\Carrera;
 use App\Models\Grupo;
 use App\Models\GrupoAlumno;
+use App\Models\GrupoMateria;
 use App\Models\Periodo;
 use App\Models\Persona;
 use App\Models\Temporal;
