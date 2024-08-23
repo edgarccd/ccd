@@ -2,7 +2,7 @@
     <br>
     <div class="major container">
         <h2>Registrar Maestro</h2>
-        <form action="{{ route('maestros.store') }}" method="post" class="needs-validation">
+        <form action="{{ route('maestros.store') }}" method="post" class="needs-validation" novalidate>
             @csrf
             @include('maestros.form-fields')
             <div style="margin: 10px;">

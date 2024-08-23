@@ -3,7 +3,7 @@
     <div class="major container">
         <h1>Materias Asignadas</h1>
         <hr>
-        <form action="{{ route('grupos.maestroStore', $grupo) }}" method="get">
+        <form action="{{ route('grupos.maestroStore', $grupo) }}" method="get" class="needs-validation" novalidate>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -17,8 +17,8 @@
                             <td>{{ $materia->nombre }}</td>
                             <td>
                                 <select name="materia_{{ $materia->id }}" id="materia_{{ $materia->id }}"
-                                    class="form-select">
-                                    <option value="0"> -- Seleccionar -- </option>
+                                    class="form-select" required>
+                                    <option selected disabled value="">-- Seleccionar --</option>
                                     @foreach ($maestros as $maestro)
                                         <option value="{{ $maestro->id }}"
                                             @foreach ($grupoMateria as $gp)

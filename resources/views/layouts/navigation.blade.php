@@ -71,6 +71,7 @@
                 @endif
 
                 @if (Auth::user()->tipo_id == 1 || Auth::user()->tipo_id == 6)
+                <li><a class="nav-link" href="{{ route('maestros.index') }}">Maestros</a></li>
                 <li><a class="nav-link" href="{{ route('grupos.index') }}">Grupos</a></li>
                 <li><a class="nav-link" href="{{ route('matricula.index') }}">Matricula</a></li>
                 @endif
