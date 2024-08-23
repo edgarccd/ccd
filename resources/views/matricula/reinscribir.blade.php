@@ -5,7 +5,7 @@
             <header>
                 <h3>Reinscripción</h3>
             </header>
-            <form action="{{ route('matricula.reinstore',$periodo)}}" method="get">
+            <form action="{{ route('matricula.reinstore',$periodo)}}" method="get" class="needs-validation" novalidate>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -48,7 +48,8 @@
                                     @endswitch
                                 </td>
                                 <td>
-                                    <select name="grupo_{{ $grupo->id }}" id="grupo_{{ $grupo->id }}" class="form-select">
+                                    <select name="grupo_{{ $grupo->id }}" id="grupo_{{ $grupo->id }}" class="form-select" required>
+                                        <option selected disabled value="">-- Seleccionar --</option>
                                         @foreach ($gruposActuales as $grupoA)
                                             <option value="{{ $grupoA->id }}">
                                                 {{ $grupoA->grado }}°@switch($grupoA->grupo)
@@ -92,4 +93,5 @@
             </form>
             
     </main>
+
 </x-app-layout>
