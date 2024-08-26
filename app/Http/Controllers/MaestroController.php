@@ -107,16 +107,16 @@ class MaestroController extends Controller
         return to_route('maestros.index')->with('status', 'Maestro actualizado con exito');
     }
 
-    public function destroy(Maestro $maestro)
+    public function destroy($id)
     {
-        $id=$maestro->persona_id;
+        $maestro = Maestro::where('persona_id',$id)->get()->first();
         $maestro->delete(); 
         $usuario=User::where('persona_id',$id)->get()->first();
         $usuario->delete();
         $persona=Persona::where('id', $id)->get()->first();
-        $persona->delete();
-        
+        $persona->delete();        
                      
         return to_route('maestros.index')->with('status', 'Maestro eliminado');
+        
     }
 }
