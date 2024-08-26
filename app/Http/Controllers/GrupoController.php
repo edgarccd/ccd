@@ -86,27 +86,30 @@ class GrupoController extends Controller
 
     }
 
-    public function showGrupos(Request $request, $idCarrera)
+    public function showGrupos(Request $request, $idCarrera,$turno)
     {
         $periodo = Periodo::where('activo', 1)->first();
+        
 
         if ($request->input('carrera_id') != null) {
             $id = $request->input('carrera_id');
-            $turno = $request->input('turno_id');
+            $tur = $request->input('turno_id');
             $carrera = Carrera::where('id', $id)->get();
             $grupos = Grupo::where('carrera_id', $id)
                 ->where('periodo_id', $periodo->id)
-                ->where('turno_id', $turno)
+                ->where('turno_id', $tur)
                 ->orderBy('grado')
                 ->get();
         } else {
             $carrera = Carrera::where('id', $idCarrera)->get();
             $grupos = Grupo::where('carrera_id', $idCarrera)
                 ->where('periodo_id', $periodo->id)
+                ->where('turno_id', $turno)
                 ->orderBy('grado')
                 ->get();
         }
-        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera]);
+
+        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera,'turno'=>$turno]);
     }
 
     public function destroy(Grupo $grupo)
@@ -143,8 +146,7 @@ class GrupoController extends Controller
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-        $grupoMateria = GrupoMateria::where('grupo_id', $grupo->id)
-            
+        $grupoMateria = GrupoMateria::where('grupo_id', $grupo->id)            
             ->get();
 
         return view('grupos.show-materias', ['materias' => $materias, 'carrera' => $carrera, 'grupo' => $grupo, 'maestros' => $maestros, 'grupoMateria' => $grupoMateria]);

@@ -37,8 +37,6 @@
                                 </li>
                                 <li><a class="dropdown-item" href="{{ route('periodos.index') }}">Periodos</a></li>
                             @endif
-
-
                         </ul>
                     </li>
                 @endif

@@ -110,7 +110,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/grupos/{grupo}', [GrupoController::class, 'update'])->name('grupos.update');
     Route::delete('/grupos/{grupo}', [GrupoController::class, 'destroy'])->name('grupos.destroy');
     Route::get('/grupos/{grupo}', [GrupoController::class, 'showMaterias'])->name('grupos.showMaterias');
-    Route::get('/grupos/showGrupos/{id}', [GrupoController::class, 'showGrupos'])->name('grupos.showGrupos');
+    Route::get('/grupos/showGrupos/{id},{turno}', [GrupoController::class, 'showGrupos'])->name('grupos.showGrupos');
 });
 
 Route::middleware('auth')->group(function () {

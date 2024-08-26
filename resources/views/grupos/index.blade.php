@@ -13,7 +13,7 @@
     <main class="container">
         <br>
         <div class="major container">
-            <form action="{{ route('grupos.showGrupos', 0) }}" method="get" class="needs-validation" novalidate>
+            <form action="{{ route('grupos.showGrupos', [0,0]) }}" method="get" class="needs-validation" novalidate>
                 <label for="carrera_id">Carrera</label>
                 <select name="carrera_id" id="carrera_id" class="form-select" required>
                     <option selected disabled value="">-- Seleccionar --</option>

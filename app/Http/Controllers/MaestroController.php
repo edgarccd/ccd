@@ -86,7 +86,8 @@ class MaestroController extends Controller
     {
         $request->validate([
             'nombre' => ['required', 'min:4'],
-            'apellido_pat' => ['required', 'max:255'],                            
+            'apellido_pat' => ['required', 'max:255'],   
+            'apellido_mat' => ['required', 'max:255'],                           
         ]);
 
         $maestro = Maestro::where('persona_id',$id)->get()->first();
@@ -94,9 +95,9 @@ class MaestroController extends Controller
         $maestro->save();
 
         $persona = Persona::where('id',$maestro->persona_id)->get()->first();
-        $persona->nombre = $request->input('nombre');
-        $persona->apellido_pat = $request->input('apellido_pat');
-        $persona->apellido_mat = $request->input('apellido_mat');
+        $persona->nombre = strtoupper($request->input('nombre'));
+        $persona->apellido_pat = strtoupper($request->input('apellido_pat'));
+        $persona->apellido_mat = strtoupper($request->input('apellido_mat'));
         $persona->sexo = $request->input('sexo');
         $persona->correo = $request->input('correo');
         $persona->direccion = $request->input('direccion');
