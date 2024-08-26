@@ -14,9 +14,7 @@ class MaestroController extends Controller
 {
     
     public function index()
-    {
-        
-             
+    {                     
         $maestros = DB::table('maestros')
         ->join('personas','maestros.persona_id', '=', 'personas.id')
         ->orderBy('personas.apellido_pat', 'asc')

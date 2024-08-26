@@ -13,6 +13,9 @@
           <a class="nav-link" href="{{ route('nosotros') }}">Nosotros</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="{{ route('conocenos') }}">Conocenos</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{{ route('division') }}">Carreras</a>
         </li>
         <li class="nav-item dropdown">

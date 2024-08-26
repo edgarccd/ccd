@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('welcome');
 Route::view('/nosotros', 'nosotros')->name('nosotros');
+Route::view('/conocenos', 'conocenos')->name('conocenos');
 Route::view('/division', 'carreras')->name('division');
 Route::view('/interatic', 'interatic')->name('interatic');
 
