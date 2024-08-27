@@ -188,7 +188,7 @@ class GrupoController extends Controller
 
         if ($request->input('carrera_id') != null) {
             $id = $request->input('carrera_id');
-            $tur = $request->input('turno_id');
+            $turno = $request->input('turno_id');
             $carrera = Carrera::where('id', $id)->get();
             $grupos = Grupo::where('carrera_id', $id)
                 ->where('periodo_id', $periodo->id)
@@ -199,7 +199,7 @@ class GrupoController extends Controller
 
             $tutores = DB::table('grupos')
                 ->where('periodo_id', $periodo->id)
-                ->where('turno_id', $tur)
+                ->where('turno_id', $turno)
                 ->where('carrera_id', $id)
                 ->orderBy('grado')
                 ->orderBy('grupo')
