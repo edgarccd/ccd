@@ -9,15 +9,12 @@
             @endauth
         </div>
     </x-slot>
-
     <main class="container">
         <br>
-
         <div class="major container">
-        
             <h3 style="text-align: center;">
                 {{ $carrera->nombre }} <br>
-                {{ $periodo->nombre }} 
+                {{ $periodo->nombre }}
             </h3>
             <h5 style="text-align: center;">
                 @switch($turno)
@@ -30,11 +27,10 @@
                     @break
                 @endswitch
             </h5>
-            
+            <hr>
             <form action="{{ route('grupos.tutorStore', [$carrera, $turno]) }}" method="get" class="needs-validation"
                 novalidate>
                 <div class="table-responsive">
-
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -87,7 +83,7 @@
                                             <option selected disabled value="">-- Seleccionar --</option>
                                             @foreach ($maestros as $maestro)
                                                 <option value="{{ $maestro->id }}"
-                                                    @foreach ($tutores as $tutor){{ old('tutor_' . $grupo->id, $maestro->id == $tutor->maestro_tutor_id&&$grupo->id==$tutor->id ? 'selected' : '') }} @endforeach>
+                                                    @foreach ($tutores as $tutor){{ old('tutor_' . $grupo->id, $maestro->id == $tutor->maestro_tutor_id && $grupo->id == $tutor->id ? 'selected' : '') }} @endforeach>
                                                     {{ $maestro->apellido_pat }} {{ $maestro->apellido_mat }}
                                                     {{ $maestro->nombre }}
                                                 </option>
@@ -110,10 +106,8 @@
                         </tbody>
                     </table>
                 </div>
-           
-                    <button type="submit" class="btn btn-primary">Grabar</button>
-                    <a href="{{ route('grupos.index') }}" class="btn btn-secondary">Regresar</a>
-            
+                <button type="submit" class="btn btn-primary">Grabar</button>
+                <a href="{{ route('grupos.index') }}" class="btn btn-secondary">Regresar</a>
         </div>
         </form>
     </main>
