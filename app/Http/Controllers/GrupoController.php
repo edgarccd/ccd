@@ -138,7 +138,7 @@ class GrupoController extends Controller
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera, 'turno' => $turno, 'maestros' => $maestros, 'tutores' => $tutores]);
+        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera, 'turno' => $turno, 'maestros' => $maestros, 'tutores' => $tutores, 'periodo' => $periodo]);
     }
 
     public function destroy(Grupo $grupo)
@@ -228,7 +228,7 @@ class GrupoController extends Controller
             ->orderBy('grupo')
             ->get();
 
-        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera, 'turno' => $turno, 'maestros' => $maestros, 'tutores' => $tutores]);
+        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera, 'turno' => $turno, 'maestros' => $maestros, 'tutores' => $tutores, 'periodo' => $periodo]);
     }
 
 }

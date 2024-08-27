@@ -83,7 +83,7 @@ class MatriculaController extends Controller
             ->orderBy('grupo')
             ->get();
 
-        return view('matricula.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera]);
+        return view('matricula.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera,'periodo'=>$periodo]);
     }
 
     public function showGrupos(Request $request, $idCarrera)
@@ -106,7 +106,7 @@ class MatriculaController extends Controller
                 ->orderBy('grupo')
                 ->get();
         }
-        return view('matricula.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera]);
+        return view('matricula.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera,'periodo'=>$periodo]);
     }
 
     public function showAlumnos($grupo)

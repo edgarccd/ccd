@@ -17,6 +17,7 @@
         
             <h3 style="text-align: center;">
                 {{ $carrera->nombre }} <br>
+                {{ $periodo->nombre }} 
             </h3>
             <h5 style="text-align: center;">
                 @switch($turno)
