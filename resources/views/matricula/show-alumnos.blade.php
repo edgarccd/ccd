@@ -1,7 +1,7 @@
 <x-app-layout>
     <br>
     <div class="major container">
-        <h5 style="text-align: center;">
+        <h4 style="text-align: center;">
             {{ $carrera->nombre }}
             <br>
             {{ $grupo->grado }} °
@@ -30,7 +30,7 @@
             @else
                 Vespertino
             @endif
-        </h5>
+        </h4>
         <hr>
         <form action="{{ route('matricula.alta', $grupo) }}" method="get">
             <div class="input-group mb-3">
