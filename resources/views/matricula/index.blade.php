@@ -22,7 +22,7 @@
                         <option value={{ $carrera->id }}>{{ $carrera->nombre }}</option>
                     @endforeach
                 </select><br>
-                <button type="submit" class="btn btn-primary">Cargar</button>
+                <button type="submit" class="btn btn-secondary">Cargar</button>
             </form>
         </div>
   

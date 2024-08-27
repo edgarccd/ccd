@@ -1,8 +1,10 @@
 <x-app-layout>
     <br>
     <div class="major container">
-        <h1>Materias Asignadas</h1>
-        <h3>
+        <h1 style="text-align: center;">Materias</h1>
+        <hr>
+        <h5 style="text-align: center;">{{ $carrera->nombre }}</h5>
+        <h5 style="text-align: center;">
             {{ $grupo->grado }}°
 
             @switch($grupo->grupo)
@@ -21,10 +23,10 @@
                 @case(4)
                     D
                 @break
-            @endswitch 
-                
-                - 
-                
+            @endswitch
+
+            -
+
             @switch($grupo->turno_id)
                 @case(1)
                     Matutino
@@ -34,8 +36,7 @@
                     Vespertino
                 @break
             @endswitch
-        </h3>
-        <hr>
+        </h5>
         <form action="{{ route('grupos.maestroStore', $grupo) }}" method="get" class="needs-validation" novalidate>
             <table class="table table-striped">
                 <thead>
@@ -66,14 +67,14 @@
                     @endforeach
                 </tbody>
             </table>
-            <div style="text-align: justify;margin: 20px;">
-                <br>
+        
+            
                 <button type="submit" class="btn btn-primary">Grabar</button>
-                @foreach ($carrera as $c)
-                    <a href="{{ route('grupos.showGrupos', [$c->id, $grupo->turno_id]) }}"
-                        class="btn btn-secondary">Regresar</a>
-                @endforeach
-            </div>
+
+                <a href="{{ route('grupos.showGrupos', [$carrera->id, $grupo->turno_id]) }}"
+                    class="btn btn-secondary">Regresar</a>
+
+            
         </form>
     </div>
 </x-app-layout>

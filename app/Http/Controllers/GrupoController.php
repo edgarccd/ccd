@@ -18,6 +18,7 @@ class GrupoController extends Controller
         $periodo = Periodo::where('activo', 1)->first();
         $grupos = Grupo::where('periodo_id', $periodo->id)
             ->orderBy('grado')
+            ->orderBy('grupo')
             ->get();
         $carreras = Carrera::where('activo', 1)->get();
         return view('grupos.index', ['grupos' => $grupos, 'carreras' => $carreras]);
@@ -69,47 +70,75 @@ class GrupoController extends Controller
             ->where('grupos.id', $grupo->id)
             ->get();
 
-        $carrera = Carrera::where('id', $grupo->carrera_id)->get();
+        $carrera = Carrera::where('id', $grupo->carrera_id)->first();
 
         $maestros = DB::table('maestros')
             ->select('maestros.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre')
             ->join('personas', 'maestros.persona_id', '=', 'personas.id')
+            ->where('activo', 1)
             ->orderBy('personas.apellido_pat', 'asc')
             ->orderBy('personas.apellido_mat', 'asc')
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-            $grupoMateria = GrupoMateria::where('grupo_id', $grupo->id)            
+        $grupoMateria = GrupoMateria::where('grupo_id', $grupo->id)
             ->get();
 
-        return view('grupos.show-materias', ['materias' => $materias, 'carrera' => $carrera, 'grupo' => $grupo, 'maestros' => $maestros,'grupoMateria'=>$grupoMateria]);
+        return view('grupos.show-materias', ['materias' => $materias, 'carrera' => $carrera, 'grupo' => $grupo, 'maestros' => $maestros, 'grupoMateria' => $grupoMateria]);
 
     }
 
-    public function showGrupos(Request $request, $idCarrera,$turno)
+    public function showGrupos(Request $request, $idCarrera, $turno)
     {
         $periodo = Periodo::where('activo', 1)->first();
-        
 
         if ($request->input('carrera_id') != null) {
             $id = $request->input('carrera_id');
-            $tur = $request->input('turno_id');
-            $carrera = Carrera::where('id', $id)->get();
+            $turno = $request->input('turno_id');
+            $carrera = Carrera::where('id', $id)->first();
             $grupos = Grupo::where('carrera_id', $id)
                 ->where('periodo_id', $periodo->id)
-                ->where('turno_id', $tur)
+                ->where('turno_id', $turno)
                 ->orderBy('grado')
+                ->orderBy('grupo')
                 ->get();
+
+            $tutores = DB::table('grupos')
+                ->where('periodo_id', $periodo->id)
+                ->where('turno_id', $turno)
+                ->where('carrera_id', $id)
+                ->orderBy('grado')
+                ->orderBy('grupo')
+                ->get();
+
         } else {
-            $carrera = Carrera::where('id', $idCarrera)->get();
+            $carrera = Carrera::where('id', $idCarrera)->first();
             $grupos = Grupo::where('carrera_id', $idCarrera)
                 ->where('periodo_id', $periodo->id)
                 ->where('turno_id', $turno)
                 ->orderBy('grado')
+                ->orderBy('grupo')
+                ->get();
+
+            $tutores = DB::table('grupos')
+                ->where('periodo_id', $periodo->id)
+                ->where('turno_id', $turno)
+                ->where('carrera_id', $idCarrera)
+                ->orderBy('grado')
+                ->orderBy('grupo')
                 ->get();
         }
 
-        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera,'turno'=>$turno]);
+        $maestros = DB::table('maestros')
+            ->select('maestros.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre')
+            ->join('personas', 'maestros.persona_id', '=', 'personas.id')
+            ->where('activo', 1)
+            ->orderBy('personas.apellido_pat', 'asc')
+            ->orderBy('personas.apellido_mat', 'asc')
+            ->orderBy('personas.nombre', 'asc')
+            ->get();
+
+        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera, 'turno' => $turno, 'maestros' => $maestros,'tutores' => $tutores]);
     }
 
     public function destroy(Grupo $grupo)
@@ -136,7 +165,7 @@ class GrupoController extends Controller
                     'maestro_id' => $request->input($name),
                 ]);
         }
-        $carrera = Carrera::where('id', $grupo->carrera_id)->get();
+        $carrera = Carrera::where('id', $grupo->carrera_id)->first();
 
         $maestros = DB::table('maestros')
             ->select('maestros.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre')
@@ -146,11 +175,70 @@ class GrupoController extends Controller
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-        $grupoMateria = GrupoMateria::where('grupo_id', $grupo->id)            
+        $grupoMateria = GrupoMateria::where('grupo_id', $grupo->id)
             ->get();
 
         return view('grupos.show-materias', ['materias' => $materias, 'carrera' => $carrera, 'grupo' => $grupo, 'maestros' => $maestros, 'grupoMateria' => $grupoMateria]);
 
+    }
+
+    public function tutorStore(Request $request, Carrera $carrera, $turno)
+    {
+        $periodo = Periodo::where('activo', 1)->first();
+
+        if ($request->input('carrera_id') != null) {
+            $id = $request->input('carrera_id');
+            $tur = $request->input('turno_id');
+            $carrera = Carrera::where('id', $id)->get();
+            $grupos = Grupo::where('carrera_id', $id)
+                ->where('periodo_id', $periodo->id)
+                ->where('turno_id', $turno)
+                ->orderBy('grado')
+                ->orderBy('grupo')
+                ->get();
+
+            $tutores = DB::table('grupos')
+                ->where('periodo_id', $periodo->id)
+                ->where('turno_id', $tur)
+                ->where('carrera_id', $id)
+                ->orderBy('grado')
+                ->orderBy('grupo')
+                ->get();
+
+        } else {
+            $grupos = Grupo::where('carrera_id', $carrera->id)
+                ->where('periodo_id', $periodo->id)
+                ->where('turno_id', $turno)
+                ->orderBy('grado')
+                ->orderBy('grupo')
+                ->get();
+
+            $tutores = DB::table('grupos')
+                ->where('periodo_id', $periodo->id)
+                ->where('turno_id', $turno)
+                ->where('carrera_id',$carrera->id)
+                ->orderBy('grado')
+                ->orderBy('grupo')
+                ->get();
+        }
+
+        $maestros = DB::table('maestros')
+            ->select('maestros.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre')
+            ->join('personas', 'maestros.persona_id', '=', 'personas.id')
+            ->where('activo', 1)
+            ->orderBy('personas.apellido_pat', 'asc')
+            ->orderBy('personas.apellido_mat', 'asc')
+            ->orderBy('personas.nombre', 'asc')
+            ->get();
+
+        foreach ($grupos as $grupo) {
+            $name = "tutor_" . $grupo->id;
+            $grupo->maestro_tutor_id = $request->input($name);
+            $grupo->save();
+        }
+
+       // echo $tutores;
+        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera, 'turno' => $turno, 'maestros' => $maestros, 'tutores' => $tutores]);
     }
 
 }

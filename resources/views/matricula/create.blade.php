@@ -72,7 +72,7 @@
                 </select>
                 <div style="margin: 10px;">
                     <button type="submit" class="btn btn-primary">Enviar</button>
-                    <a href="{{ route('matricula.index') }}" class="btn btn-outline-secondary">Regresar</a>
+                    <a href="{{ route('matricula.index') }}" class="btn btn-secondary">Regresar</a>
                 </div>
             </form>
         </div>

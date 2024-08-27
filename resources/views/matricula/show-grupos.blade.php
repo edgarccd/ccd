@@ -4,19 +4,19 @@
             <div class="inside">
                 <h3>Matricula</h3>
             </div>
-            @foreach ($carrera as $car)
-                <a href="{{ route('matricula.create', $car) }}" class="btn btn-primary">Cargar Alumnos</a>
-            @endforeach
+            
+                <a href="{{ route('matricula.create', $carrera) }}" class="btn btn-primary">Cargar Alumnos</a>
+            
         </div>
     </x-slot>
     <main class="container">
         <br>
         <div class="major container">
-            <h3>
-                @foreach ($carrera as $car)
-                    {{ $car->nombre }}
+            <h3 style="text-align: center;">
+               
+                    {{ $carrera->nombre }}
             </h3>
-            @endforeach
+         
             <hr>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -73,7 +73,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                
                 <a href="{{ route('matricula.index') }}" class="btn btn-secondary">Regresar</a>
+         
             </div>
         </div>
     </main>

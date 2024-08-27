@@ -1,12 +1,11 @@
 <x-app-layout>
     <br>
     <div class="major container">
-        <h3>
-        </h3>
+       
         <b>
-            @foreach ($carrera as $car)
-                {{ $car->nombre }}
-            @endforeach
+            
+                {{ $carrera->nombre }}
+           
             <br>
             {{ $grupo->grado }} °
             @switch($grupo->grupo)
@@ -108,9 +107,9 @@
             </tbody>
         </table>
         <div style="text-align: justify;margin: 20px;">
-            @foreach ($carrera as $c)
-                <br> <a href="{{ route('matricula.showGrupos', $c->id) }}" class="btn btn-secondary">Regresar</a>
-            @endforeach
+           
+                <br> <a href="{{ route('matricula.showGrupos', $carrera->id) }}" class="btn btn-secondary">Regresar</a>
+           
         </div>
     </div>
 </x-app-layout>

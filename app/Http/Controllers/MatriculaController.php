@@ -80,7 +80,7 @@ class MatriculaController extends Controller
         $grupos = Grupo::where('carrera_id', $carrera_id)
             ->where('periodo_id', $periodo->id)
             ->orderBy('grado')
-            ->orderBy('grupo', 'asc')
+            ->orderBy('grupo')
             ->get();
 
         return view('matricula.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera]);
@@ -92,15 +92,18 @@ class MatriculaController extends Controller
 
         if ($request->input('carrera_id') != null) {
             $id = $request->input('carrera_id');
-            $carrera = Carrera::where('id', $id)->get();
+            $carrera = Carrera::where('id', $id)->first();
             $grupos = Grupo::where('carrera_id', $id)
                 ->where('periodo_id', $periodo->id)
-                ->orderBy('grado')->get();
+                ->orderBy('grado')
+                ->orderBy('grupo')
+                ->get();
         } else {
-            $carrera = Carrera::where('id', $idCarrera)->get();
+            $carrera = Carrera::where('id', $idCarrera)->first();
             $grupos = Grupo::where('carrera_id', $idCarrera)
                 ->where('periodo_id', $periodo->id)
                 ->orderBy('grado')
+                ->orderBy('grupo')
                 ->get();
         }
         return view('matricula.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera]);
@@ -121,7 +124,7 @@ class MatriculaController extends Controller
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-        $carrera = Carrera::where('id', $g->carrera_id)->get();
+        $carrera = Carrera::where('id', $g->carrera_id)->first();
 
         return view('matricula.show-alumnos', ['alumnos' => $alumnos, 'grupo' => $g, 'carrera' => $carrera]);
     }
@@ -140,6 +143,7 @@ class MatriculaController extends Controller
             ->orderBy('carrera_id')
             ->orderBy('turno_id')
             ->orderBy('grado')
+            ->orderBy('grupo')
             ->get();
 
         foreach ($grupos as $grupo) {
@@ -153,7 +157,7 @@ class MatriculaController extends Controller
                 ]);
             }
         }
-        $carreras = Carrera::get();
+        $carreras = Carrera::first();
         return view('matricula.index', ['carreras' => $carreras]);
     }
 
@@ -209,7 +213,7 @@ class MatriculaController extends Controller
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-        $carrera = Carrera::where('id', $grupo->carrera_id)->get();
+        $carrera = Carrera::where('id', $grupo->carrera_id)->first();
 
         return view('matricula.show-alumnos', ['alumnos' => $alumnos, 'grupo' => $grupo, 'carrera' => $carrera]);
     }
@@ -273,7 +277,7 @@ class MatriculaController extends Controller
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-        $carrera = Carrera::where('id', $grupo->carrera_id)->get();
+        $carrera = Carrera::where('id', $grupo->carrera_id)->first();
 
         return view('matricula.show-alumnos', ['alumnos' => $alumnos, 'grupo' => $grupo, 'carrera' => $carrera]);
     }
@@ -317,7 +321,7 @@ class MatriculaController extends Controller
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-        $carrera = Carrera::where('id', $grupo->carrera_id)->get();
+        $carrera = Carrera::where('id', $grupo->carrera_id)->first();
 
         return view('matricula.show-alumnos', ['alumnos' => $alumnos, 'grupo' => $grupo, 'carrera' => $carrera]);
 
