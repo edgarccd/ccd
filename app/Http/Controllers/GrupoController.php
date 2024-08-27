@@ -138,7 +138,7 @@ class GrupoController extends Controller
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera, 'turno' => $turno, 'maestros' => $maestros,'tutores' => $tutores]);
+        return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera, 'turno' => $turno, 'maestros' => $maestros, 'tutores' => $tutores]);
     }
 
     public function destroy(Grupo $grupo)
@@ -196,27 +196,10 @@ class GrupoController extends Controller
                 ->orderBy('grado')
                 ->orderBy('grupo')
                 ->get();
-
-            $tutores = DB::table('grupos')
-                ->where('periodo_id', $periodo->id)
-                ->where('turno_id', $turno)
-                ->where('carrera_id', $id)
-                ->orderBy('grado')
-                ->orderBy('grupo')
-                ->get();
-
         } else {
             $grupos = Grupo::where('carrera_id', $carrera->id)
                 ->where('periodo_id', $periodo->id)
                 ->where('turno_id', $turno)
-                ->orderBy('grado')
-                ->orderBy('grupo')
-                ->get();
-
-            $tutores = DB::table('grupos')
-                ->where('periodo_id', $periodo->id)
-                ->where('turno_id', $turno)
-                ->where('carrera_id',$carrera->id)
                 ->orderBy('grado')
                 ->orderBy('grupo')
                 ->get();
@@ -237,7 +220,14 @@ class GrupoController extends Controller
             $grupo->save();
         }
 
-       // echo $tutores;
+        $tutores = DB::table('grupos')
+            ->where('periodo_id', $periodo->id)
+            ->where('turno_id', $turno)
+            ->where('carrera_id', $carrera->id)
+            ->orderBy('grado')
+            ->orderBy('grupo')
+            ->get();
+
         return view('grupos.show-grupos', ['grupos' => $grupos, 'carrera' => $carrera, 'turno' => $turno, 'maestros' => $maestros, 'tutores' => $tutores]);
     }
 
