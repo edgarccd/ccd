@@ -21,15 +21,11 @@
                             <li><a class="dropdown-item" href="{{ route('indicadores.index') }}">Indicadores</a></li>
                             <li><a class="dropdown-item" href="{{ route('aulas.index') }}">Aulas</a></li>
                             <li><a class="dropdown-item" href="{{ route('usuarios.index') }}">Usuarios</a></li>
-                            <li><a class="dropdown-item" href="{{ route('coordinadores.index') }}">Coordinadores</a>
-                            </li>
+                            <li><a class="dropdown-item" href="{{ route('coordinadores.index') }}">Coordinadores</a></li>  
                             <li><a class="dropdown-item" href="{{ route('periodos.index') }}">Periodos</a></li>
                         </ul>
                     </li>
                 @endif
-
-
-
 
                 @if (Auth::user()->tipo_id == 1 || Auth::user()->tipo_id == 6)
                     <li class="nav-item dropdown">
@@ -44,6 +40,7 @@
                         </ul>
                     </li>
                 @endif
+
                 @if (Auth::user()->tipo_id == 1 || Auth::user()->tipo_id == 6)
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -60,6 +57,7 @@
                         </ul>
                     </li>
                 @endif
+
                 @if (Auth::user()->tipo_id == 1)
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -71,7 +69,7 @@
                         </ul>
                     </li>
                 @endif
-            
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.edit') }}">Perfil</a>
                 </li>
