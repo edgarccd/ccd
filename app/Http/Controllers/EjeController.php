@@ -30,8 +30,14 @@ class EjeController extends Controller
     public function create(User $usuario, Request $request)
     {
         $periodo = Periodo::where('activo', 1)->first();
-        $maestros = Maestro::where('activo', 1)->get();
-
+       
+        $maestros = DB::table('maestros')
+        ->select('maestros.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre')
+        ->join('personas', 'maestros.persona_id', '=', 'personas.id')
+        ->orderBy('personas.apellido_pat', 'asc')
+        ->orderBy('personas.apellido_mat', 'asc')
+        ->orderBy('personas.nombre', 'asc')
+        ->get();
         if (isset($request->carrera_id)) {
             $carrera = Carrera::where('id', $request->carrera_id)->get()->first();
             $grupos = Grupo::where('carrera_id', $request->carrera_id)
@@ -48,7 +54,13 @@ class EjeController extends Controller
     {
 
         $periodo = Periodo::where('activo', 1)->first();
-        $maestros = Maestro::where('activo', 1)->get();
+        $maestros = DB::table('maestros')
+            ->select('maestros.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre')
+            ->join('personas', 'maestros.persona_id', '=', 'personas.id')
+            ->orderBy('personas.apellido_pat', 'asc')
+            ->orderBy('personas.apellido_mat', 'asc')
+            ->orderBy('personas.nombre', 'asc')
+            ->get();
         $grupos = Grupo::where('periodo_id', $periodo->id)
         ->where('carrera_id', $carrera->id)
         ->where('turno_id', $turno)
