@@ -29,7 +29,7 @@ class CoordinadorController extends Controller
             'turno_id' =>$request->input('turno_id'),
             'area_id' => $request->input('area_id'),
         ]);
-        return to_route('coordinadores.index')->with('status', 'Cordinador Registrado con exito');
+        return view('coordinadores.index')->with('status', 'Cordinador Registrado con exito');
     }
 
     public function destroy(Coordinador $coordinador)
