@@ -10,7 +10,7 @@
 </head>
 
 <body style="background-image: url(/images/fondo.jpg);background-repeat: no-repeat;background-size: cover;">
-    <br>
+ 
     <div class="container-sm text-center">
         <div class="row align-items-center justify-content-center">
             <div class="col-sm-3">
