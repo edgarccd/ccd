@@ -20,27 +20,31 @@
                             <li><a class="dropdown-item" href="{{ route('proyectos.index') }}">Proyectos</a></li>
                             <li><a class="dropdown-item" href="{{ route('indicadores.index') }}">Indicadores</a></li>
                             <li><a class="dropdown-item" href="{{ route('aulas.index') }}">Aulas</a></li>
+                            <li><a class="dropdown-item" href="{{ route('usuarios.index') }}">Usuarios</a></li>
+                            <li><a class="dropdown-item" href="{{ route('coordinadores.index') }}">Coordinadores</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('periodos.index') }}">Periodos</a></li>
                         </ul>
                     </li>
                 @endif
-                @if (Auth::user()->tipo_id == 1)
+
+
+
+
+                @if (Auth::user()->tipo_id == 1 || Auth::user()->tipo_id == 6)
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Administración
                         </a>
                         <ul class="dropdown-menu">
-                            @if (Auth::user()->tipo_id == 1)
-                                <li><a class="dropdown-item" href="{{ route('usuarios.index') }}">Usuarios</a></li>
-                                <li><a class="dropdown-item" href="{{ route('maestros.index') }}">Maestros</a></li>
-                                <li><a class="dropdown-item" href="{{ route('coordinadores.index') }}">Coordinadores</a>
-                                </li>
-                                <li><a class="dropdown-item" href="{{ route('periodos.index') }}">Periodos</a></li>
-                            @endif
+                            <li><a class="dropdown-item" href="{{ route('maestros.index') }}">Maestros</a></li>
+                            <li><a class="dropdown-item" href="{{ route('grupos.index') }}">Grupos</a></li>
+                            <li><a class="dropdown-item" href="{{ route('matricula.index') }}">Matricula</a></li>
                         </ul>
                     </li>
                 @endif
-                @if (Auth::user()->tipo_id == 1|| Auth::user()->tipo_id == 3)
+                @if (Auth::user()->tipo_id == 1 || Auth::user()->tipo_id == 3)
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -67,12 +71,7 @@
                         </ul>
                     </li>
                 @endif
-
-                @if (Auth::user()->tipo_id == 1 || Auth::user()->tipo_id == 6)
-                <li><a class="nav-link" href="{{ route('maestros.index') }}">Maestros</a></li>
-                <li><a class="nav-link" href="{{ route('grupos.index') }}">Grupos</a></li>
-                <li><a class="nav-link" href="{{ route('matricula.index') }}">Matricula</a></li>
-                @endif
+            
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.edit') }}">Perfil</a>
                 </li>

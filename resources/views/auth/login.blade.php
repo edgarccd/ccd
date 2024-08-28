@@ -7,6 +7,8 @@
             <input id="email" type="email" name="email" :value="old('email')" required autofocus
                 autocomplete="username" class="form-control" id="floatingInput">
             <label for="email">Correo Electrónico</label>
+            <x-input-error :messages="$errors->get('email')" />
+                
             <div class="invalid-feedback">
                 Proporcione un correo electrónico válido
             </div>
@@ -16,6 +18,7 @@
             <input id="password" type="password" name="password" required autocomplete="current-password"
                 class="form-control" id="floatingInput">
             <label for="password">Contraseña</label>
+            
             <div class="invalid-feedback">
                Proporcione una contraseña válida
             </div>
