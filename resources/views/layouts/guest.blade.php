@@ -13,13 +13,13 @@
  <br>
     <div class="container-sm text-center">
         <div class="row align-items-center justify-content-center border">
-            <div class="col-sm-3">
+            <div class="col-sm-5">
                 <br>
                 <a href="/"><img src="/images/icono.png" alt="Inicio" style="width: 80px;height:80px;"></a>
                 {{ $slot }}
                 <br><br><br>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-5">
                 <img src="/images/login.jpg" alt="CCD" class="img-fluid rounded float-start">
                 <br>
             </div>
