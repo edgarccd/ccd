@@ -17,6 +17,7 @@
                 <br>
                 <a href="/"><img src="/images/icono.png" alt="Inicio" style="width: 80px;height:80px;"></a>
                 {{ $slot }}
+                <br><br>
             </div>
             <div class="col-sm-3">
                 <img src="/images/login.jpg" alt="CCD" class="img-fluid rounded float-start">
