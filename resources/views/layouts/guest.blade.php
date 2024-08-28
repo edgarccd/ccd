@@ -11,8 +11,8 @@
 
 <body style="background-image: url(/images/fondo.jpg);background-repeat: no-repeat;background-size: cover;">
  <br>
-    <div class="container-sm text-center">
-        <div class="row align-items-center justify-content-center border">
+    <div class="container-sm text-center" style="box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);border-radius: 25px;"><br>
+        <div class="row align-items-center justify-content-center">
             <div class="col-sm-5">
                 <br>
                 <a href="/"><img src="/images/icono.png" alt="Inicio" style="width: 80px;height:80px;"></a>
