@@ -14,7 +14,7 @@
     <div class="container-sm text-center">
         <div class="row align-items-center justify-content-center">
 
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <img src="/images/login.jpg" alt="CCD" class="img-fluid rounded float-start">
             </div>
 
