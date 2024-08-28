@@ -11,20 +11,19 @@
 
 <body style="background-image: url(/images/fondo.jpg);background-repeat: no-repeat;background-size: cover;">
     <br>
-    <div id="cLogin">
-        <div style="float: left;width: 45%;">
-            <img src="/images/login.jpg" alt="CCD" style="width: 100%;height: 330px;;border-radius: 25px;">
-        </div>
-        <div style="float: right;width:50%">
+    <div class="container-sm text-center">
+        <div class="row align-items-center justify-content-center">
 
-            <div>
-                <a href="/">
-                    <img src="/images/icono.png" alt="Inicio" style="width: 80px;height:80px;">
-                </a>
+            <div class="col-sm-4">
+                <img src="/images/login.jpg" alt="CCD" class="img-fluid rounded float-start">
             </div>
-            {{ $slot }}
+
+            <div class="col-sm-3">
+                <a href="/"><img src="/images/icono.png" alt="Inicio" style="width: 80px;height:80px;"></a>
+                {{ $slot }}
+            </div>
+
         </div>
-    </div>
     </div>
 </body>
 
