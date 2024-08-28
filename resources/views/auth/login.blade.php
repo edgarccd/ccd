@@ -1,20 +1,24 @@
 <x-guest-layout>
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate>
         @csrf
         <br>
         <div class="form-floating mb-3">
             <input id="email" type="email" name="email" :value="old('email')" required autofocus
-                autocomplete="username" class="form-control" id="floatingInput" placeholder="name@example.com">
+                autocomplete="username" class="form-control" id="floatingInput">
             <label for="email">Correo Electrónico</label>
-            <x-input-error :messages="$errors->get('email')" />
+            <div class="invalid-feedback">
+                Proporcione un correo electrónico válido
+            </div>
         </div>
 
         <div class="form-floating mb-3">
             <input id="password" type="password" name="password" required autocomplete="current-password"
-                class="form-control" id="floatingInput" placeholder="name@example.com">
+                class="form-control" id="floatingInput">
             <label for="password">Contraseña</label>
-            <x-input-error :messages="$errors->get('email')" />
+            <div class="invalid-feedback">
+               Proporcione una contraseña válida
+            </div>
         </div>
 
         <div>

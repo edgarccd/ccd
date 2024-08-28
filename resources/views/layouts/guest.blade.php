@@ -10,9 +10,9 @@
 </head>
 
 <body style="background-image: url(/images/fondo.jpg);background-repeat: no-repeat;background-size: cover;">
- 
+ <br>
     <div class="container-sm text-center">
-        <div class="row align-items-center justify-content-center">
+        <div class="row align-items-center justify-content-center border">
             <div class="col-sm-3">
                 <br>
                 <a href="/"><img src="/images/icono.png" alt="Inicio" style="width: 80px;height:80px;"></a>
@@ -27,5 +27,24 @@
         <br>
     </div>
 </body>
+<script>
+    (() => {
+        'use strict'
 
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
 </html>
