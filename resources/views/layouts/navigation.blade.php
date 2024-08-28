@@ -50,10 +50,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Asignar
                                     Profesores Ejes</a></li>
-                            <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Estructurar
-                                    Equipos de Trabajo</a></li>
-                            <li><a class="dropdown-item" href="#">Asignar Horarios</a></li>
-                            <li><a class="dropdown-item" href="#">Calificar Proyectos</a></li>
+                      
                         </ul>
                     </li>
                 @endif
@@ -66,6 +63,10 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Concentrado de Participantes</a></li>
+                                  <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Estructurar
+                                    Equipos de Trabajo</a></li>
+                            <li><a class="dropdown-item" href="#">Asignar Horarios</a></li>
+                            <li><a class="dropdown-item" href="#">Calificar Proyectos</a></li>
                         </ul>
                     </li>
                 @endif
