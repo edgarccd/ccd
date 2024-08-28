@@ -4,25 +4,22 @@
         <div class="card" style="margin: 10px;">
             <img src="./images/itieid.jpg" class="card-img-top">
             <div class="card-body">
-                <p class="card-title"> <b>Nuevo Modelo Educativo</b></p>
+                <p class="card-text"> Nuevo Modelo Educativo</p>
             </div>
         </div>
-
 
         <div class="card" style="margin: 10px;">
             <img src="./images/dsm.jpg" class="card-img-top">
             <div class="card-body">
-                <p class="card-title"> <b>En Desahogo </b></p>
+                <p class="card-text"> En Desahogo </p>
             </div>
         </div>
-   
+
         <div class="card" style="margin: 10px;">
             <img src="./images/evn.jpg" class="card-img-top">
             <div class="card-body">
-                <p class="card-title"> <b>En Desahogo </b>
-                </p>
+                <p class="card-text"> En Desahogo </p>
             </div>
         </div>
     </div>
-
 </x-layouts.app>
