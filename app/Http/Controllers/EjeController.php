@@ -23,7 +23,7 @@ class EjeController extends Controller
             ->join('coordinadors', 'coordinadors.carrera_id', '=', 'carreras.id')
             ->where('coordinadors.maestro_id', $usuario->persona->maestro->id)
             ->where('coordinadors.periodo_id', $periodo->id)
-            ->groupBy('count')
+            ->groupBy('carrera_id','nombre')
             ->get();
 
         return view('ejes.index', ['carreras' => $carreras, 'turnos' => $turnos]);
