@@ -46,9 +46,9 @@
                                             @foreach ($maestros as $maestro)
                                                 <option value={{ $maestro->id }}
                                                     {{ old('maestro_' . $grupo->id, $maestro->id) == $grupo->maestro_eje_id ? 'selected' : '' }}>
-                                                    {{ $maestro->persona->apellido_pat }}
-                                                    {{ $maestro->persona->apellido_mat }}
-                                                    {{ $maestro->persona->nombre }}</option>
+                                                    {{ $maestro->apellido_pat }}
+                                                    {{ $maestro->apellido_mat }}
+                                                    {{ $maestro->nombre }}</option>
                                             @endforeach
                                         </select>
                                     </td>
