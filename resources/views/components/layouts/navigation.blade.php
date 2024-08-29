@@ -10,10 +10,10 @@
           <a class="nav-link" aria-current="page" href="{{ route('welcome') }}">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('nosotros') }}">Nosotros</a>
+          <a class="nav-link" href="{{ route('conocenos') }}">Nosotros</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('conocenos') }}">Conocenos</a>
+          <a class="nav-link" href="{{ route('nosotros') }}">Conocenos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('division') }}">Carreras</a>
