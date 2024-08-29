@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Grupo extends Model
@@ -22,6 +23,10 @@ class Grupo extends Model
 
     public function grupoalumno(): HasOne{
         return $this->hasOne(GrupoAlumno::class,'grupo_id');
+    }
+
+    public function proyectoequipo(): hasMany{
+        return $this->hasOne(ProyectoEquipo::class,'grupo_id');
     }
 
     public function carrera():BelongsTo{

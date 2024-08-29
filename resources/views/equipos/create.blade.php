@@ -32,7 +32,7 @@
         @endswitch
         - {{ $grupo->carrera->nombre }}
         <br><br>
-        <form action="#" method="post" class="needs-validation">
+        <form action="{{ route('equipos.store',  $grupo) }}" method="post" class="needs-validation" novalidate>
             @csrf
             @include('equipos.form-fields')
             <br>
@@ -50,11 +50,10 @@
                     <tbody>
                         @foreach ($alumnos as $alumno)
                             <tr>
-                                <td><input type="checkbox" name="" id=""></td>
+                                <td><input type="checkbox" name="alumno_{{$alumno->id}}" id="alumno_{{$alumno->id}}"></td>
                                 <td>{{ $alumno->apellido_pat }}</td>
                                 <td>{{ $alumno->apellido_mat }}</td>
                                 <td>{{ $alumno->nombre }}</td>
-
                             </tr>
                         @endforeach
                     </tbody>
@@ -62,7 +61,7 @@
             </div>
             <div style="margin: 10px;">
                 <button type="submit" class="btn btn-primary">Registrar</button>
-                <a href="{{ route('equipos.index', Auth::user()) }}" class="btn btn-outline-secondary">Regresar</a>
+                <a href="{{ route('equipos.index', Auth::user()) }}" class="btn btn-secondary">Regresar</a>
             </div>
         </form>
     </div>

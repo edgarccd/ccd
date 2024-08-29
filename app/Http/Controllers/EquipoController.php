@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumno;
 use App\Models\Grupo;
 use App\Models\Periodo;
+use App\Models\ProyectoAlumno;
+use App\Models\ProyectoEquipo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,37 +16,80 @@ class EquipoController extends Controller
 
     public function index(User $usuario)
     {
+
         $periodo = Periodo::where('activo', 1)->first();
         $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
-        return view('equipos.index',['grupo' => $grupo]);
+        $equipos = ProyectoEquipo::where('grupo_id', $grupo->id)->get();
+
+        return view('equipos.index', ['grupo' => $grupo, 'equipos' => $equipos]);
+
     }
 
     public function create(User $usuario)
     {
         $periodo = Periodo::where('activo', 1)->first();
         $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
+
         $alumnos = $carreras = DB::table('alumnos')
             ->join('personas', 'personas.id', '=', 'alumnos.persona_id')
             ->join('grupo_alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
             ->where('grupo_alumnos.grupo_id', $grupo->id)
+        //->whereNotIn('alumnos.id', DB::table('proyecto_alumnos')->select('proyecto_alumnos.alumno_id')->where('proyecto_alumnos.grupo_id', '=', $grupo->_id)->get()->toArray())
             ->orderBy('personas.apellido_pat')
             ->orderBy('personas.apellido_mat')
             ->orderBy('personas.nombre')
             ->get();
+
         return view('equipos.create', ['grupo' => $grupo, 'alumnos' => $alumnos]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Grupo $grupo)
     {
-        //
+
+        $periodo = Periodo::where('activo', 1)->first();
+
+        ProyectoEquipo::create([
+            'nombre' => strtoupper($request->input('nombre')),
+            'comentarios' => $request->input('comentarios'),
+            'proyecto_id' => $request->input('proyecto_id'),
+            'grupo_id' => $grupo->id,
+        ]);
+
+        $equipo = ProyectoEquipo::latest('id')->first();
+
+        $alumnos = $carreras = DB::table('alumnos')
+            ->join('personas', 'personas.id', '=', 'alumnos.persona_id')
+            ->join('grupo_alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
+            ->where('grupo_alumnos.grupo_id', $grupo->id)
+        //->whereNotIn('alumnos.id', DB::table('proyecto_alumnos')->select('proyecto_alumnos.alumno_id')->where('proyecto_alumnos.grupo_id', '=', $grupo->_id)->get()->toArray())
+            ->orderBy('personas.apellido_pat')
+            ->orderBy('personas.apellido_mat')
+            ->orderBy('personas.nombre')
+            ->get();
+
+        foreach ($alumnos as $alumno) {
+            $name = "alumno_" . $alumno->id;
+            if ($request->input($name) == true) {
+
+                ProyectoAlumno::create([
+                    'equipo_id' => $equipo->id,
+                    'alumno_id' => $alumno->id,
+                    'grupo_id' => $grupo->id,
+                ]);
+            }
+        }
+
+        $equipos = ProyectoEquipo::where('grupo_id', $grupo->id)->get();
+
+        return view('equipos.index', ['grupo' => $grupo, 'equipos' => $equipos]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(ProyectoEquipo $equipo)
     {
-        //
+        $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
+            ->get();
+
+        return view('equipos.show', ['alumnos' => $alumnos, 'equipo' => $equipo]);
     }
 
     /**
@@ -62,11 +108,20 @@ class EquipoController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Alumno $alumno, ProyectoEquipo $equipo)
     {
-        //
+        
+         $proyecto = ProyectoAlumno::where('alumno_id', $alumno->id)
+            ->where('equipo_id', $equipo->id)
+            ->first();
+            echo $proyecto;
+           
+      //  $proyecto->delete();
+/*
+        $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
+            ->get();
+
+        return view('equipos.show', ['alumnos' => $alumnos, 'equipo' => $equipo]);
+        */
     }
 }
