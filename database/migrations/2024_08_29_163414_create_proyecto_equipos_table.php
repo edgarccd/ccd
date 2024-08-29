@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('proyecto_equipos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('comentarios');
+            $table->Integer('proyecto_id')->unique();
+            $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade')->onUpdate('cascade');
+            $table->Integer('grupo_id')->unique();
+            $table->foreign('grupo_id')->references('id')->on('grupos')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
