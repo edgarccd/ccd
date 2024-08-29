@@ -74,7 +74,6 @@ class EquipoController extends Controller
                 ProyectoAlumno::create([
                     'equipo_id' => $equipo->id,
                     'alumno_id' => $alumno->id,
-                    'grupo_id' => $grupo->id,
                 ]);
             }
         }
