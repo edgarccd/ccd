@@ -6,7 +6,7 @@
                     <div class="inside">
                         <h3>Equipos</h3>
                     </div>
-                    <a href="{{ route('equipos.create', Auth::user()) }}"class="btn btn-primary">Registrar</a> &nbsp;&nbsp;
+                    <a href="{{ route('equipos.create', $grupo) }}"class="btn btn-primary">Registrar</a> &nbsp;&nbsp;
                 &nbsp;&nbsp; @endauth
                 {{ $grupo->grado }}°
                 @switch($grupo->grupo)

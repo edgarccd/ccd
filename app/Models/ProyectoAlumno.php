@@ -10,6 +10,7 @@ class ProyectoAlumno extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'grupo_id',
         'equipo_id',
         'alumno_id',
     ];
