@@ -11,12 +11,9 @@ return new class extends Migration
     {
         Schema::create('coordinadors', function (Blueprint $table) {
             $table->id();
-            $table->Integer('carrera_id');
-            $table->foreign('carrera_id')->references('id')->on('carreras');
-            $table->Integer('maestro_id');
-            $table->foreign('maestro_id')->references('id')->on('maestros');
-            $table->Integer('periodo_id');
-            $table->foreign('periodo_id')->references('id')->on('periodo');
+            $table->Integer('carrera_id')->unique();
+            $table->Integer('maestro_id')->unique();            
+            $table->Integer('periodo_id')->unique();            
             $table->Integer('turno_id');
             $table->Integer('area_id');
             $table->timestamps();
