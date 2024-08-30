@@ -29,12 +29,15 @@ class CoordinadorController extends Controller
             'turno_id' =>$request->input('turno_id'),
             'area_id' => $request->input('area_id'),
         ]);
-        return view('coordinadores.index')->with('status', 'Cordinador Registrado con exito');
+        $coordinadores = Coordinador::where('periodo_id',$periodo->id)->get();
+        return view('coordinadores.index', ['coordinadores' => $coordinadores])->with('status', 'Cordinador Registrado con exito');
     }
 
     public function destroy(Coordinador $coordinador)
     {
-        $coordinador->delete();              
-        return to_route('coordinadores.index')->with('status', 'Coordinador eliminado');
+        $coordinador->delete();  
+        $periodo = Periodo::where('activo', 1)->get()->first();
+        $coordinadores = Coordinador::where('periodo_id',$periodo->id)->get();            
+        return to_route('coordinadores.index', ['coordinadores' => $coordinadores])->with('status', 'Coordinador eliminado');
     }
 }
