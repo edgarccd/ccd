@@ -47,14 +47,14 @@ class EquipoController extends Controller
     {
 
         $periodo = Periodo::where('activo', 1)->first();
-/*
+
         ProyectoEquipo::create([
             'nombre' => strtoupper($request->input('nombre')),
             'comentarios' => $request->input('comentarios'),
             'proyecto_id' => $request->input('proyecto_id'),
             'grupo_id' => $grupo->id,
         ]);
-*/
+
         $equipo = ProyectoEquipo::latest('id')->first();
 
         $alumnos = $carreras = DB::table('alumnos')
@@ -67,23 +67,24 @@ class EquipoController extends Controller
             ->orderBy('personas.nombre')
             ->get();
 
-            echo $alumnos;
-/*
+      
+
         foreach ($alumnos as $alumno) {
-            $name = "alumno_" . $alumno->id;
+            $name = "alumno_" . $alumno->alumno_id;
             if ($request->input($name) == true) {
 
                 ProyectoAlumno::create([
                     'equipo_id' => $equipo->id,
-                    'alumno_id' => $alumno->id,
+                    'alumno_id' => $alumno->alumno_id,
                 ]);
+              
             }
         }
 
         $equipos = ProyectoEquipo::where('grupo_id', $grupo->id)->get();
 
         return view('equipos.index', ['grupo' => $grupo, 'equipos' => $equipos]);
-        */
+        
     }
 
     public function show(ProyectoEquipo $equipo)
