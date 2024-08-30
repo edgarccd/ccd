@@ -41,8 +41,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>ID</th>
+                            <th></th>                
                             <th>Apellido Paterno</th>
                             <th>Apellido Materno</th>
                             <th>Nombre</th>
@@ -51,8 +50,7 @@
                     <tbody>
                         @foreach ($alumnos as $alumno)
                             <tr>
-                                <td><input type="checkbox" name="alumno_{{$alumno->alumno_id}}" id="alumno_{{$alumno->alumno_id}}"></td>
-                                <td>{{ $alumno->alumno_id }}</td>
+                                <td><input type="checkbox" name="alumno_{{$alumno->alumno_id}}" id="alumno_{{$alumno->alumno_id}}"></td>                              
                                 <td>{{ $alumno->apellido_pat }}</td>
                                 <td>{{ $alumno->apellido_mat }}</td>
                                 <td>{{ $alumno->nombre }}</td>
