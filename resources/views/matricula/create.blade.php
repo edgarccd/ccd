@@ -35,7 +35,7 @@
                     {{ $carrera->nombre }}
                
             </h3>
-            <form action="{{ route('matricula.store', $car->id) }}" method="post" class="needs-validation">
+            <form action="{{ route('matricula.store', $carrera->id) }}" method="post" class="needs-validation">
                 @csrf
                 <select name="grupo_id" id="grupo_id" class="form-select">
                     <option value=0>--Seleccionar--</option>
