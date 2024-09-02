@@ -57,7 +57,7 @@
                             <a href="{{ route('proyectos.edit', $equipo) }}"
                                 class="btn btn-outline-primary">Editar</a>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
 
-                            <form action="#" method="post">
+                            <form action="{{ route('equipos.destroy', $equipo) }}" method="post">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-outline-danger">Eliminar</button>

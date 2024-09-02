@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Alumno;
 use App\Models\Grupo;
 use App\Models\Periodo;
 use App\Models\ProyectoAlumno;
@@ -27,13 +26,13 @@ class EquipoController extends Controller
 
     public function create(Grupo $grupo)
     {
- 
         $alumnos = $carreras = DB::table('alumnos')
             ->join('personas', 'personas.id', '=', 'alumnos.persona_id')
             ->join('grupo_alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
             ->where('grupo_alumnos.grupo_id', $grupo->id)
             ->whereNOTIn('alumnos.id', function ($query) {
-                $query->select('proyecto_alumnos.alumno_id')->from('proyecto_alumnos');
+                $periodo = Periodo::where('activo', 1)->first();
+                $query->select('proyecto_alumnos.alumno_id')->from('proyecto_alumnos')->where('proyecto_alumnos.periodo_id', $periodo->id);
             })
             ->orderBy('personas.apellido_pat')
             ->orderBy('personas.apellido_mat')
@@ -61,7 +60,10 @@ class EquipoController extends Controller
             ->join('personas', 'personas.id', '=', 'alumnos.persona_id')
             ->join('grupo_alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
             ->where('grupo_alumnos.grupo_id', $grupo->id)
-        //->whereNotIn('alumnos.id', DB::table('proyecto_alumnos')->select('proyecto_alumnos.alumno_id')->where('proyecto_alumnos.grupo_id', '=', $grupo->_id)->get()->toArray())
+            ->whereNOTIn('alumnos.id', function ($query) {
+                $periodo = Periodo::where('activo', 1)->first();
+                $query->select('proyecto_alumnos.alumno_id')->from('proyecto_alumnos')->where('proyecto_alumnos.periodo_id', $periodo->id);
+            })
             ->orderBy('personas.apellido_pat')
             ->orderBy('personas.apellido_mat')
             ->orderBy('personas.nombre')
@@ -72,7 +74,7 @@ class EquipoController extends Controller
             if ($request->input($name) == true) {
 
                 ProyectoAlumno::create([
-                    'grupo_id' => $grupo->id,
+                    'periodo_id' => $periodo->id,
                     'equipo_id' => $equipo->id,
                     'alumno_id' => $alumno->alumno_id,
                 ]);
@@ -110,20 +112,25 @@ class EquipoController extends Controller
         //
     }
 
-    public function destroy(Alumno $alumno, ProyectoEquipo $equipo)
+    public function destroy(ProyectoEquipo $equipo)
     {
+        $periodo = Periodo::where('activo', 1)->first();
+        $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
+            ->where('periodo_id', $periodo->id)
+            ->get();
+        foreach ($alumnos as $alumno) {
+            echo "<br>";
+            echo $alumno;
+        }
 
-        $proyecto = ProyectoAlumno::where('alumno_id', $alumno->id)
-            ->where('equipo_id', $equipo->id)
-            ->first();
-        echo $proyecto;
+        /*
 
-        //  $proyecto->delete();
-/*
-$alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
-->get();
+    //  $proyecto->delete();
 
-return view('equipos.show', ['alumnos' => $alumnos, 'equipo' => $equipo]);
- */
+    $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
+    ->get();
+
+    return view('equipos.show', ['alumnos' => $alumnos, 'equipo' => $equipo]);
+     */
     }
 }

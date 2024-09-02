@@ -102,7 +102,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/equipos/create/{grupo}', [EquipoController::class, 'create'])->name('equipos.create'); 
     Route::post('/equipos/store/{grupo}', [EquipoController::class, 'store'])->name('equipos.store');
     Route::get('/equipos/show/{equipo}', [EquipoController::class, 'show'])->name('equipos.show');
-    Route::delete('/equipos/{alumno}/{equipo}', [EquipoController::class, 'destroy'])->name('equipos.destroy');
+    Route::delete('/equipos/{equipo}', [EquipoController::class, 'destroy'])->name('equipos.destroy');
 });
 
 Route::middleware('auth')->group(function () {

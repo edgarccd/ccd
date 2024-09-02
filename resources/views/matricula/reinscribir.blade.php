@@ -49,7 +49,7 @@
                                 </td>
                                 <td>
                                     <select name="grupo_{{ $grupo->id }}" id="grupo_{{ $grupo->id }}" class="form-select" required>
-                                        <option selected disabled value="">-- Seleccionar --</option>
+                                        <option selected disabled value="">-- Seleccionar --</option>                                        
                                         @foreach ($gruposActuales as $grupoA)
                                             <option value="{{ $grupoA->id }}">
                                                 {{ $grupoA->grado }}°@switch($grupoA->grupo)
@@ -80,6 +80,7 @@
                                                 @endswitch
                                             </option>
                                         @endforeach
+                                        <option value="0">Egresados</option>
                                     </select>
                                 </td>
                             </tr>
