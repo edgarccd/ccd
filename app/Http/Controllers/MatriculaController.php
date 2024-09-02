@@ -138,6 +138,7 @@ class MatriculaController extends Controller
 
     public function reinstore(Periodo $periodo, Request $request)
     {
+
         $grupos = Grupo::where('periodo_id', $periodo->id - 1)
             ->orderBy('carrera_id')
             ->orderBy('turno_id')
@@ -145,23 +146,33 @@ class MatriculaController extends Controller
             ->orderBy('grupo')
             ->get();
 
+
+
+            
         foreach ($grupos as $grupo) {
             $name = "grupo_" . $grupo->id;
-            if ($request->input($name )!= 0) {
+
+            if ($request->input($name) != 0) {
                 $alumnos = DB::table('grupo_alumnos')->where('grupo_id', $grupo->id)->get();
+             
+
 
                 foreach ($alumnos as $alumno) {
-                    GrupoAlumno::create([
-                        'alumno_id' => $alumno->id,
-                        'grupo_id' => $request->input($name),
+                 
+                    GrupoAlumno::create([                    
+                    'alumno_id' => $alumno->alumno_id,
+                    'grupo_id' => $request->input($name),
                     ]);
-                }
+                   
+                } 
+
+
             }
         }
 
         $carreras = Carrera::get();
 
-        return view('matricula.index', ['carreras' => $carreras]);
+       return view('matricula.index', ['carreras' => $carreras]);
     }
 
     public function search(Grupo $grupo, Request $request)
