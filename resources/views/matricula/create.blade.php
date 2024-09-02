@@ -31,9 +31,9 @@
             </div>
             <hr>
             <h3>
-                @foreach ($carrera as $car)
+               
                     {{ $car->nombre }}
-                @endforeach
+               
             </h3>
             <form action="{{ route('matricula.store', $car->id) }}" method="post" class="needs-validation">
                 @csrf

@@ -14,7 +14,7 @@
         <div class="major container">
             <h3 style="text-align: center;">
                
-                    {{ $carrera->nombre }} <br>
+                    {{$carrera->nombre }} <br>
                     {{$periodo->nombre }}
             </h3>
          
