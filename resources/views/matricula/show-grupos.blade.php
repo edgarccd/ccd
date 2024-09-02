@@ -5,7 +5,7 @@
                 <h3>Matricula</h3>
             </div>
             
-                <a href="{{ route('matricula.create', $carrera->id) }}" class="btn btn-primary">Cargar Alumnos</a>
+                <a href="{{ route('matricula.create', $carrera) }}" class="btn btn-primary">Cargar Alumnos</a>
             
         </div>
     </x-slot>

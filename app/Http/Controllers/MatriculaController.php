@@ -24,7 +24,7 @@ class MatriculaController extends Controller
     public function create($carrera_id)
     {
         $periodo = Periodo::where('activo', 1)->first();
-        $carrera = Carrera::where('id', $carrera_id)->get();
+        $carrera = Carrera::where('id', $carrera_id)->first();
         $grupos = Grupo::where('carrera_id', $carrera_id)
             ->where('periodo_id', $periodo->id)
             ->orderBy('grado')->get();
@@ -75,7 +75,7 @@ class MatriculaController extends Controller
         Temporal::query()->delete();
 
         $periodo = Periodo::where('activo', 1)->first();
-        $carrera = Carrera::where('id', $carrera_id)->get();
+        $carrera = Carrera::where('id', $carrera_id)->first();
         $grupos = Grupo::where('carrera_id', $carrera_id)
             ->where('periodo_id', $periodo->id)
             ->orderBy('grado')
@@ -255,7 +255,7 @@ class MatriculaController extends Controller
             ->orderBy('personas.nombre', 'asc')
             ->get();
 
-        $carrera = Carrera::where('id', $grupo->carrera_id)->get();
+        $carrera = Carrera::where('id', $grupo->carrera_id)->first();
 
         return view('matricula.show-alumnos', ['alumnos' => $alumnos, 'grupo' => $grupo, 'carrera' => $carrera]);
     }
