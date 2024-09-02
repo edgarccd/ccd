@@ -32,7 +32,7 @@
             <hr>
             <h3>
                
-                    {{ $car->nombre }}
+                    {{ $carrera->nombre }}
                
             </h3>
             <form action="{{ route('matricula.store', $car->id) }}" method="post" class="needs-validation">
