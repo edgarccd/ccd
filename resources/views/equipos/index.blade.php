@@ -1,13 +1,11 @@
 <x-app-layout>
     <main class="container">
         <x-slot name="header">
-
             <div class="upper">
                 @auth
                     <div class="inside">
                         <h3>Equipos</h3>
                     </div>
-
                     @if ($grupo != null)
                         <a href="{{ route('equipos.create', $grupo) }}"class="btn btn-primary">Registrar</a> &nbsp;&nbsp;
                         &nbsp;&nbsp;
@@ -29,7 +27,6 @@
                                 D
                             @break
                         @endswitch
-
                         @switch($grupo->turno_id)
                             @case(1)
                                 Matutino
@@ -41,7 +38,7 @@
                         @endswitch
                         - {{ $grupo->carrera->nombre }}
                     @else
-                        <h3> NO tiene grupos asignados este cuatrimestre</h3>
+                        <h3> NO tiene grupos asignados</h3>
                     @endif
                 @endauth
             </div>
@@ -53,7 +50,7 @@
                     <div class="card"
                         style="margin: 10px; margin: 10px;width: 411px; height: 250px;box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);">
                         <div class="card-header">
-                            <a href="{{ route('equipos.show', $equipo) }}" class="btn btn-dark">ID {{ $equipo->id }}
+                            <a href="{{ route('equipos.show', $equipo) }}">ID {{ $equipo->id }}
                             </a>
                         </div>
                         <div class="card-body">
@@ -62,7 +59,7 @@
                                 <p class="card-text">{{ $equipo->proyecto->nombre }} </p>
                             </div>
                             <div style="display:flex;flex-flow: row wrap; align-items:center;height:50%;">
-                                <a href="{{ route('proyectos.edit', $equipo) }}"
+                                <a href="{{ route('equipos.edit', $equipo) }}"
                                     class="btn btn-outline-primary">Editar</a>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <form action="{{ route('equipos.destroy', $equipo) }}" method="post">

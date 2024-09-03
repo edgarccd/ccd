@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Grupo;
 use App\Models\Periodo;
+use App\Models\Proyecto;
 use App\Models\ProyectoAlumno;
 use App\Models\ProyectoEquipo;
 use App\Models\User;
@@ -99,20 +100,19 @@ class EquipoController extends Controller
         return view('equipos.show', ['alumnos' => $alumnos, 'equipo' => $equipo]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(ProyectoEquipo $equipo)
     {
-        //
+        $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
+            ->get();
+        $proyectos = Proyecto::orderBy('nombre')
+            ->get();
+        return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $equipo, 'proyectos' => $proyectos]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+  
+    public function update(ProyectoEquipo $equipo)
     {
-        //
+        echo $equipo;
     }
 
     public function destroy(ProyectoEquipo $equipo)

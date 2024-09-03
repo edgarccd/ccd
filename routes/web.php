@@ -103,6 +103,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/equipos/store/{grupo}', [EquipoController::class, 'store'])->name('equipos.store');
     Route::get('/equipos/show/{equipo}', [EquipoController::class, 'show'])->name('equipos.show');
     Route::delete('/equipos/{equipo}', [EquipoController::class, 'destroy'])->name('equipos.destroy');
+    Route::get('/equipos/edit/{equipo}', [EquipoController::class, 'edit'])->name('equipos.edit'); 
 });
 
 Route::middleware('auth')->group(function () {
