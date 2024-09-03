@@ -8,7 +8,7 @@
                         <h3>Equipos</h3>
                     </div>
 
-                    @if ($grupo != 0)
+                    @if ($grupo != null)
                         <a href="{{ route('equipos.create', $grupo) }}"class="btn btn-primary">Registrar</a> &nbsp;&nbsp;
                         &nbsp;&nbsp;
                         {{ $grupo->grado }}°
@@ -47,7 +47,7 @@
             </div>
         </x-slot>
         <br>
-        @if ($grupo != 0)
+        @if ($grupo != null)
             <div style="display:flex;flex-flow:row wrap;">
                 @foreach ($equipos as $equipo)
                     <div class="card"
