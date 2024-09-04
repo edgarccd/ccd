@@ -105,6 +105,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/equipos/destroy/{pequipo}', [EquipoController::class, 'destroy'])->name('equipos.destroy');
     Route::delete('/equipos/delete/{palumno}', [EquipoController::class, 'deleteAlumno'])->name('equipos.deleteAlumno');
     Route::get('/equipos/edit/{equipo}', [EquipoController::class, 'edit'])->name('equipos.edit'); 
+    Route::patch('/equipos/update/{equipo}', [EquipoController::class, 'update'])->name('equipos.update');
+    Route::get('/equipos/search/{equipo}', [EquipoController::class, 'search'])->name('equipos.search');
+    Route::get('/equipos/agregar/{pequipo}/{alumno}', [EquipoController::class, 'agregar'])->name('equipos.agregar');
 });
 
 Route::middleware('auth')->group(function () {

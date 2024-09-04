@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Grupo;
 use App\Models\Periodo;
 use App\Models\Proyecto;
+use App\Models\Alumno;
 use App\Models\ProyectoAlumno;
 use App\Models\ProyectoEquipo;
 use App\Models\User;
@@ -111,11 +112,9 @@ class EquipoController extends Controller
 
     public function deleteAlumno(ProyectoAlumno $palumno)
     {
-
         $periodo = Periodo::where('activo', 1)->first();
         $equipo = ProyectoEquipo::where('id', $palumno->equipo_id)->first();
         $palumno->delete();
-
         $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
             ->get();
         $proyectos = Proyecto::orderBy('nombre')
@@ -123,9 +122,84 @@ class EquipoController extends Controller
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $equipo, 'proyectos' => $proyectos]);
     }
 
-    public function update(ProyectoEquipo $equipo)
+    public function update(Request $request, ProyectoEquipo $equipo)
     {
-        echo $equipo;
+        $equipo->nombre = $request->input('nombre');
+        $equipo->comentarios = $request->input('comentarios');
+        $equipo->proyecto_id = $request->input('proyecto_id');
+        $equipo->updated_at = now();
+        $equipo->save();
+
+        $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
+            ->get();
+
+        return view('equipos.show', ['alumnos' => $alumnos, 'equipo' => $equipo]);
+    }
+
+    public function search(Request $request, ProyectoEquipo $equipo)
+    {
+        if ($request->input('busqueda') == "todos") {
+            $alumnos = DB::table('personas')
+                ->join('alumnos', 'alumnos.persona_id', '=', 'personas.id')
+                ->join('grupo_alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
+                ->where('grupo_alumnos.grupo_id', $equipo->grupo_id)                
+                ->whereNOTIn('alumnos.id', function ($query) {
+                    $periodo = Periodo::where('activo', 1)->first();
+                    $query->select('proyecto_alumnos.alumno_id')->from('proyecto_alumnos')->where('proyecto_alumnos.periodo_id', $periodo->id);
+                })
+                ->orderBy('personas.apellido_pat', 'asc')
+                ->orderBy('personas.apellido_mat', 'asc')
+                ->orderBy('personas.nombre', 'asc')
+                ->get();
+        }
+
+        if ($request->input('busqueda') == "nombre") {
+            $alumnos = DB::table('personas')
+                ->join('alumnos', 'alumnos.persona_id', '=', 'personas.id')
+                ->join('grupo_alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
+                ->where('grupo_alumnos.grupo_id', $equipo->grupo_id)
+                ->where('personas.nombre', 'like', '%' . $request->input('nombre') . '%')
+                ->whereNOTIn('alumnos.id', function ($query) {
+                    $periodo = Periodo::where('activo', 1)->first();
+                    $query->select('proyecto_alumnos.alumno_id')->from('proyecto_alumnos')->where('proyecto_alumnos.periodo_id', $periodo->id);
+                })
+                ->orderBy('personas.apellido_pat', 'asc')
+                ->orderBy('personas.apellido_mat', 'asc')
+                ->orderBy('personas.nombre', 'asc')
+                ->get();
+        }
+        if ($request->input('busqueda') == "paterno") {
+            $alumnos = DB::table('personas')
+                ->join('alumnos', 'alumnos.persona_id', '=', 'personas.id')
+                ->join('grupo_alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
+                ->where('grupo_alumnos.grupo_id', $equipo->grupo_id)
+                ->where('personas.apellido_pat', 'like', '%' . $request->input('nombre') . '%')
+                ->whereNOTIn('alumnos.id', function ($query) {
+                    $periodo = Periodo::where('activo', 1)->first();
+                    $query->select('proyecto_alumnos.alumno_id')->from('proyecto_alumnos')->where('proyecto_alumnos.periodo_id', $periodo->id);
+                })
+                ->orderBy('personas.apellido_pat', 'asc')
+                ->orderBy('personas.apellido_mat', 'asc')
+                ->orderBy('personas.nombre', 'asc')
+                ->get();
+        }
+        if ($request->input('busqueda') == "materno") {
+            $alumnos = DB::table('personas')
+                ->join('alumnos', 'alumnos.persona_id', '=', 'personas.id')
+                ->join('grupo_alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
+                ->where('grupo_alumnos.grupo_id', $equipo->grupo_id)
+                ->where('personas.apellido_mat', 'like', '%' . $request->input('nombre') . '%')
+                ->whereNOTIn('alumnos.id', function ($query) {
+                    $periodo = Periodo::where('activo', 1)->first();
+                    $query->select('proyecto_alumnos.alumno_id')->from('proyecto_alumnos')->where('proyecto_alumnos.periodo_id', $periodo->id);
+                })
+                ->orderBy('personas.apellido_pat', 'asc')
+                ->orderBy('personas.apellido_mat', 'asc')
+                ->orderBy('personas.nombre', 'asc')
+                ->get();
+        }
+
+        return view('equipos.search', ['alumnos' => $alumnos, 'equipo' => $equipo]);
     }
 
     public function destroy(ProyectoEquipo $pequipo)
@@ -141,6 +215,24 @@ class EquipoController extends Controller
         $pequipo->delete();
         $equipos = ProyectoEquipo::where('grupo_id', $grupo->id)->get();
         return view('equipos.index', ['grupo' => $grupo, 'equipos' => $equipos]);
+    }
 
+    public function agregar(ProyectoEquipo $pequipo, Alumno $alumno)
+    {
+        $periodo = Periodo::where('activo', 1)->first();
+
+        ProyectoAlumno::create([
+            'periodo_id' => $periodo->id,
+            'equipo_id' => $pequipo->id,
+            'alumno_id' => $alumno->id,
+        ]);
+
+        $alumnos = ProyectoAlumno::where('equipo_id', $pequipo->id)
+            ->get();
+
+        $proyectos = Proyecto::orderBy('nombre')
+            ->get();
+
+        return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $pequipo, 'proyectos' => $proyectos]);
     }
 }
