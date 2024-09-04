@@ -5,7 +5,7 @@
         
         <div class="form-floating mb-3">
             <input type="text" class="form-control text-uppercase" id="nombre" name="nombre" placeholder="Nombre"
-                {{ old('nombre', $equipo->nombre) }} required>
+               value="{{ old('nombre', $equipo->nombre) }}" required>
             <label for="nombre">Nombre</label>
         </div>
         
@@ -44,7 +44,7 @@
                                 <td>{{ $alumno->alumno->persona->apellido_mat }}</td>
                                 <td>{{ $alumno->alumno->persona->nombre }}</td>
                                 <td>
-                                    <form action="{{ route('equipos.destroy', [$alumno->alumno, $equipo]) }}"
+                                    <form action="{{ route('equipos.deleteAlumno',$alumno) }}"
                                         method="post">
                                         @csrf
                                         @method('delete')

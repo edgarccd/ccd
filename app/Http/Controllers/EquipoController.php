@@ -109,31 +109,38 @@ class EquipoController extends Controller
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $equipo, 'proyectos' => $proyectos]);
     }
 
-  
+    public function deleteAlumno(ProyectoAlumno $palumno)
+    {
+
+        $periodo = Periodo::where('activo', 1)->first();
+        $equipo = ProyectoEquipo::where('id', $palumno->equipo_id)->first();
+        $palumno->delete();
+
+        $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
+            ->get();
+        $proyectos = Proyecto::orderBy('nombre')
+            ->get();
+        return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $equipo, 'proyectos' => $proyectos]);
+    }
+
     public function update(ProyectoEquipo $equipo)
     {
         echo $equipo;
     }
 
-    public function destroy(ProyectoEquipo $equipo)
+    public function destroy(ProyectoEquipo $pequipo)
     {
+        $grupo = Grupo::where('id', $pequipo->grupo_id)->first();
         $periodo = Periodo::where('activo', 1)->first();
-        $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
+        $alumnos = ProyectoAlumno::where('equipo_id', $pequipo->id)
             ->where('periodo_id', $periodo->id)
             ->get();
         foreach ($alumnos as $alumno) {
-            echo "<br>";
-            echo $alumno;
+            $alumno->delete();
         }
+        $pequipo->delete();
+        $equipos = ProyectoEquipo::where('grupo_id', $grupo->id)->get();
+        return view('equipos.index', ['grupo' => $grupo, 'equipos' => $equipos]);
 
-        /*
-
-    //  $proyecto->delete();
-
-    $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
-    ->get();
-
-    return view('equipos.show', ['alumnos' => $alumnos, 'equipo' => $equipo]);
-     */
     }
 }
