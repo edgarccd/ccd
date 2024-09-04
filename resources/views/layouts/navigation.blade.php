@@ -49,9 +49,10 @@
                             Proyectos
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Asignar
-                                    Profesores Ejes</a></li>
-
+                            <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Profesores
+                                    Ejes</a></li>
+                            <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Equipos de
+                                    Trabajo</a></li>
                         </ul>
                     </li>
                 @endif
@@ -73,7 +74,8 @@
                 @endif
 
                 @if (Auth::user()->tipo_id == 1 || Auth::user()->tipo_id == 7)
-                    <li><a class="nav-link" href="{{ route('equipos.index', Auth::user()) }}">Equipos de Trabajo</a></li>
+                    <li><a class="nav-link" href="{{ route('equipos.index', Auth::user()) }}">Equipos de Trabajo</a>
+                    </li>
                 @endif
 
                 <li class="nav-item">
