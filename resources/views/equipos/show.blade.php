@@ -18,13 +18,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
                     </div>
                 </div>
             </div>
         </div>
         <br>
-        <p> {{ $equipo->comentarios }}</p>
+      
         <hr>
         <div class="table-responsive">
             <table class="table table-striped">
