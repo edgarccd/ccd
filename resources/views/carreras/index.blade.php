@@ -12,14 +12,14 @@
 
     <main class="container">
         <br>
-        <div class="major container">             
+        <div class="major container">
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>Acrónimo</th>
-                          
+
                             <th>Activo</th>
                             <th></th>
                             <th></th>
@@ -30,19 +30,22 @@
                         @foreach ($carreras as $carrera)
                             <tr>
                                 <td>{{ $carrera->nombre }}</td>
-                                <td>{{ $carrera->acronimo }}</td>                            
+                                <td>{{ $carrera->acronimo }}</td>
                                 <td>{{ $carrera->activo }}</td>
                                 <td>
-                                    <form action="{{route('carreras.activar',$carrera)}}" method="post">
-                                        @csrf @method('PATCH')
-                                        @if($carrera->activo ==0)
-                                        <button type="submit" class="btn btn-outline-secondary">Activar</button>
-                                        @else
-                                        <button type="submit" class="btn btn-outline-secondary">Desactivar</button>                                    
-                                        @endif
-                                    </form>
+                                    <a href="{{ route('carreras.activar', $carrera) }}" class="btn btn-outline-dark">
+                                        @switch($carrera->activo)
+                                            @case(0)
+                                                Activar
+                                            @break
+
+                                            @case(1)
+                                                Desactivar
+                                            @break
+                                        @endswitch </a>
                                 </td>
-                                <th><a href="{{route('carreras.edit',$carrera)}}" class="btn btn-outline-primary">Editar</a></th>
+                                <th><a href="{{ route('carreras.edit', $carrera) }}"
+                                        class="btn btn-outline-primary">Editar</a></th>
                                 <td>
                                     <form action="{{ route('carreras.destroy', $carrera) }}" method="post">
                                         @csrf

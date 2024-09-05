@@ -18,6 +18,7 @@ class Carrera extends Model
     public function grupo(): HasMany{
         return $this->hasMany (Grupo::class,'carrera_id');
     }
+    
     public function coordinador(): HasMany{
         return $this->hasMany (Coordinador::class,'carrera_id');
     }

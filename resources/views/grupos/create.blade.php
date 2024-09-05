@@ -6,12 +6,9 @@
         <form action="{{route('grupos.store')}}" method="post" class="needs-validation" novalidate>
             @csrf
             @include('grupos.form-fields')
-            <hr>
-          
+            <hr>          
                 <button type="submit" class="btn btn-primary">Enviar</button>
-                <a href="{{ route('grupos.index') }}" class="btn btn-secondary">Regresar</a>
-       
-        </form>
-        
+                <a href="{{ route('grupos.index') }}" class="btn btn-secondary">Regresar</a>       
+        </form>        
     </div>
 </x-app-layout>

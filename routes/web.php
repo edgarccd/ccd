@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/divisiones', [DivisionController::class, 'index'])->name('divisiones.index');
     Route::get('/divisiones/create', [DivisionController::class, 'create'])->name('divisiones.create');
     Route::post('/divisiones/store', [DivisionController::class, 'store'])->name('divisiones.store');
-    Route::get('/divisiones/{division}/edit', [DivisionController::class, 'edit'])->name('divisiones.edit');
+    Route::get('/divisiones/edit/{division}', [DivisionController::class, 'edit'])->name('divisiones.edit');
     Route::patch('/divisiones/{division}', [DivisionController::class, 'update'])->name('divisiones.update');
     Route::get('/divisiones/{division}', [DivisionController::class, 'activar'])->name('divisiones.activar');
     Route::delete('/divisiones/{division}', [DivisionController::class, 'destroy'])->name('divisiones.destroy');

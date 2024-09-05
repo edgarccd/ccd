@@ -41,28 +41,27 @@ class DivisionController extends Controller
         return view('divisiones.edit', ['division' => $division]);
     }
 
-public function actualizar(){
-    echo "Hola";
-}
-
-    public function update(Request $request, $division)
-    {        
+    public function update(Request $request, Division $division)
+    {         
         $request->validate([
             'nombre' => ['required', 'min:4'],
             'acronimo' => ['required'],
-            'ruta' => ['required'],            
+            'activo' => ['required'],            
         ]);
 
-        $division = Division::find($division);
         $division->nombre = $request->input('nombre');
         $division->acronimo = $request->input('acronimo');
         $division->updated_at = now();
         $division->save();
 
-        return to_route('divisiones.index')->with('status', 'Division actualizada con exito');
+        $divisiones = Division::orderBy('nombre')
+            ->get();
+
+        return view('divisiones.index', ['divisiones' => $divisiones]);
     }
 
     public function activar(Division $division){
+
         if($division->activo ==1){
             $division->activo = 0;
             }else{
