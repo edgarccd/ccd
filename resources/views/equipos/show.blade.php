@@ -1,7 +1,7 @@
 <x-app-layout>
     <br>
     <div class="major container">
-        <h5> {{ $equipo->nombre }} </h5>       
+       Nombre: <B> {{ $equipo->nombre }} </B>       <br>
         <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
             {{ $equipo->proyecto->nombre }}
         </button>
@@ -21,7 +21,9 @@
                 </div>
             </div>
         </div>
-        <br>      
+        <br>   
+        <br>  
+        Integrantes: 
         <hr>
         <div class="table-responsive">
             <table class="table table-striped">
