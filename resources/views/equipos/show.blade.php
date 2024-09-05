@@ -1,9 +1,8 @@
 <x-app-layout>
     <br>
     <div class="major container">
-        <h5> {{ $equipo->nombre }} </h5>
-       
-        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <h5> {{ $equipo->nombre }} </h5>       
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
             {{ $equipo->proyecto->nombre }}
         </button>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -22,8 +21,7 @@
                 </div>
             </div>
         </div>
-        <br>
-      
+        <br>      
         <hr>
         <div class="table-responsive">
             <table class="table table-striped">

@@ -61,7 +61,6 @@
                             <div style="display:flex;flex-flow: row wrap; align-items:center;height:50%;">
                                 <a href="{{ route('equipos.edit', $equipo) }}"
                                     class="btn btn-outline-primary">Editar</a>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-
                                 <form action="{{ route('equipos.destroy', $equipo) }}" method="post">
                                     @csrf
                                     @method('delete')
