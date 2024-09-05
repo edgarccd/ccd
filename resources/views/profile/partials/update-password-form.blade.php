@@ -4,7 +4,7 @@
     <header>
       
         <h2> {{ __('Actualizar Contraseña') }}</h2>
-        <p>{{ Auth::user()->name }} <br> {{ __('una contraseña segura te ayuda a proteger tu información.') }}</p>       
+        <p> {{ __('una contraseña segura te ayuda a proteger tu información.') }}<br> {{ Auth::user()->name }}</p>       
     </header>
 <br>
     <form method="post" action="{{ route('password.update') }}">
