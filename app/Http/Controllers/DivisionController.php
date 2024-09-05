@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Division;
+use App\Models\Carrera;
 
 class DivisionController extends Controller
 {
-
     public function index()
     {
         $divisiones = Division::orderBy('nombre')
             ->get();
+                    
         return view('divisiones.index', ['divisiones' => $divisiones]);
     }
 
@@ -34,7 +35,6 @@ class DivisionController extends Controller
         session()->flash('status', 'Division Registrada con exito');
         return to_route('divisiones.index')->with('status', 'Division registrada con exito');
     }
-
    
     public function edit(Division $division)
     {

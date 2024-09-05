@@ -2,16 +2,13 @@
     <x-slot name="header">
         <div class="upper">
             @auth
-
                 <div class="inside">
                     <h3>Divisiones</h3>
                 </div>
                 <a href="{{ route('divisiones.create') }}" class="btn btn-primary">Registrar</a>
             @endauth
         </div>
-
     </x-slot>
-
     <main class="container">
         <br>
         <div class="major container">
@@ -34,8 +31,8 @@
                                 <td>{{ $division->acronimo }}</td>
                                 <td>{{ $division->activo }}</td>
                                 <td>
-                                    <a href="{{ route('divisiones.activar', $division) }}"
-                                        class="btn btn-outline-dark"> @switch($division->activo)
+                                    <a href="{{ route('divisiones.activar', $division) }}" class="btn btn-outline-dark">
+                                        @switch($division->activo)
                                             @case(0)
                                                 Activar
                                             @break
