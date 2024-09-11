@@ -112,8 +112,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/horarios/{usuario}', [HorarioController::class, 'index'])->name('horarios.index');
-    Route::get('/horarios', [HorarioController::class, 'create'])->name('horarios.create'); 
+    Route::get('/horarios/index{usuario}', [HorarioController::class, 'index'])->name('horarios.index');
+    Route::get('/horarios/create{usuario}', [HorarioController::class, 'create'])->name('horarios.create'); 
 });
 
 Route::middleware('auth')->group(function () {

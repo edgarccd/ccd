@@ -22,9 +22,16 @@ class HorarioController extends Controller
         return view('horarios.index', ['carreras' => $carreras]);
     }
 
-    public function create()
+    public function create(User $usuario)
     {
-        return view('horarios.create');
+        $periodo = Periodo::where('activo', 1)->first();
+        $coordinador = Coordinador::where('periodo_id', $periodo->id)->where('maestro_id', $usuario->persona->maestro->id)->first();
+        if ($coordinador != null) {
+            $carreras = Carrera::where('id', $coordinador->carrera_id)->get();
+        } else {
+            $carreras = 0;
+        }
+        return view('horarios.create', ['carreras' => $carreras]);
     }
 
     /**

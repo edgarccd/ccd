@@ -6,7 +6,7 @@
                     <div class="inside">
                         <h3>Horarios</h3>
                     </div>
-                    <a href="{{ route('horarios.create') }}"class="btn btn-primary">Registrar</a>
+                    <a href="{{ route('horarios.create', Auth::user()) }}"class="btn btn-primary">Registrar</a>
                 @endauth
             </div>
         </x-slot>
