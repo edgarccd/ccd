@@ -2,7 +2,7 @@
     <br>
     <div class="major container">
         <h2>Registrar Horario</h2>
-        <form action="#" method="post" class="needs-validation" novalidate>
+        <form action="{{ route('horarios.store', Auth::user()) }}" method="post" class="needs-validation" novalidate>
             @csrf
             @include('horarios.form-fields')
             <div style="margin: 10px;">

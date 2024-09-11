@@ -34,12 +34,17 @@ class HorarioController extends Controller
         return view('horarios.create', ['carreras' => $carreras]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(User $usuario)
     {
-        //
+       
+        $periodo = Periodo::where('activo', 1)->first();
+        $coordinador = Coordinador::where('periodo_id', $periodo->id)->where('maestro_id', $usuario->persona->maestro->id)->first();
+        if ($coordinador != null) {
+            $carreras = Carrera::where('id', $coordinador->carrera_id)->get();
+        } else {
+            $carreras = 0;
+        }
+        return view('horarios.create', ['carreras' => $carreras]);
     }
 
     /**

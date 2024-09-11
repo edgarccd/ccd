@@ -2,19 +2,13 @@
 <select name="carrera_id" id="carrera_id" class="form-select" required>
     <option selected disabled value="">-- Seleccionar --</option>
     @if ($carreras != null)
-        @foreach ($carreras as $carrera)
-            <option value={{ $carrera->id }}>{{ $carrera->nombre }}</option>
+        @foreach ($carreras as $carrera)        
+            <option value={{ $carrera->id }}@if(isset($_POST['carrera_id'])) {{ old('carrera_id',$carrera->id)== $_POST['carrera_id'] ?"selected":""}} @endif>        
+                {{ $carrera->nombre }}</option>
         @endforeach
     @endif
 </select>
-<label for="grupo_id">Grupo</label>
-<select name="grupo_id" id="grupo_id" class="form-select" required>
-    <option selected disabled value="">-- Seleccionar --</option>
-</select>
-<label for="equipo_id">Equipo</label>
-<select name="equipo_id" id="equipo_id" class="form-select" required>
-    <option selected disabled value="">-- Seleccionar --</option>
-</select>
+
 <label for="dia_id">Día</label>
 <select name="dia_id" id="dia_id" class="form-select" required>
     <option selected disabled value="">-- Seleccionar --</option>
