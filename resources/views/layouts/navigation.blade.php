@@ -53,7 +53,7 @@
                                 Ejes</a></li>
                         <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Equipos de
                                 Trabajo</a></li>
-                        <li><a class="dropdown-item" href="#">Asignar Horarios</a></li>
+                        <li><a class="dropdown-item" href="{{ route('horarios.index', Auth::user()) }}">Asignar Horarios</a></li>
                         <li><a class="dropdown-item" href="#">Calificar Proyectos</a></li>
                     </ul>
                 </li>

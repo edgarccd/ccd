@@ -6,6 +6,7 @@ use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\MateriaController;
+use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -108,6 +109,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/equipos/update/{equipo}', [EquipoController::class, 'update'])->name('equipos.update');
     Route::get('/equipos/search/{equipo}', [EquipoController::class, 'search'])->name('equipos.search');
     Route::get('/equipos/agregar/{pequipo}/{alumno}', [EquipoController::class, 'agregar'])->name('equipos.agregar');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/horarios/{usuario}', [HorarioController::class, 'index'])->name('horarios.index');
+    Route::get('/horarios', [HorarioController::class, 'create'])->name('horarios.create'); 
 });
 
 Route::middleware('auth')->group(function () {
