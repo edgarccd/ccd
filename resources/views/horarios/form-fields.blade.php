@@ -1,14 +1,20 @@
 <label for="carrera_id">Carrera</label>
-<select name="carrera_id" id="carrera_id" class="form-select" required>
+<select name="carrera_id" id="carrera_id" class="form-select" onchange="grupos(this)" required>
     <option selected disabled value="">-- Seleccionar --</option>
     @if ($carreras != null)
-        @foreach ($carreras as $carrera)        
-            <option value={{ $carrera->id }}@if(isset($_POST['carrera_id'])) {{ old('carrera_id',$carrera->id)== $_POST['carrera_id'] ?"selected":""}} @endif>        
+        @foreach ($carreras as $carrera)
+            <option
+                value={{ $carrera->id }}@if (isset($_POST['carrera_id'])) {{ old('carrera_id', $carrera->id) == $_POST['carrera_id'] ? 'selected' : '' }} @endif>
                 {{ $carrera->nombre }}</option>
         @endforeach
     @endif
 </select>
 
+<label for="grupo_id">Grupo</label>
+<select name="grupo_id" id="grupo_id" class="form-select" required>
+    <option selected disabled value="">-- Seleccionar --</option>
+
+</select>
 <label for="dia_id">Día</label>
 <select name="dia_id" id="dia_id" class="form-select" required>
     <option selected disabled value="">-- Seleccionar --</option>
@@ -44,3 +50,14 @@
     <option value="21">20:00</option>
     <option value="22">20:30</option>
 </select>
+
+<script>
+    function grupos(carreraSelect) {
+        let careraID= carreraSelect.value;
+        fetch('horarios/'+careraID+'/grupos')
+        .then(function(){
+            alert(response);
+        })
+        
+    }
+</script>

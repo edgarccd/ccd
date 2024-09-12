@@ -17,7 +17,7 @@ class MatriculaController extends Controller
 
     public function index()
     {
-        $carreras = Carrera::get();
+        $carreras = Carrera::where('activo',1)->get();
         return view('matricula.index', ['carreras' => $carreras]);
     }
 
@@ -170,7 +170,7 @@ class MatriculaController extends Controller
             }
         }
 
-        $carreras = Carrera::get();
+        $carreras = Carrera::where('activo',1)->get();
 
        return view('matricula.index', ['carreras' => $carreras]);
     }
