@@ -2,7 +2,7 @@
     <br>
     <div class="major container">
         <h4> {{ $equipo->nombre }} </h4>
-        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             {{ $equipo->proyecto->nombre }}
         </button>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
