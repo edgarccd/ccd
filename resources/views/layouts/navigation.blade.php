@@ -61,7 +61,7 @@
             @endif
 
             @if (Auth::user()->tipo_id == 7)
-                <li><a class="nav-item" href="{{ route('equipos.index', Auth::user()) }}">Equipos de
+                <li><a class="nav-link" href="{{ route('equipos.index', Auth::user()) }}">Equipos de
                         Trabajo</a></li>
             @endif
 
