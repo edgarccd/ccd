@@ -73,8 +73,7 @@
                         <li><a class="dropdown-item" href="{{ route('proyectos.catalogo') }}">Catálogo Disponible</a></li>                       
                     </ul>
                 </li>
-                <li><a class="nav-link" href="{{ route('equipos.index', Auth::user()) }}">Equipos de
-                        Trabajo</a></li>
+                
             @endif
 
             @if (Auth::user()->tipo_id == 1)
