@@ -85,8 +85,13 @@ class ProyectoController extends Controller
 
     public function catalogo(Request $request)
     {
-        $proyectos = Proyecto::orderBy('nombre')
-        ->get();
+        $proyectos = Proyecto::whereNOTIn('id', function ($query) {
+            $periodo = Periodo::where('activo', 1)->first();
+            $query->select('proyecto_equipos.proyecto_id')
+                ->from('proyecto_equipos')
+                ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
+                ->where('grupos.periodo_id', $periodo->id);
+        })->orderBy('nombre')->get();
 
     return view('proyectos.eje.catalogo', ['proyectos' => $proyectos]);
     }
