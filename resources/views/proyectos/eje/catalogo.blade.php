@@ -18,7 +18,7 @@
                         <tr>
                            <td>{{ $proyecto->id }}</td>
                             <td>{{ $proyecto->nombre }}</td>
-                            <td><a href="../../proyecto/catalogo/{{$proyecto->id}}.pdf" target="_blank" class="btn btn-outline-primary">Ver</a></td>
+                            <td><a href="../../proyecto/catalogo/{{$proyecto->id}}.pdf" target="_blank" class="btn btn-outline-secondary">Ver</a></td>
                         </tr>                    
                     @endforeach 
                     </tbody>
