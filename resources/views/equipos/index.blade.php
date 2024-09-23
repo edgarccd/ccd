@@ -66,11 +66,10 @@
                                     @method('delete')
                                     <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                                 </form>&nbsp; &nbsp;&nbsp;
-                                <a href="proyecto/catalogo/{{$equipo->proyecto->id}}.pdf"
+                                <a href="../proyecto/catalogo/{{$equipo->proyecto->id}}.pdf" target="_blank"
                                     class="btn btn-outline-secondary">PDF</a>&nbsp; &nbsp;&nbsp;
                                 <a href="{{ route('equipos.entregables', [$equipo,Auth::user()]) }}"
                                     class="btn btn-outline-dark">Entregables</a>
-
                             </div>
                         </div>
                     </div>
