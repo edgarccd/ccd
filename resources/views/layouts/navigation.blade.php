@@ -53,7 +53,7 @@
                                 Ejes</a></li>
                         <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Equipos de
                                 Trabajo</a></li>
-                                
+
                         <li><a class="dropdown-item" href="{{ route('horarios.index', Auth::user()) }}">Asignar
                                 Horarios</a></li>
                         <li><a class="dropdown-item" href="#">Calificar Proyectos</a></li>
@@ -62,6 +62,17 @@
             @endif
 
             @if (Auth::user()->tipo_id == 7)
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Proyectos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Equipos de
+                                Trabajo</a></li>
+                        <li><a class="dropdown-item" href="{{ route('proyectos.catalogo') }}">Catálogo Disponible</a></li>                       
+                    </ul>
+                </li>
                 <li><a class="nav-link" href="{{ route('equipos.index', Auth::user()) }}">Equipos de
                         Trabajo</a></li>
             @endif

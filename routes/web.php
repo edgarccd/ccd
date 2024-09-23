@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/proyectos/{proyecto}/edit', [ProyectoController::class, 'edit'])->name('proyectos.edit');
     Route::patch('/proyectos/{proyecto}', [ProyectoController::class, 'update'])->name('proyectos.update');
     Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');   
+    Route::get('/proyectos/eje/catalogo', [ProyectoController::class, 'catalogo'])->name('proyectos.catalogo');
 });
 
 Route::middleware('auth')->group(function () {

@@ -60,14 +60,17 @@
                             </div>
                             <div style="display:flex;flex-flow: row wrap; align-items:center;height:50%;">
                                 <a href="{{ route('equipos.edit', $equipo) }}"
-                                    class="btn btn-outline-primary">Editar</a>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                    class="btn btn-outline-primary">Editar</a>&nbsp; &nbsp;&nbsp;
                                 <form action="{{ route('equipos.destroy', $equipo) }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-outline-danger">Eliminar</button>
-                                </form>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                </form>&nbsp; &nbsp;&nbsp;
+                                <a href="proyecto/catalogo/{{$equipo->proyecto->id}}.pdf"
+                                    class="btn btn-outline-secondary">PDF</a>&nbsp; &nbsp;&nbsp;
                                 <a href="{{ route('equipos.entregables', [$equipo,Auth::user()]) }}"
                                     class="btn btn-outline-dark">Entregables</a>
+
                             </div>
                         </div>
                     </div>

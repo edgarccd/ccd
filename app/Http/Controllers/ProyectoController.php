@@ -6,8 +6,6 @@ use App\Models\Proyecto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-//php artisan make:controller nombreController -r   para crear el controlador con todos los metodos
-
 class ProyectoController extends Controller
 {
     public function index()
@@ -83,5 +81,13 @@ class ProyectoController extends Controller
     {
         $proyectos = DB::table('proyectos')->get();
         return view('catproy', ['proyectos' => $proyectos]);
+    }
+
+    public function catalogo(Request $request)
+    {
+        $proyectos = Proyecto::orderBy('nombre')
+        ->get();
+
+    return view('proyectos.eje.catalogo', ['proyectos' => $proyectos]);
     }
 }
