@@ -8,15 +8,13 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>Nombre</th>
                             <th>PDF</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($proyectos as $proyecto)
-                        <tr>
-                           <td>{{ $proyecto->id }}</td>
+                        <tr>                           
                             <td>{{ $proyecto->nombre }}</td>
                             <td><a href="../../proyecto/catalogo/{{$proyecto->id}}.pdf" target="_blank" class="btn btn-outline-secondary">Ver</a></td>
                         </tr>                    
