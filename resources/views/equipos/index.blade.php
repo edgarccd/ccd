@@ -65,7 +65,9 @@
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-outline-danger">Eliminar</button>
-                                </form>
+                                </form>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="{{ route('equipos.entregables', [$equipo,Auth::user()]) }}"
+                                    class="btn btn-outline-dark">Entregables</a>
                             </div>
                         </div>
                     </div>

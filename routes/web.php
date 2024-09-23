@@ -16,6 +16,7 @@ use App\Http\Controllers\MaestroController;
 use App\Http\Controllers\EjeController;
 use App\Http\Controllers\CoordinadorController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\EntregableController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('welcome');
@@ -109,6 +110,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/equipos/update/{equipo}', [EquipoController::class, 'update'])->name('equipos.update');
     Route::get('/equipos/search/{equipo}', [EquipoController::class, 'search'])->name('equipos.search');
     Route::get('/equipos/agregar/{pequipo}/{alumno}', [EquipoController::class, 'agregar'])->name('equipos.agregar');
+    Route::get('/equipos/entregables/{pequipo}/{usuario}', [EquipoController::class, 'entregables'])->name('equipos.entregables');
+    Route::post('/equipos/upload/{pequipo}/{usuario}', [EquipoController::class, 'storeEntregables'])->name('equipos.storeEntregables');
 });
 
 Route::middleware('auth')->group(function () {

@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumno;
 use App\Models\Grupo;
 use App\Models\Periodo;
 use App\Models\Proyecto;
-use App\Models\Alumno;
 use App\Models\ProyectoAlumno;
+use App\Models\ProyectoEntregable;
 use App\Models\ProyectoEquipo;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EquipoController extends Controller
 {
@@ -142,7 +144,7 @@ class EquipoController extends Controller
             $alumnos = DB::table('personas')
                 ->join('alumnos', 'alumnos.persona_id', '=', 'personas.id')
                 ->join('grupo_alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
-                ->where('grupo_alumnos.grupo_id', $equipo->grupo_id)                
+                ->where('grupo_alumnos.grupo_id', $equipo->grupo_id)
                 ->whereNOTIn('alumnos.id', function ($query) {
                     $periodo = Periodo::where('activo', 1)->first();
                     $query->select('proyecto_alumnos.alumno_id')->from('proyecto_alumnos')->where('proyecto_alumnos.periodo_id', $periodo->id);
@@ -234,5 +236,45 @@ class EquipoController extends Controller
             ->get();
 
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $pequipo, 'proyectos' => $proyectos]);
+    }
+
+    public function entregables(ProyectoEquipo $pequipo, User $usuario)
+    {
+
+        $periodo = Periodo::where('activo', 1)->first();
+        $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
+        $files = ProyectoEntregable::where('periodo_id', $periodo->id)
+            ->where('persona_id', $usuario->persona->id)
+            ->where('grupo_id', $grupo->id)
+            ->where('equipo_id', $pequipo->id)
+            ->get();
+
+        return view('equipos.entregables', ['grupo' => $grupo, 'equipo' => $pequipo, 'files' => $files]);
+    }
+
+    public function storeEntregables(Request $request, ProyectoEquipo $pequipo, User $usuario)
+    {
+        $periodo = Periodo::where('activo', 1)->first();
+        $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
+        $max_size = (int) ini_get('upload_max_filesize') * 10240;
+        $files = $request->file('files');
+        foreach ($files as $file) {
+            if (Storage::putFileAs('/public/' . $periodo->ciclo . '/' . $grupo->carrera->acronimo . '/' . $grupo->id . '/', $file, $file->getClientOriginalName())) {
+                ProyectoEntregable::create([
+                    'nombre' => $file->getClientOriginalName(),
+                    'periodo_id' => $periodo->id,
+                    'equipo_id' => $pequipo->id,
+                    'grupo_id' => $grupo->id,
+                    'persona_id' => $usuario->persona->id,
+                ]);
+            }
+        }
+        $files = ProyectoEntregable::where('periodo_id', $periodo->id)
+        ->where('persona_id', $usuario->persona->id)
+        ->where('grupo_id', $grupo->id)
+        ->where('equipo_id', $pequipo->id)
+        ->get();
+        
+        return view('equipos.entregables', ['grupo' => $grupo, 'equipo' => $pequipo, 'files' => $files]);
     }
 }
