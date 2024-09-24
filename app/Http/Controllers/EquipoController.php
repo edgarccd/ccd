@@ -258,7 +258,7 @@ class EquipoController extends Controller
         $max_size = (int) ini_get('upload_max_filesize') * 10240;
         $files = $request->file('files');
         foreach ($files as $file) {
-            if (Storage::putFileAs('/public/' . $periodo->ciclo . '/' . $grupo->carrera->acronimo . '/' . $grupo->id . '/', $file, $file->getClientOriginalName())) {
+            if (Storage::putFileAs('/public/' . $periodo->ciclo . '/' . $grupo->carrera->acronimo . '/' . $grupo->id . '/' . $pequipo->id . '/' , $file, $file->getClientOriginalName())) {
                 ProyectoEntregable::create([
                     'nombre' => $file->getClientOriginalName(),
                     'periodo_id' => $periodo->id,
@@ -283,7 +283,7 @@ class EquipoController extends Controller
         $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
         $file = ProyectoEntregable::where('id', $id)->firstOrFail();
 
-        unlink(public_path('storage/' . $periodo->ciclo . '/' . $grupo->carrera->acronimo . '/' . $grupo->id . '/' . $file->nombre));
+        unlink(public_path('storage/' . $periodo->ciclo . '/' . $grupo->carrera->acronimo . '/' . $grupo->id . '/' . $pequipo->id . '/' . $file->nombre));
         $file->delete();
 
         $files = ProyectoEntregable::where('periodo_id', $periodo->id)
