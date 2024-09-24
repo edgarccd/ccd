@@ -14,7 +14,7 @@
                 </h5>
                 <form action="{{ route('equipos.storeEntregables', [$equipo,Auth::user()]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input type="file" name="files[]" id="files[]" multiple class="form-control">
+                    <input type="file" name="files[]" id="files[]" multiple class="form-control" required>
                     <button type="submit" class="mt-4 btn btn-primary ">Cargar</button>
                     <a href="{{ route('equipos.index', Auth::user()) }}" class="mt-4 btn btn-secondary">Regresar</a>
                 </form>
