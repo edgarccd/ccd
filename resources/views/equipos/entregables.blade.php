@@ -2,7 +2,7 @@
     <main class="container">
         <div class="card mt-3 col-7" style="margin: auto;">
             <div class="card-header">
-                Cargar Entregables
+             <b>   Cargar Entregables</b>
             </div>
             <div class="card-body">
                 <h5 class="card-title">
