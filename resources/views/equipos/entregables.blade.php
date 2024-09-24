@@ -84,7 +84,7 @@
                                 <td><a href="../../../storage/{{ $grupo->periodo->ciclo }}/{{$grupo->carrera->acronimo}}/{{$grupo->id}}/{{ $file->nombre }}" target="_blank"
                                         class="btn btn-outline-primary">Ver</a> </td>
                                 <td>
-                                    <form action="#" method="POST">
+                                    <form action="{{route('equipos.destroyEntregables',[$file->id,Auth::user(),$equipo])}}" method="POST">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger">Eliminar</button>

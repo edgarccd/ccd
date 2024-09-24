@@ -240,7 +240,6 @@ class EquipoController extends Controller
 
     public function entregables(ProyectoEquipo $pequipo, User $usuario)
     {
-
         $periodo = Periodo::where('activo', 1)->first();
         $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
         $files = ProyectoEntregable::where('periodo_id', $periodo->id)
@@ -270,11 +269,29 @@ class EquipoController extends Controller
             }
         }
         $files = ProyectoEntregable::where('periodo_id', $periodo->id)
-        ->where('persona_id', $usuario->persona->id)
-        ->where('grupo_id', $grupo->id)
-        ->where('equipo_id', $pequipo->id)
-        ->get();
-        
+            ->where('persona_id', $usuario->persona->id)
+            ->where('grupo_id', $grupo->id)
+            ->where('equipo_id', $pequipo->id)
+            ->get();
+
+        return view('equipos.entregables', ['grupo' => $grupo, 'equipo' => $pequipo, 'files' => $files]);
+    }
+
+    public function destroyEntregables(Request $request, $id, User $usuario, ProyectoEquipo $pequipo)
+    {
+        $periodo = Periodo::where('activo', 1)->first();
+        $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
+        $file = ProyectoEntregable::where('id', $id)->firstOrFail();
+
+        unlink(public_path('storage/' . $periodo->ciclo . '/' . $grupo->carrera->acronimo . '/' . $grupo->id . '/' . $file->nombre));
+        $file->delete();
+
+        $files = ProyectoEntregable::where('periodo_id', $periodo->id)
+            ->where('persona_id', $usuario->persona->id)
+            ->where('grupo_id', $grupo->id)
+            ->where('equipo_id', $pequipo->id)
+            ->get();
+
         return view('equipos.entregables', ['grupo' => $grupo, 'equipo' => $pequipo, 'files' => $files]);
     }
 }

@@ -113,6 +113,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/equipos/agregar/{pequipo}/{alumno}', [EquipoController::class, 'agregar'])->name('equipos.agregar');
     Route::get('/equipos/entregables/{pequipo}/{usuario}', [EquipoController::class, 'entregables'])->name('equipos.entregables');
     Route::post('/equipos/upload/{pequipo}/{usuario}', [EquipoController::class, 'storeEntregables'])->name('equipos.storeEntregables');
+    Route::delete('/equipos/entregables/destroy/{id}/{usuario}/{pequipo}', [EquipoController::class, 'destroyEntregables'])->name('equipos.destroyEntregables');
 });
 
 Route::middleware('auth')->group(function () {
