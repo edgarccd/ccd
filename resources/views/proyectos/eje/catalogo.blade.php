@@ -2,7 +2,7 @@
     <main class="container">        
         <br>
         <div class="major container col-7">
-            <h3>Catalogo Disponible</h3>
+            <h3>Catálogo Disponible</h3>
             <hr>
             <div class="table-responsive">
                 <table class="table table-striped">
