@@ -72,7 +72,7 @@
                                 <tr>
                                     <th scope="row">{{ $file->id }}</th>
                                     <td>{{ $file->nombre }}</td>
-                                    <td><a href="../../../storage/{{ $grupo->periodo->ciclo }}/{{ $grupo->carrera->acronimo }}/{{ $grupo->id }}/{{ $file->nombre }}"
+                                    <td><a href="../../../storage/{{ $grupo->periodo->ciclo }}/{{ $grupo->carrera->acronimo }}/{{ $grupo->id }}/{{ $equipo->id }}/{{ $file->nombre }}"
                                             target="_blank" class="btn btn-outline-primary">Ver</a> </td>
                                     <td>
                                         <form
