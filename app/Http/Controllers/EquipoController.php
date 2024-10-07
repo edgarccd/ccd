@@ -325,6 +325,7 @@ class EquipoController extends Controller
             ->where('grupos.turno_id', $request->input('turno_id'))
             ->orderBy('grupos.grado', 'asc')
             ->orderBy('grupos.grupo', 'asc')
+            ->orderBy('proyecto_equipos.nombre','asc')
             ->get();
 
         return view('equipos.registrados-mostrar', ['equipos' => $equipos]);
