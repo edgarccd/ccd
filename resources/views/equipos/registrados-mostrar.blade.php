@@ -1,7 +1,7 @@
 <x-app-layout>
     <main class="container">
         <br>
-        <div class="major container col-7">
+        <div class="major container col-8">
             <h3>Equipos de Trabajo</h3>
             <hr>
             <div class="table-responsive">
