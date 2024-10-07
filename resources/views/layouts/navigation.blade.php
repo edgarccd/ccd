@@ -70,10 +70,10 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Equipos de
                                 Trabajo</a></li>
-                        <li><a class="dropdown-item" href="{{ route('proyectos.catalogo') }}">Catálogo Disponible</a></li>                       
+                        <li><a class="dropdown-item" href="{{ route('proyectos.catalogo') }}">Catálogo Disponible</a>
+                        </li>
                     </ul>
                 </li>
-                
             @endif
 
             @if (Auth::user()->tipo_id == 1)
@@ -85,6 +85,12 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Concentrado de Participantes</a></li>
                     </ul>
+                </li>
+            @endif
+
+            @if (Auth::user()->tipo_id == 3)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('equipos.registrados', Auth::user()) }}">Equipos registrados</a>
                 </li>
             @endif
 

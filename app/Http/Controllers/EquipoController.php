@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
+use App\Models\Coordinador;
 use App\Models\Grupo;
 use App\Models\Periodo;
 use App\Models\Proyecto;
@@ -258,7 +259,7 @@ class EquipoController extends Controller
         $max_size = (int) ini_get('upload_max_filesize') * 10240;
         $files = $request->file('files');
         foreach ($files as $file) {
-            if (Storage::putFileAs('/public/' . $periodo->ciclo . '/' . $grupo->carrera->acronimo . '/' . $grupo->id . '/' . $pequipo->id . '/' , $file, $file->getClientOriginalName())) {
+            if (Storage::putFileAs('/public/' . $periodo->ciclo . '/' . $grupo->carrera->acronimo . '/' . $grupo->id . '/' . $pequipo->id . '/', $file, $file->getClientOriginalName())) {
                 ProyectoEntregable::create([
                     'nombre' => $file->getClientOriginalName(),
                     'periodo_id' => $periodo->id,
@@ -293,5 +294,39 @@ class EquipoController extends Controller
             ->get();
 
         return view('equipos.entregables', ['grupo' => $grupo, 'equipo' => $pequipo, 'files' => $files]);
+    }
+
+    public function registrados(User $usuario)
+    {
+        $periodo = Periodo::where('activo', 1)->first();
+        $turnos = Coordinador::select('turno_id')->where('maestro_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->groupBy('turno_id')->get();
+        $carreras = DB::table('carreras')
+            ->select('carrera_id', 'nombre')
+            ->join('coordinadors', 'coordinadors.carrera_id', '=', 'carreras.id')
+            ->where('coordinadors.maestro_id', $usuario->persona->maestro->id)
+            ->where('coordinadors.periodo_id', $periodo->id)
+            ->groupBy('carrera_id', 'nombre')
+            ->get();
+
+        return view('equipos.registrados', ['carreras' => $carreras, 'turnos' => $turnos]);
+    }
+
+    public function showRegistrados(User $usuario, Request $request)
+    {
+
+        $periodo = Periodo::where('activo', 1)->first();
+        $equipos = DB::table('proyecto_equipos')
+            ->select('proyecto_equipos.nombre as nom', 'proyectos.nombre as proy', 'grupos.grado', 'grupos.grupo', 'proyecto_equipos.proyecto_id', 'carreras.acronimo')
+            ->join('grupos', 'proyecto_equipos.grupo_id', '=', 'grupos.id')
+            ->join('proyectos', 'proyecto_equipos.proyecto_id', '=', 'proyectos.id')
+            ->join('carreras', 'grupos.carrera_id', '=', 'carreras.id')
+            ->where('grupos.periodo_id', $periodo->id)
+            ->where('grupos.carrera_id', $request->input('carrera_id'))
+            ->where('grupos.turno_id', $request->input('turno_id'))
+            ->orderBy('grupos.grado', 'asc')
+            ->orderBy('grupos.grupo', 'asc')
+            ->get();
+
+        return view('equipos.showRegistrados', ['equipos' => $equipos]);
     }
 }

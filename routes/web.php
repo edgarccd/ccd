@@ -114,6 +114,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/equipos/entregables/{pequipo}/{usuario}', [EquipoController::class, 'entregables'])->name('equipos.entregables');
     Route::post('/equipos/upload/{pequipo}/{usuario}', [EquipoController::class, 'storeEntregables'])->name('equipos.storeEntregables');
     Route::delete('/equipos/entregables/destroy/{id}/{usuario}/{pequipo}', [EquipoController::class, 'destroyEntregables'])->name('equipos.destroyEntregables');
+    Route::get('/equipos/registrados/{usuario}', [EquipoController::class, 'registrados'])->name('equipos.registrados');
+    Route::get('/equipos/showregistrados/{usuario}', [EquipoController::class, 'showRegistrados'])->name('equipos.showRegistrados');
 });
 
 Route::middleware('auth')->group(function () {
