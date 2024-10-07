@@ -313,10 +313,10 @@ class EquipoController extends Controller
 
     public function showRegistrados(User $usuario, Request $request)
     {
-
         $periodo = Periodo::where('activo', 1)->first();
+
         $equipos = DB::table('proyecto_equipos')
-            ->select('proyecto_equipos.nombre as nom', 'proyectos.nombre as proy', 'grupos.grado', 'grupos.grupo', 'proyecto_equipos.proyecto_id', 'carreras.acronimo')
+            ->select('proyecto_equipos.id', 'proyecto_equipos.nombre as nom', 'proyectos.nombre as proy', 'grupos.grado', 'grupos.grupo', 'proyecto_equipos.proyecto_id', 'carreras.acronimo')
             ->join('grupos', 'proyecto_equipos.grupo_id', '=', 'grupos.id')
             ->join('proyectos', 'proyecto_equipos.proyecto_id', '=', 'proyectos.id')
             ->join('carreras', 'grupos.carrera_id', '=', 'carreras.id')
@@ -327,6 +327,14 @@ class EquipoController extends Controller
             ->orderBy('grupos.grupo', 'asc')
             ->get();
 
-        return view('equipos.showRegistrados', ['equipos' => $equipos]);
+        return view('equipos.registrados-mostrar', ['equipos' => $equipos]);
+    }
+
+    public function registradosIntegrantes(ProyectoEquipo $equipo)
+    {        
+        $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
+            ->get();
+
+        return view('equipos.registrados-integrantes', ['alumnos' => $alumnos, 'equipo' => $equipo]);
     }
 }

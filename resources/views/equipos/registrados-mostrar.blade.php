@@ -43,7 +43,7 @@
                                 <td>{{ $equipo->proy }}</td>
                                 <td><a href="../../proyecto/catalogo/{{ $equipo->proyecto_id }}.pdf" target="_blank"
                                         class="btn btn-outline-secondary">PDF</a></td>
-                                <td><a href="#"
+                                <td><a href="{{ route('equipos.registradosIntegrantes', $equipo->id) }}"
                                     class="btn btn-outline-primary">Integrantes</a></td>
                                 
                                 <td> <a href="#" class="btn btn-outline-dark">Entregables</a></td>
