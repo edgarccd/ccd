@@ -1,7 +1,7 @@
 <x-app-layout>
     <main class="container">
         <br>
-        <div class="major container col-7">
+        <div class="major container col-8">
             <form action="{{ route('equipos.showRegistrados', [Auth::user(),0,0]) }}" method="get">
                 <label for="carrera_id">Carrera</label>
                 <select name="carrera_id" id="carrera_id" class="form-select" required>
