@@ -60,8 +60,7 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th scope="col">#</th>
+                            <tr>                              
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Ver</th>
                                 <th scope="col">Eliminar</th>
@@ -69,8 +68,7 @@
                         </thead>
                         <tbody>
                             @foreach ($files as $file)
-                                <tr>
-                                    <th scope="row">{{ $file->id }}</th>
+                                <tr>                               
                                     <td>{{ $file->nombre }}</td>
                                     <td><a href="../../../storage/{{ $grupo->periodo->ciclo }}/{{ $grupo->carrera->acronimo }}/{{ $grupo->id }}/{{ $equipo->id }}/{{ $file->nombre }}"
                                             target="_blank" class="btn btn-outline-primary">Ver</a> </td>
