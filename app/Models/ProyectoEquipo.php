@@ -23,6 +23,11 @@ class ProyectoEquipo extends Model
         return $this->belongsTo(Proyecto::class);
     }
 
+    public function grupo(): BelongsTo
+    {
+        return $this->belongsTo(Grupo::class);
+    }
+    
     public function proyectoAlumno(): HasOne
     {
         return $this->hasOne(ProyectoAlumno::class, 'alumno_id');
