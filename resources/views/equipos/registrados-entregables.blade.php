@@ -22,7 +22,7 @@
                         D
                     @break
                 @endswitch - {{ $equipo->nombre }} - {{ $equipo->proyecto->nombre }}</h4>
-            <br>Entregables
+           Entregables
             <hr>
             <div class="table-responsive">
                 <table class="table">
