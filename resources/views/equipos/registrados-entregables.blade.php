@@ -36,7 +36,7 @@
                         @foreach ($files as $file)
                             <tr>
                                 <td>{{ $file->nombre }}</td>
-                                <td><a href="../../../storage/{{ $equipo->grupo->periodo->ciclo }}/{{ $equipo->grupo->carrera->acronimo }}/{{ $equipo->grupo->id }}/{{ $equipo->id }}/{{ $file->nombre }}"
+                                <td><a href="../../../../storage/{{ $equipo->grupo->periodo->ciclo }}/{{ $equipo->grupo->carrera->acronimo }}/{{ $equipo->grupo->id }}/{{ $equipo->id }}/{{ $file->nombre }}"
                                         target="_blank" class="btn btn-outline-primary">Ver</a> </td>
                             </tr>
                         @endforeach
