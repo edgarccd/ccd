@@ -1,6 +1,7 @@
 <x-app-layout>
-    <br>
-    <div class="major container col-7">
+    <main class="container">
+        <br>
+        <div class="major container col-8">
         <h4> {{ $equipo->grupo->grado }}
             °
             @switch($equipo->grupo->grupo)
@@ -44,4 +45,5 @@
         </div>
         <br> <a href="{{ route('equipos.showRegistrados',[Auth::user(),$equipo->grupo->carrera_id,$equipo->grupo->turno_id]) }}" class="btn btn-secondary">Regresar</a>
     </div>
+</main>
 </x-app-layout>
