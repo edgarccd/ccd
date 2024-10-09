@@ -36,6 +36,10 @@
             <li><a class="dropdown-item" href="/proyecto/canchas">Futbol</a></li>-->
             <li><a class="dropdown-item" href="/pdf/horarios2024B.pdf" target="_blank">Horarios</a></li>
             <li><a class="dropdown-item" href="/pdf/normativa.pdf" target="_blank">Normativa</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#"><b>Entregables</b></a></li>
+            <li><a class="dropdown-item" href="/pdf/primer_ciclo_matutino.pdf" target="_blank">Primer Ciclo Matutino</a></li>
+            <li><a class="dropdown-item" href="/pdf/primer_ciclo_vespertino.pdf" target="_blank">Primer Ciclo Vespertino</a></li>
           </ul>
         </li>
         <li class="nav-item">
