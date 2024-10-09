@@ -96,4 +96,11 @@ class ProyectoController extends Controller
 
     return view('proyectos.eje.catalogo', ['proyectos' => $proyectos]);
     }
+
+    public function catalogoCompleto(Request $request)
+    {
+        $proyectos = Proyecto::orderBy('nombre')->get();
+
+    return view('proyectos.coordinador.catalogo', ['proyectos' => $proyectos]);
+    }
 }

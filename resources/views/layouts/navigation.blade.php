@@ -88,11 +88,27 @@
                 </li>
             @endif
 
-            @if (Auth::user()->tipo_id == 3)
+            @if (Auth::user()->tipo_id == 0)
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('equipos.registrados', Auth::user()) }}">Equipos registrados</a>
                 </li>
             @endif
+
+            @if (Auth::user()->tipo_id == 3)
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Proyectos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('proyectos.catalogoCompleto') }}">Catálogo Disponible</a></li>
+                        <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Profesores Ejes</a></li>
+                        <li><a class="dropdown-item" href="{{ route('equipos.registrados', Auth::user()) }}">Equipos Registrados</a></li>                
+                    </ul>
+                </li>
+            @endif
+
+
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('profile.edit') }}">Perfil</a>

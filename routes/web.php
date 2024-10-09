@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/proyectos/{proyecto}', [ProyectoController::class, 'update'])->name('proyectos.update');
     Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');   
     Route::get('/proyectos/eje/catalogo', [ProyectoController::class, 'catalogo'])->name('proyectos.catalogo');
+    Route::get('/proyectos/coordinador/catalogo', [ProyectoController::class, 'catalogoCompleto'])->name('proyectos.catalogoCompleto');
 });
 
 Route::middleware('auth')->group(function () {
