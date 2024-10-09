@@ -1,7 +1,7 @@
 <x-app-layout>
     <main class="container">
         <br>
-        <div class="major container">
+        <div class="major container col-8">
             <h3>Asignación de Profesores Eje</h3>
             {{$carrera->nombre}} 
             <form action="{{ route('ejes.store', [Auth::user(),$carrera,$turno]) }}" method="post" class="needs-validation">

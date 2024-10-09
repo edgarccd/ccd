@@ -1,6 +1,6 @@
 <x-app-layout>
     <main class="container">
-        <div class="card mt-3 col-7" style="margin: auto;">
+        <div class="card mt-3 col-8" style="margin: auto;">
             <div class="card-header">
              <b>   Cargar Entregables</b>
             </div>

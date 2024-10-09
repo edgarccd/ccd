@@ -1,7 +1,7 @@
 <x-app-layout>
     <main class="container">
         <br>
-        <div class="major container">
+        <div class="major container col-8">
             <h3>Seleccionar Carrera</h3>
             <form action="{{ route('ejes.create', Auth::user())}}" method="get">
                 <label for="carrera_id">Carrera</label>
