@@ -38,9 +38,9 @@
             <li><a class="dropdown-item" href="/pdf/normativa.pdf" target="_blank">Normativa</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#"><b>Entregables</b></a></li>
-            <li><a class="dropdown-item" href="/pdf/primer_ciclo_matutino.pdf" target="_blank">Primer Ciclo Matutino</a></li>
-            <li><a class="dropdown-item" href="/pdf/primer_ciclo_vespertino.pdf" target="_blank">Primer Ciclo Vespertino</a></li>
-          </ul>
+            <li><a class="dropdown-item" href="/pdf/entregables_matutino.pdf" target="_blank">Matutino</a></li>
+            <li><a class="dropdown-item" href="/pdf/entregables_vespertino.pdf" target="_blank">Vespertino</a></li>
+                     </ul>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/interactic2023" target="blank">InteracTIC</a>
