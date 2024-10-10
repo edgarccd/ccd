@@ -67,7 +67,7 @@
                         <li><a class="dropdown-item" href="{{ route('proyectos.catalogoCompleto') }}">Catálogo Disponible</a></li>
                         <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Asignar Ejes</a></li>
                         <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Registrar Equipos</a></li>
-                        <li><a class="dropdown-item" href="{{ route('equipos.registrados', Auth::user()) }}">Equipos Registrados</a></li>                
+                        <li><a class="dropdown-item" href="{{ route('equipos.registrados', Auth::user()) }}">Concentrado</a></li>                
                     </ul>
                 </li>
             @endif
