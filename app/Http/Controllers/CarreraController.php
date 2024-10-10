@@ -11,19 +11,19 @@ class CarreraController extends Controller
 {
     public function index()
     {
-        $carreras = Carrera::orderBy('nombre')
-            ->get();                
+        $carreras = Carrera::orderBy('nombre')            
+            ->get();
         return view('carreras.index', ['carreras' => $carreras]);
     }
 
     public function create()
     {
-        $divisiones=Division::where('activo',1)->get();
-        return view('carreras.create', ['carrera' => new Carrera(),'divisiones'=> $divisiones]);
+        $divisiones = Division::where('activo', 1)->get();
+        return view('carreras.create', ['carrera' => new Carrera(), 'divisiones' => $divisiones]);
     }
 
     public function store(Request $request)
-    {     
+    {
         Carrera::create([
             'nombre' => $request->input('nombre'),
             'acronimo' => $request->input('acronimo'),
@@ -39,8 +39,8 @@ class CarreraController extends Controller
 
     public function edit(Carrera $carrera)
     {
-        $divisiones=Division::where('activo',1)->get();
-        return view('carreras.edit', ['carrera' => $carrera,'divisiones'=> $divisiones]);
+        $divisiones = Division::where('activo', 1)->get();
+        return view('carreras.edit', ['carrera' => $carrera, 'divisiones' => $divisiones]);
     }
 
     public function update(Request $request, $carrera)

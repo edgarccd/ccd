@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Materia;
 use App\Models\Carrera;
+use App\Models\Materia;
 use Illuminate\Http\Request;
 
 class MateriaController extends Controller
@@ -11,7 +11,8 @@ class MateriaController extends Controller
 
     public function index()
     {
-        $carreras = Carrera::get();
+        $carreras = Carrera::where('activo', 1)
+            ->get();
         return view('materias.index', ['carreras' => $carreras]);
     }
 
@@ -19,7 +20,6 @@ class MateriaController extends Controller
     {
         return view('materias.create', ['materia' => new Materia()]);
     }
-
 
     public function store(Request $request)
     {
@@ -52,7 +52,7 @@ class MateriaController extends Controller
         $materias = Materia::where('carrera_id', $CarreraID)
             ->where('turno', $TurnoID)
             ->get();
-            return view('materias.show', ['materias' => $materias]);
+        return view('materias.show', ['materias' => $materias]);
     }
 
     /**
@@ -62,7 +62,6 @@ class MateriaController extends Controller
     {
         return view('materias.edit', ['materia' => $materia]);
     }
-
 
     public function update(Request $request, Materia $materia)
     {
@@ -85,7 +84,6 @@ class MateriaController extends Controller
 
         return to_route('materias.index')->with('status', 'Materia actualizada con exito');
     }
-
 
     public function destroy(Materia $materia)
     {

@@ -26,7 +26,7 @@
             </li>
             @endif
 
-            @if (Auth::user()->tipo_id == 1 || Auth::user()->tipo_id == 6)
+            @if (Auth::user()->tipo_id == 1)
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -38,25 +38,6 @@
                         <li><a class="dropdown-item" href="{{ route('coordinadores.index') }}">Coordinadores</a>
                         <li><a class="dropdown-item" href="{{ route('grupos.index') }}">Grupos</a></li>
                         <li><a class="dropdown-item" href="{{ route('matricula.index') }}">Matricula</a></li>
-                    </ul>
-                </li>
-            @endif
-
-            @if (Auth::user()->tipo_id == 1 || Auth::user()->tipo_id == 6)
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Proyectos
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Profesores
-                                Ejes</a></li>
-                        <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Equipos de
-                                Trabajo</a></li>
-
-                        <li><a class="dropdown-item" href="{{ route('horarios.index', Auth::user()) }}">Asignar
-                                Horarios</a></li>
-                        <li><a class="dropdown-item" href="#">Calificar Proyectos</a></li>
                     </ul>
                 </li>
             @endif
@@ -75,25 +56,7 @@
                     </ul>
                 </li>
             @endif
-
-            @if (Auth::user()->tipo_id == 1)
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        InteraTIC
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Concentrado de Participantes</a></li>
-                    </ul>
-                </li>
-            @endif
-
-            @if (Auth::user()->tipo_id == 0)
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('equipos.registrados', Auth::user()) }}">Equipos registrados</a>
-                </li>
-            @endif
-
+             
             @if (Auth::user()->tipo_id == 3)
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -102,7 +65,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ route('proyectos.catalogoCompleto') }}">Catálogo Disponible</a></li>
-                        <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Profesores Ejes</a></li>
+                        <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Asignar Ejes</a></li>
+                        <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">Registrar Equipos</a></li>
                         <li><a class="dropdown-item" href="{{ route('equipos.registrados', Auth::user()) }}">Equipos Registrados</a></li>                
                     </ul>
                 </li>
