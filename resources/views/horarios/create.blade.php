@@ -1,6 +1,6 @@
 <x-app-layout>
     <br>
-    <div class="major container">
+    <div class="major container col-7">
         <h2>Registrar Horario</h2>
         <form action="{{ route('horarios.store', Auth::user()) }}" method="post" class="needs-validation" novalidate>
             @csrf

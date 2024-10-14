@@ -4,7 +4,6 @@
 }
 
 body {
-
     background-image: url(/images/fondo.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -51,7 +50,7 @@ body {
     padding: 30px;
     border: 1px solid;
     border-radius: 25px;
- display:flex;
+    display:flex;
     flex-flow:row wrap;
 }
 

@@ -71,6 +71,9 @@
                             </li>
                             <li><a class="dropdown-item"
                                     href="{{ route('equipos.registrados', Auth::user()) }}">Concentrado</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('horarios.index', Auth::user()) }}">Asignar
+                                        Horario</a>
+                                </li>
                         </ul>
                     </li>
                 @endif
