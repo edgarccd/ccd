@@ -108,8 +108,13 @@ class EquipoController extends Controller
     {
         $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
             ->get();
-        $proyectos = Proyecto::orderBy('nombre')
-            ->get();
+            $proyectos = Proyecto::whereNOTIn('id', function ($query) {
+                $periodo = Periodo::where('activo', 1)->first();
+                $query->select('proyecto_equipos.proyecto_id')
+                    ->from('proyecto_equipos')
+                    ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
+                    ->where('grupos.periodo_id', $periodo->id);
+            })->orderBy('nombre')->get();
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $equipo, 'proyectos' => $proyectos]);
     }
 
@@ -120,8 +125,13 @@ class EquipoController extends Controller
         $palumno->delete();
         $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
             ->get();
-        $proyectos = Proyecto::orderBy('nombre')
-            ->get();
+            $proyectos = Proyecto::whereNOTIn('id', function ($query) {
+                $periodo = Periodo::where('activo', 1)->first();
+                $query->select('proyecto_equipos.proyecto_id')
+                    ->from('proyecto_equipos')
+                    ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
+                    ->where('grupos.periodo_id', $periodo->id);
+            })->orderBy('nombre')->get();
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $equipo, 'proyectos' => $proyectos]);
     }
 
@@ -233,8 +243,13 @@ class EquipoController extends Controller
         $alumnos = ProyectoAlumno::where('equipo_id', $pequipo->id)
             ->get();
 
-        $proyectos = Proyecto::orderBy('nombre')
-            ->get();
+            $proyectos = Proyecto::whereNOTIn('id', function ($query) {
+                $periodo = Periodo::where('activo', 1)->first();
+                $query->select('proyecto_equipos.proyecto_id')
+                    ->from('proyecto_equipos')
+                    ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
+                    ->where('grupos.periodo_id', $periodo->id);
+            })->orderBy('nombre')->get();
 
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $pequipo, 'proyectos' => $proyectos]);
     }
