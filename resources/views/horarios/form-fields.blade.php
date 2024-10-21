@@ -1,5 +1,5 @@
 <label for="carrera_id">Carrera</label>
-<select name="carrera_id" id="carrera_id" class="form-select" onchange="grupos(this)" required>
+<select name="carrera_id" id="carrera_id" class="form-select" onchange="cargarGrupos(this)" required>
     <option selected disabled value="">-- Seleccionar --</option>
     @if ($carreras != null)
         @foreach ($carreras as $carrera)
@@ -78,12 +78,7 @@
 
 
 <script>
-    function grupos(carreraSelect) {
-        let careraID = carreraSelect.value;
-        fetch('horarios/' + careraID + '/grupos')
-            .then(function() {
-                alert(response);
-            })
-
-    }
+function cargarGrupos(element){
+    alert(element.value);
+}
 </script>
