@@ -1,5 +1,5 @@
 <label for="carrera_id">Carrera</label>
-<select name="carrera_id" id="carrera_id" class="form-select" onchange="cargarGrupos(this)" required>
+<select name="carrera_id" id="carrera_id" class="form-select" required>
     <option selected disabled value="">-- Seleccionar --</option>
     @if ($carreras != null)
         @foreach ($carreras as $carrera)
@@ -11,7 +11,6 @@
 </select>
 
 <div style="display:flex;flex-flow:row wrap;">
-
    <div class="col-2 m-3">
         <label for="grupo_id">Grupo</label>
         <select name="grupo_id" id="grupo_id" class="form-select" required>
@@ -73,12 +72,4 @@
             <option value="22">20:30</option>
         </select>
     </div>
-
 </div>
-
-
-<script>
-function cargarGrupos(element){
-    alert(element.value);
-}
-</script>
