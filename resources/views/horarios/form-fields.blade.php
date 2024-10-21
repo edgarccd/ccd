@@ -1,5 +1,5 @@
 <label for="carrera_id">Carrera</label>
-<select name="carrera_id" id="carrera_id" class="form-select" required>
+<select name="carrera_id" id="carrera_id" class="form-select" onchange="cargarGrupos(this);" required>
     <option selected disabled value="">-- Seleccionar --</option>
     @if ($carreras != null)
         @foreach ($carreras as $carrera)
@@ -11,7 +11,7 @@
 </select>
 
 <div style="display:flex;flex-flow:row wrap;">
-   <div class="col-2 m-3">
+    <div class="col-2 m-3">
         <label for="grupo_id">Grupo</label>
         <select name="grupo_id" id="grupo_id" class="form-select" required>
             <option selected disabled value="">-- Seleccionar --</option>
@@ -24,7 +24,7 @@
             <option selected disabled value="">-- Seleccionar --</option>
         </select>
     </div>
-    
+
     <div class="col-2 m-3">
         <label for="dia_id">Aula</label>
         <select name="aula_id" id="aula_id" class="form-select" required>
@@ -73,3 +73,41 @@
         </select>
     </div>
 </div>
+
+<script>
+    function cargarGrupos(element) {
+        var carreraId = element.value;
+        fetch('../' + carreraId + '/grupos')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(jsonData) {
+                llenarGrupos(jsonData);
+            });
+    }
+
+    function llenarGrupos(jsonGrupos) {
+        var grupoSelect = document.getElementById('grupo_id');
+        jsonGrupos.forEach(function(grupo) {
+            var opcionEtiqueta = document.createElement('option');
+            opcionEtiqueta.value = grupo.id;
+            var letraGrupo = " ";
+            switch (grupo.grupo) {
+                case '1':
+                    letraGrupo = "A";
+                    break;
+                case '2':
+                    letraGrupo = "B";
+                    break;
+                case '3':
+                    letraGrupo = "C";
+                    break;
+                case '4':
+                    letraGrupo = "C";
+                    break;
+            }
+            opcionEtiqueta.innerHTML = grupo.grado + " ° " + letraGrupo;
+            grupoSelect.append(opcionEtiqueta);
+        })
+    }
+</script>

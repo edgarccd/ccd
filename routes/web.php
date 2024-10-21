@@ -17,6 +17,9 @@ use App\Http\Controllers\EjeController;
 use App\Http\Controllers\CoordinadorController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\EntregableController;
+use App\Models\Carrera;
+use App\Models\Periodo;
+use App\Models\Grupo;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('welcome');
@@ -128,7 +131,8 @@ Route::middleware('auth')->group(function () {
     Route::get('horarios/{id}/grupos',function($id){
         $carrera= Carrera::find($id);
         $periodo = Periodo::where('activo', 1)->first();
-        return Grupos::where('carrera_id',$carrera->id)->where('periodo_id',$periodo->id)->get();
+        $grupos=Grupo::where('carrera_id',$carrera->id)->where('periodo_id',$periodo->id)->get();
+        return $grupos;
     });
 });
 
