@@ -1,25 +1,26 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProyectoController;
-use App\Http\Controllers\PeriodoController;
-use App\Http\Controllers\CarreraController;
-use App\Http\Controllers\DivisionController;
-use App\Http\Controllers\MateriaController;
-use App\Http\Controllers\HorarioController;
-use App\Http\Controllers\IndicadorController;
 use App\Http\Controllers\AulaController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\GrupoController;
-use App\Http\Controllers\MatriculaController;
-use App\Http\Controllers\MaestroController;
-use App\Http\Controllers\EjeController;
+use App\Http\Controllers\CarreraController;
 use App\Http\Controllers\CoordinadorController;
+use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\EjeController;
 use App\Http\Controllers\EquipoController;
-use App\Http\Controllers\EntregableController;
+use App\Http\Controllers\GrupoController;
+use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\IndicadorController;
+use App\Http\Controllers\MaestroController;
+use App\Http\Controllers\MateriaController;
+use App\Http\Controllers\MatriculaController;
+use App\Http\Controllers\PeriodoController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProyectoController;
 use App\Models\Carrera;
-use App\Models\Periodo;
+use App\Models\Coordinador;
 use App\Models\Grupo;
+use App\Models\Periodo;
+use App\Models\ProyectoEquipo;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('welcome');
@@ -35,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/proyectos/{proyecto}', [ProyectoController::class, 'show'])->name('proyectos.show');
     Route::get('/proyectos/{proyecto}/edit', [ProyectoController::class, 'edit'])->name('proyectos.edit');
     Route::patch('/proyectos/{proyecto}', [ProyectoController::class, 'update'])->name('proyectos.update');
-    Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');   
+    Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');
     Route::get('/proyectos/eje/catalogo', [ProyectoController::class, 'catalogo'])->name('proyectos.catalogo');
     Route::get('/proyectos/coordinador/catalogo', [ProyectoController::class, 'catalogoCompleto'])->name('proyectos.catalogoCompleto');
 });
@@ -101,17 +102,17 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/ejes/{usuario}', [EjeController::class, 'index'])->name('ejes.index');
     Route::get('/ejes/create/{usuario}', [EjeController::class, 'create'])->name('ejes.create');
-    Route::post('/ejes/store/{usuario}/{carrera}/{turno}', [EjeController::class, 'store'])->name('ejes.store');    
+    Route::post('/ejes/store/{usuario}/{carrera}/{turno}', [EjeController::class, 'store'])->name('ejes.store');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/equipos/{usuario}', [EquipoController::class, 'index'])->name('equipos.index');  
-    Route::get('/equipos/create/{grupo}', [EquipoController::class, 'create'])->name('equipos.create'); 
+    Route::get('/equipos/{usuario}', [EquipoController::class, 'index'])->name('equipos.index');
+    Route::get('/equipos/create/{grupo}', [EquipoController::class, 'create'])->name('equipos.create');
     Route::post('/equipos/store/{grupo}', [EquipoController::class, 'store'])->name('equipos.store');
     Route::get('/equipos/show/{equipo}', [EquipoController::class, 'show'])->name('equipos.show');
     Route::delete('/equipos/destroy/{pequipo}', [EquipoController::class, 'destroy'])->name('equipos.destroy');
     Route::delete('/equipos/delete/{palumno}', [EquipoController::class, 'deleteAlumno'])->name('equipos.deleteAlumno');
-    Route::get('/equipos/edit/{equipo}', [EquipoController::class, 'edit'])->name('equipos.edit'); 
+    Route::get('/equipos/edit/{equipo}', [EquipoController::class, 'edit'])->name('equipos.edit');
     Route::patch('/equipos/update/{equipo}', [EquipoController::class, 'update'])->name('equipos.update');
     Route::get('/equipos/search/{equipo}', [EquipoController::class, 'search'])->name('equipos.search');
     Route::get('/equipos/agregar/{pequipo}/{alumno}', [EquipoController::class, 'agregar'])->name('equipos.agregar');
@@ -126,13 +127,20 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/horarios/index{usuario}', [HorarioController::class, 'index'])->name('horarios.index');
-    Route::get('/horarios/create/{usuario}', [HorarioController::class, 'create'])->name('horarios.create'); 
+    Route::get('/horarios/create/{usuario}', [HorarioController::class, 'create'])->name('horarios.create');
     Route::post('/horarios/store/{usuario}', [HorarioController::class, 'store'])->name('horarios.store');
-    Route::get('horarios/{id}/grupos',function($id){
-        $carrera= Carrera::find($id);
+    Route::get('horarios/{id}/grupos', function ($id) {
+        $carrera = Carrera::find($id);
         $periodo = Periodo::where('activo', 1)->first();
-        $grupos=Grupo::where('carrera_id',$carrera->id)->where('periodo_id',$periodo->id)->get();
+        $usuario = Auth::user();
+        $coordinador = Coordinador::where('periodo_id', $periodo->id)->where('maestro_id', $usuario->persona->maestro->id)->first();
+        $grupos = Grupo::where('carrera_id', $carrera->id)->where('periodo_id', $periodo->id)->where('turno_id', $coordinador->turno_id)->orderBy('grado')->orderBy('grupo')->get();
         return $grupos;
+    });
+
+    Route::get('horarios/{id}/equipos', function ($id) {
+        $equipos = ProyectoEquipo::where('grupo_id', $id)->get();
+        return $equipos;
     });
 });
 
@@ -157,7 +165,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/matricula/alumnos/{grupo}', [MatriculaController::class, 'showAlumnos'])->name('matricula.showAlumnos');
     Route::get('/matricula/search/{grupo}', [MatriculaController::class, 'search'])->name('matricula.search');
     Route::get('/matricula/reinscribir/{id}', [MatriculaController::class, 'reinscribir'])->name('matricula.reinscribir');
-    Route::get('/matricula/reinstore/{periodo}', [MatriculaController::class, 'reinstore'])->name('matricula.reinstore'); 
+    Route::get('/matricula/reinstore/{periodo}', [MatriculaController::class, 'reinstore'])->name('matricula.reinstore');
     Route::delete('/matricula/{alumno}/{grupo}', [MatriculaController::class, 'destroy'])->name('matricula.destroy');
     Route::get('/matricula/agregar/{alumno}/{grupo}', [MatriculaController::class, 'agregar'])->name('matricula.agregar');
     Route::get('/matricula/edit/{persona}/{grupo}', [MatriculaController::class, 'edit'])->name('matricula.edit');
@@ -175,7 +183,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/coordinadores', [CoordinadorController::class, 'index'])->name('coordinadores.index');    
+    Route::get('/coordinadores', [CoordinadorController::class, 'index'])->name('coordinadores.index');
     Route::post('/cordinadores/store', [CoordinadorController::class, 'store'])->name('coordinadores.store');
     Route::delete('/coordinadores/{coordinador}', [CoordinadorController::class, 'destroy'])->name('coordinadores.destroy');
 });

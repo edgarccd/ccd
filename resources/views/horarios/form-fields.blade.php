@@ -5,7 +5,8 @@
         @foreach ($carreras as $carrera)
             <option
                 value={{ $carrera->id }}@if (isset($_POST['carrera_id'])) {{ old('carrera_id', $carrera->id) == $_POST['carrera_id'] ? 'selected' : '' }} @endif>
-                {{ $carrera->nombre }}</option>
+                {{ $carrera->nombre }}
+            </option>
         @endforeach
     @endif
 </select>
@@ -13,14 +14,14 @@
 <div style="display:flex;flex-flow:row wrap;">
     <div class="col-2 m-3">
         <label for="grupo_id">Grupo</label>
-        <select name="grupo_id" id="grupo_id" class="form-select" required>
+        <select name="grupo_id" id="grupo_id" class="form-select" onchange="cargarEquipos(this);" required>
             <option selected disabled value="">-- Seleccionar --</option>
         </select>
     </div>
 
     <div class="col-2 m-3">
-        <label for="grupo_id">Equipo</label>
-        <select name="grupo_id" id="grupo_id" class="form-select" required>
+        <label for="equipo_id">Equipo</label>
+        <select name="equipo_id" id="equipo_id" class="form-select" required>
             <option selected disabled value="">-- Seleccionar --</option>
         </select>
     </div>
@@ -108,6 +109,38 @@
             }
             opcionEtiqueta.innerHTML = grupo.grado + " ° " + letraGrupo;
             grupoSelect.append(opcionEtiqueta);
-        })
+        });
+    }
+
+    function cargarEquipos(element) {
+        var equipoSelect = document.getElementById('equipo_id');
+        var length = equipoSelect.length;
+        for (var i = 0; i < length - 1; i++) {
+            equipoSelect.remove(i);
+        }
+        var grupoId = element.value;
+        fetch('/horarios/' + grupoId + '/equipos')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(jsonData) {
+                llenarEquipos(jsonData);
+            });
+    }
+
+
+    function llenarEquipos(jsonEquipos) {
+        var equipoSelect = document.getElementById('equipo_id');
+        var length = equipoSelect.length;
+        for (var i = 0; i < length; i++) {
+            equipoSelect.remove(i);
+        }
+            equipoSelect.remove(0);
+        jsonEquipos.forEach(function(equipo) {
+            var opcionEtiqueta = document.createElement('option');
+            opcionEtiqueta.value = equipo.id;
+            opcionEtiqueta.innerHTML = equipo.nombre;
+            equipoSelect.append(opcionEtiqueta);
+        });
     }
 </script>
