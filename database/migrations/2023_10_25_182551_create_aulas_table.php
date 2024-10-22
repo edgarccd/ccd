@@ -13,6 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
+            $table->tinyInteger('tipo');
             $table->tinyInteger('activo');
             $table->timestamps();
         });

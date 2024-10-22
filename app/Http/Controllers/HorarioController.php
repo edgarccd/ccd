@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrera;
 use App\Models\Coordinador;
+use App\Models\Grupo;
 use App\Models\Periodo;
+use App\Models\ProyectoHorario;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,18 +34,31 @@ class HorarioController extends Controller
         } else {
             $carreras = 0;
         }
+     
         return view('horarios.create', ['carreras' => $carreras]);
     }
 
-    public function store(User $usuario)
+    public function store(Request $request, User $usuario)
     {
+
         $periodo = Periodo::where('activo', 1)->first();
+
+        ProyectoHorario::create([
+            'dia_id' => $request->input('dia_id'),
+            'hora_id' => $request->input('hora_id'),
+            'aula_id' => $request->input('aula_id'),
+            'equipo_id' => $request->input('equipo_id'),
+            'periodo_id' => $periodo->id,
+        ]);
+
         $coordinador = Coordinador::where('periodo_id', $periodo->id)->where('maestro_id', $usuario->persona->maestro->id)->first();
         if ($coordinador != null) {
             $carreras = Carrera::where('id', $coordinador->carrera_id)->get();
         } else {
             $carreras = 0;
         }
+
+        
         return view('horarios.create', ['carreras' => $carreras]);
     }
 
@@ -59,7 +74,7 @@ class HorarioController extends Controller
             ->join('materias', 'materias.id', '=', 'grupo_materias.materia_id')
             ->where('grupos.id', $grupo->id)
             ->get();
-            
+
         return $grupos;
     }
 

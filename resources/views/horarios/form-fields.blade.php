@@ -16,6 +16,7 @@
         <label for="grupo_id">Grupo</label>
         <select name="grupo_id" id="grupo_id" class="form-select" onchange="cargarEquipos(this);" required>
             <option selected disabled value="">-- Seleccionar --</option>
+           
         </select>
     </div>
 
@@ -26,12 +27,7 @@
         </select>
     </div>
 
-    <div class="col-2 m-3">
-        <label for="dia_id">Aula</label>
-        <select name="aula_id" id="aula_id" class="form-select" required>
-            <option selected disabled value="">-- Seleccionar --</option>
-        </select>
-    </div>
+<x-select-aula />
 
     <div class="col-2 m-3">
         <label for="dia_id">Día</label>
@@ -119,6 +115,7 @@
             equipoSelect.remove(i);
         }
         var grupoId = element.value;
+        
         fetch('/horarios/' + grupoId + '/equipos')
             .then(function(response) {
                 return response.json();

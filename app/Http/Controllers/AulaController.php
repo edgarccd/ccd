@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Aula;
 use Illuminate\Http\Request;
 
 class AulaController extends Controller
 {
-    
+
     public function index()
     {
         $aulas = Aula::orderBy('nombre')
@@ -19,18 +20,19 @@ class AulaController extends Controller
         return view('aulas.create', ['aula' => new Aula()]);
     }
 
-   
     public function store(Request $request)
     {
         $request->validate([
             'nombre' => ['required', 'min:4'],
             'descripcion' => ['required'],
-            'activo' => ['required'],                     
+            'tipo' => ['required'],
+            'activo' => ['required'],
         ]);
 
         Aula::create([
             'nombre' => $request->input('nombre'),
             'descripcion' => $request->input('descripcion'),
+            'tipo' => 1,
             'activo' => 1,
         ]);
 
@@ -38,25 +40,22 @@ class AulaController extends Controller
         return to_route('aulas.index')->with('status', 'Aula registrada con exito');
     }
 
-  
     public function show(string $id)
     {
         //
     }
-
 
     public function edit(Aula $aula)
     {
         return view('aulas.edit', ['aula' => $aula]);
     }
 
- 
-    public function update(Request $request,  $aula)
+    public function update(Request $request, $aula)
     {
         $request->validate([
             'nombre' => ['required', 'min:4'],
             'descripcion' => ['required', 'max:255'],
-            'activo' => ['required'],                     
+            'activo' => ['required'],
         ]);
 
         $aula = Aula::find($aula);
@@ -69,10 +68,9 @@ class AulaController extends Controller
         return to_route('aulas.index')->with('status', 'Aula actualizada con exito');
     }
 
-   
     public function destroy(Aula $aula)
     {
-        $aula->delete();              
+        $aula->delete();
         return to_route('aulas.index')->with('status', 'Aula eliminada');
     }
 }

@@ -11,6 +11,7 @@ class Aula extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
+        'tipo',
         'activo',      
     ];
 }

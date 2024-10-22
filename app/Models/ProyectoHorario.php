@@ -12,7 +12,9 @@ class ProyectoHorario extends Model
     protected $fillable = [
         'dia_id',
         'hora_id',
+        'aula_id',
         'equipo_id',
+        'periodo_id',
     ];
 
 }
