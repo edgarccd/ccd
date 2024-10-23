@@ -62,7 +62,7 @@
                             Proyectos
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('proyectos.catalogoCompleto') }}">Catálogo</a>
+                            <li><a class="dropdown-item" href="{{ route('proyectos.catalogoCompleto') }}">Catálogo de Proyectos</a>
                             </li>
                             <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Asignar
                                     Ejes</a>
