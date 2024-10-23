@@ -62,8 +62,7 @@
                             Proyectos
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('proyectos.catalogoCompleto') }}">Catálogo de Proyectos</a>
-                            </li>
+                            
                             <li><a class="dropdown-item" href="{{ route('ejes.index', Auth::user()) }}">Asignar
                                     Ejes</a>
                             </li>
@@ -72,6 +71,8 @@
 
                             <li><a class="dropdown-item" href="{{ route('horarios.index', Auth::user()) }}">Asignar
                                     Horario</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('proyectos.catalogoCompleto') }}">Catálogo de Proyectos</a>
                             </li>
                             <li><a class="dropdown-item"
                                     href="{{ route('equipos.registrados', Auth::user()) }}">Concentrado de Equipos</a></li>
