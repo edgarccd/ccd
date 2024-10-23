@@ -16,28 +16,64 @@
         <label for="grupo_id">Grupo</label>
         <select name="grupo_id" id="grupo_id" class="form-select" onchange="cargarEquipos(this);" required>
             <option selected disabled value="">-- Seleccionar --</option>
-           
+            @if ($grupos instanceof Illuminate\Database\Eloquent\Collection)
+                @foreach ($grupos as $grupo)
+                    <option
+                        value={{ $grupo->id }}@if (isset($_POST['grupo_id'])) {{ old('grupo_id', $grupo->id) == $_POST['grupo_id'] ? 'selected' : '' }} @endif>
+                        {{ $grupo->grado }}°@switch($grupo->grupo)
+                            @case(1)
+                                A
+                            @break
+
+                            @case(2)
+                                B
+                            @break
+
+                            @case(3)
+                                C
+                            @break
+
+                            @case(4)
+                                D
+                            @break
+                        @endswitch
+                    </option>
+                @endforeach
+            @endif
         </select>
     </div>
 
     <div class="col-2 m-3">
         <label for="equipo_id">Equipo</label>
         <select name="equipo_id" id="equipo_id" class="form-select" required>
-            <option selected disabled value="">-- Seleccionar --</option>
+            
+            @if ($equipos instanceof Illuminate\Database\Eloquent\Collection)
+                @foreach ($equipos as $equipo)
+                    <option value={{ $equipo->id }}>{{ $equipo->nombre }}</option>
+                @endforeach
+            @endif
         </select>
     </div>
 
-<x-select-aula />
+    <div class="col-2 m-3">
+        <label for="dia_id">Aula</label>
+        <select name="aula_id" id="aula_id" class="form-select" required>
+            <option selected disabled value="">-- Seleccionar --</option>
+            @foreach ($aulas as $aula)
+                <option value={{ $aula->id }} @if (isset($_POST['aula_id'])) {{ old('aula_id', $aula->id) == $_POST['aula_id'] ? 'selected' : '' }} @endif>{{ $aula->nombre }}</option>
+            @endforeach
+        </select>
+    </div>
 
     <div class="col-2 m-3">
         <label for="dia_id">Día</label>
         <select name="dia_id" id="dia_id" class="form-select" required>
             <option selected disabled value="">-- Seleccionar --</option>
-            <option value="1">Lunes</option>
-            <option value="2">Martes</option>
-            <option value="3">Miercoles</option>
-            <option value="4">Jueves</option>
-            <option value="5">Viernes</option>
+            <option value="1" @if (isset($_POST['dia_id'])) {{ old('dia_id', 1) == $_POST['dia_id'] ? 'selected' : '' }} @endif>Lunes</option>
+            <option value="2" @if (isset($_POST['dia_id'])) {{ old('dia_id', 2) == $_POST['dia_id'] ? 'selected' : '' }} @endif>Martes</option>
+            <option value="3" @if (isset($_POST['dia_id'])) {{ old('dia_id', 3) == $_POST['dia_id'] ? 'selected' : '' }} @endif>Miercoles</option>
+            <option value="4" @if (isset($_POST['dia_id'])) {{ old('dia_id', 4) == $_POST['dia_id'] ? 'selected' : '' }} @endif>Jueves</option>
+            <option value="5" @if (isset($_POST['dia_id'])) {{ old('dia_id', 5) == $_POST['dia_id'] ? 'selected' : '' }} @endif>Viernes</option>
         </select>
     </div>
 
@@ -73,6 +109,7 @@
 
 <script>
     function cargarGrupos(element) {
+
         var carreraId = element.value;
         fetch('../' + carreraId + '/grupos')
             .then(function(response) {
@@ -115,7 +152,7 @@
             equipoSelect.remove(i);
         }
         var grupoId = element.value;
-        
+
         fetch('/horarios/' + grupoId + '/equipos')
             .then(function(response) {
                 return response.json();
@@ -132,7 +169,7 @@
         for (var i = 0; i < length; i++) {
             equipoSelect.remove(i);
         }
-            equipoSelect.remove(0);
+        equipoSelect.remove(0);
         jsonEquipos.forEach(function(equipo) {
             var opcionEtiqueta = document.createElement('option');
             opcionEtiqueta.value = equipo.id;

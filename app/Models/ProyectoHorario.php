@@ -15,6 +15,7 @@ class ProyectoHorario extends Model
         'aula_id',
         'equipo_id',
         'periodo_id',
+        'persona_id',
     ];
 
 }

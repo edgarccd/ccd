@@ -16,6 +16,8 @@ return new class extends Migration
             $table->Integer('dia_id')->unique(); 
             $table->Integer('hora_id')->unique(); 
             $table->Integer('equipo_id')->unique(); 
+            $table->Integer('periodo_id')->unique(); 
+            $table->Integer('persona_id')->unique(); 
             $table->timestamps();
         });
     }
