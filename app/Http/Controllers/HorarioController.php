@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aula;
 use App\Models\Carrera;
 use App\Models\Coordinador;
 use App\Models\Grupo;
-use App\Models\Aula;
 use App\Models\Periodo;
 use App\Models\ProyectoEquipo;
 use App\Models\ProyectoHorario;
@@ -38,8 +38,8 @@ class HorarioController extends Controller
         }
         $grupos = new Grupo;
         $equipos = new ProyectoEquipo;
-        $aulas= Aula::where('tipo',1)->get();
-        return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos,'equipos'=>$equipos,'aulas'=>$aulas]);
+        $aulas = Aula::where('tipo', 1)->get();
+        return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas]);
     }
 
     public function store(Request $request, User $usuario)
@@ -53,7 +53,7 @@ class HorarioController extends Controller
             'aula_id' => $request->input('aula_id'),
             'equipo_id' => $request->input('equipo_id'),
             'periodo_id' => $periodo->id,
-            'persona_id' =>$usuario->persona->id,
+            'persona_id' => $usuario->persona->id,
         ]);
 
         $coordinador = Coordinador::where('periodo_id', $periodo->id)->where('maestro_id', $usuario->persona->maestro->id)->first();
@@ -66,9 +66,14 @@ class HorarioController extends Controller
         }
 
         $grupos = Grupo::where('carrera_id', $request->input('carrera_id'))->where('turno_id', $turno)->get();
-        $equipos = ProyectoEquipo::where('grupo_id', $request->input('grupo_id'))->get();
-        $aulas= Aula::where('tipo',1)->get();
-        return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos,'aulas'=>$aulas]);
+        $equipos = ProyectoEquipo::where('grupo_id', $request->input('grupo_id'))
+            ->whereNOTIn('proyecto_equipos.id', function ($query) {
+                $periodo = Periodo::where('activo', 1)->first();
+                $query->select('proyecto_horarios.equipo_id')->from('proyecto_horarios')->where('proyecto_horarios.periodo_id', $periodo->id);
+            })
+            ->get();
+        $aulas = Aula::where('tipo', 1)->get();
+        return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas]);
     }
 
     public function getGrupos($id)

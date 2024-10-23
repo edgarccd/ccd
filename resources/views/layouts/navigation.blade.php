@@ -74,7 +74,7 @@
                                     Horario</a>
                             </li>
                             <li><a class="dropdown-item"
-                                    href="{{ route('equipos.registrados', Auth::user()) }}">Concentrado</a></li>
+                                    href="{{ route('equipos.registrados', Auth::user()) }}">Concentrado de Equipos</a></li>
                         </ul>
                     </li>
                 @endif

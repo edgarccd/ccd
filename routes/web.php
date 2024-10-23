@@ -139,7 +139,12 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('horarios/{id}/equipos', function ($id) {
-        $equipos = ProyectoEquipo::where('grupo_id', $id)->get();
+        $equipos = ProyectoEquipo::where('grupo_id', $id)
+        ->whereNOTIn('proyecto_equipos.id', function ($query) {
+            $periodo = Periodo::where('activo', 1)->first();
+            $query->select('proyecto_horarios.equipo_id')->from('proyecto_horarios')->where('proyecto_horarios.periodo_id', $periodo->id);
+        })
+        ->get();
         return $equipos;
     });
 });
