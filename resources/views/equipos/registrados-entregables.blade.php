@@ -3,7 +3,7 @@
         <br>
         <div class="major container col-8">
 
-            <h4>{{ $equipo->grupo->grado }}
+            <h3>{{ $equipo->grupo->grado }}
                 °
                 @switch($equipo->grupo->grupo)
                     @case(1)
@@ -21,7 +21,7 @@
                     @case(4)
                         D
                     @break
-                @endswitch - {{ $equipo->nombre }} - {{ $equipo->proyecto->nombre }}</h4>
+                @endswitch - {{ $equipo->nombre }} </h3><br> <h5>{{ $equipo->proyecto->nombre }}</h5>
             Entregables
             <hr>
             <div class="table-responsive">
