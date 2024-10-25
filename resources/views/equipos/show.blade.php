@@ -21,9 +21,9 @@
                 </div>
             </div>
         </div>
-        <br>   
-        <br>  
-        Integrantes: 
+        <br>
+        <br>
+        Integrantes:
         <hr>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -45,6 +45,8 @@
                 </tbody>
             </table>
         </div>
-        <br> <a href="{{ route('equipos.index', Auth::user()) }}" class="btn btn-secondary">Regresar</a>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{{ route('equipos.index', Auth::user()) }}" class="btn btn-secondary">Regresar</a>
+        </div>
     </div>
 </x-app-layout>

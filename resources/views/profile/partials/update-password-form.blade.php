@@ -1,14 +1,12 @@
 <section>
     <br>
-    <div class="container"
+    <div class="container col-7"
         style="margin:auto;padding: 30px;box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);border-radius: 25px;background-color: whitesmoke;">
         <header>
-
-            <h2> {{ __('Actualizar Contraseña') }}</h2>
-            <p> {{ __('Una contraseña segura te ayuda a proteger tu información.') }}<br> <br> {{ Auth::user()->name }}
-            </p>
+            <h2 class="text-center"> {{ __('Actualizar Contraseña') }}</h2>
+            <h5 class="text-center"> {{ Auth::user()->name }}</h5>
+            <p class="text-center"> {{ __('Una contraseña segura te ayuda a proteger tu información.') }}</p><br>
         </header>
-        <br>
         <form method="post" action="{{ route('password.update') }}">
             @csrf
             @method('put')
@@ -30,9 +28,8 @@
                 <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" />
             </div>
             <br>
-            <div>
-                <x-primary-button>{{ __('Guardar') }}</x-primary-button>
-
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <x-primary-button>{{ __('Actualizar') }}</x-primary-button>
             </div>
         </form>
     </div>

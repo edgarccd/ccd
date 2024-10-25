@@ -2,17 +2,19 @@
     <main class="container">
         <br>
         <div class="major container col-8">
-            <h3>Seleccionar Carrera</h3><hr>
-            <form action="{{ route('ejes.create', Auth::user())}}" method="get">
+            <h3 class="text-center">Asignar Profesores Eje</h3>
+            <h5 class="text-center">Seleccionar Carrera</h5>
+            <hr>
+            <form action="{{ route('ejes.create', Auth::user()) }}" method="get">
                 <label for="carrera_id">Carrera</label>
-                <select name="carrera_id" id="carrera_id" class="form-select" required>                    
+                <select name="carrera_id" id="carrera_id" class="form-select" required>
                     @foreach ($carreras as $carrera)
                         <option value={{ $carrera->carrera_id }}>{{ $carrera->nombre }}</option>
                     @endforeach
                 </select>
 
                 <label for="turno_id">Turno</label>
-                <select name="turno_id" id="turno_id" class="form-select" required>                    
+                <select name="turno_id" id="turno_id" class="form-select" required>
                     @foreach ($turnos as $turno)
                         @if ($turno->turno_id == 1)
                             <option value="1">Matutino</option>
@@ -22,7 +24,9 @@
                         @endif
                     @endforeach
                 </select><br>
-                <button type="submit" class="btn btn-secondary">Cargar</button>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-secondary">Cargar</button>
+                </div>
             </form>
         </div>
     </main>

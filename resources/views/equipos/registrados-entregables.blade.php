@@ -2,7 +2,7 @@
     <main class="container">
         <br>
         <div class="major container col-8">
-       
+
             <h4>{{ $equipo->grupo->grado }}
                 °
                 @switch($equipo->grupo->grupo)
@@ -22,7 +22,7 @@
                         D
                     @break
                 @endswitch - {{ $equipo->nombre }} - {{ $equipo->proyecto->nombre }}</h4>
-           Entregables
+            Entregables
             <hr>
             <div class="table-responsive">
                 <table class="table">
@@ -44,8 +44,10 @@
                     </tbody>
                 </table>
             </div>
-            <br> <a
-                href="{{ route('equipos.showRegistrados', [Auth::user(), $equipo->grupo->carrera_id, $equipo->grupo->turno_id]) }}"
-                class="btn btn-secondary">Regresar</a>
-            </main>
+            <br>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{{ route('equipos.showRegistrados', [Auth::user(), $equipo->grupo->carrera_id, $equipo->grupo->turno_id]) }}"
+                    class="btn btn-secondary">Regresar</a>
+            </div>
+    </main>
 </x-app-layout>

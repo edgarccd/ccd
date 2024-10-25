@@ -2,9 +2,10 @@
     <main class="container">
         <br>
         <div class="major container col-8">
-            <h3>Asignación de Profesores Eje</h3>
-            {{$carrera->nombre}} 
-            <form action="{{ route('ejes.store', [Auth::user(),$carrera,$turno]) }}" method="post" class="needs-validation">
+            <h3 class="text-center">Asignación de Profesores Eje</h3>
+            <h5 class="text-center"> {{ $carrera->nombre }} </h5>
+            <form action="{{ route('ejes.store', [Auth::user(), $carrera, $turno]) }}" method="post"
+                class="needs-validation">
                 @csrf
                 <hr>
                 <div class="table-responsive">
@@ -57,14 +58,16 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="submit" class="btn btn-primary">Asignar</button>
-                <a href="{{ route('ejes.index', Auth::user()) }}" class="btn btn-secondary">Regresar</a>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-primary">Asignar</button>
+                    <a href="{{ route('ejes.index', Auth::user()) }}" class="btn btn-secondary">Regresar</a>
+                </div>
             </form>
-            
-                
-            
+
+
+
         </div>
 
-       <b> {{Session('status')}}</b>
+        <b> {{ Session('status') }}</b>
     </main>
 </x-app-layout>

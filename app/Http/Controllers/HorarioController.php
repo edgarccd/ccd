@@ -39,7 +39,7 @@ class HorarioController extends Controller
         $grupos = new Grupo;
         $equipos = new ProyectoEquipo;
         $aulas = Aula::where('tipo', 1)->get();
-        return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas]);
+        return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas,'turno'=>$coordinador->turno_id]);
     }
 
     public function store(Request $request, User $usuario)
@@ -72,24 +72,9 @@ class HorarioController extends Controller
                 $query->select('proyecto_horarios.equipo_id')->from('proyecto_horarios')->where('proyecto_horarios.periodo_id', $periodo->id);
             })
             ->get();
+
         $aulas = Aula::where('tipo', 1)->get();
-        return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas]);
-    }
-
-    public function getGrupos($id)
-    {
-        $carrera = Carrera::find($id);
-        $periodo = Periodo::where('activo', 1)->first();
-        $grupos = Grupo::where('carrera_id', $carrera->id)->where('periodo_id', $periodo->id)->get();
-
-        $grupos = DB::table('grupos')
-            ->select('grupos.grado', 'grupos.grupo', 'materias.nombre', 'materias.id')
-            ->join('grupo_materias', 'grupo_materias.grupo_id', '=', 'grupos.id')
-            ->join('materias', 'materias.id', '=', 'grupo_materias.materia_id')
-            ->where('grupos.id', $grupo->id)
-            ->get();
-
-        return $grupos;
+        return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas,'turno'=>$coordinador->turno_id]);
     }
 
     /**

@@ -3,7 +3,7 @@
     <div class="major container">
 
         <br>
-        <h2> Editar Equipo</h2>
+        <h2 class="text-center"> Editar Equipo</h2>
         <form action="{{ route('equipos.update', $equipo->id) }}" method="post">
             @csrf
             @method('PATCH')
@@ -31,11 +31,12 @@
                 </select>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-            <a href="{{ route('equipos.index', Auth::user()) }}" class="btn btn-secondary">Regresar</a>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <a href="{{ route('equipos.index', Auth::user()) }}" class="btn btn-secondary">Regresar</a>
+            </div>
         </form>
-        <br>
-        <h2> Alumnos</h2>
+        <h2 class="text-center"> Alumnos</h2>
         <form action="{{ route('equipos.search', $equipo) }}" method="get">
             <div class="input-group mb-3">
                 <button class="btn btn-outline-secondary" type="submit">Buscar por</button>
@@ -46,7 +47,7 @@
                     <option value="nombre">Nombre</option>
                 </select>
                 <input id="nombre" name="nombre" type="text" class="form-control"
-                    aria-label="Text input with segmented dropdown button" placeholder="Nombre del Alumno" >
+                    aria-label="Text input with segmented dropdown button" placeholder="Nombre del Alumno">
             </div>
         </form>
         <hr>

@@ -2,8 +2,10 @@
     <main class="container">
         <br>
         <div class="major container col-8">
-            <h3>Seleccionar Carrera</h3><hr>
-            <form action="{{ route('equipos.showRegistrados', [Auth::user(),0,0]) }}" method="get">
+            <h3 class="text-center">Concentrado de Equipos Registrados</h3>
+            <h5 class="text-center">Seleccionar Carrera</h5>
+            <hr>
+            <form action="{{ route('equipos.showRegistrados', [Auth::user(), 0, 0]) }}" method="get">
                 <label for="carrera_id">Carrera</label>
                 <select name="carrera_id" id="carrera_id" class="form-select" required>
                     @foreach ($carreras as $carrera)
@@ -22,7 +24,9 @@
                         @endif
                     @endforeach
                 </select><br>
-                <button type="submit" class="btn btn-secondary">Cargar</button>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-secondary">Cargar</button>
+                </div>
             </form>
         </div>
     </main>

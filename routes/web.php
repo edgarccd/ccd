@@ -21,6 +21,7 @@ use App\Models\Coordinador;
 use App\Models\Grupo;
 use App\Models\Periodo;
 use App\Models\ProyectoEquipo;
+use App\Models\ProyectoHorario;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('welcome');
@@ -126,9 +127,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/horarios/index{usuario}', [HorarioController::class, 'index'])->name('horarios.index');
+    Route::get('/horarios/index/{usuario}', [HorarioController::class, 'index'])->name('horarios.index');
     Route::get('/horarios/create/{usuario}', [HorarioController::class, 'create'])->name('horarios.create');
     Route::post('/horarios/store/{usuario}', [HorarioController::class, 'store'])->name('horarios.store');
+
     Route::get('horarios/{id}/grupos', function ($id) {
         $carrera = Carrera::find($id);
         $periodo = Periodo::where('activo', 1)->first();
@@ -140,12 +142,21 @@ Route::middleware('auth')->group(function () {
 
     Route::get('horarios/{id}/equipos', function ($id) {
         $equipos = ProyectoEquipo::where('grupo_id', $id)
-        ->whereNOTIn('proyecto_equipos.id', function ($query) {
-            $periodo = Periodo::where('activo', 1)->first();
-            $query->select('proyecto_horarios.equipo_id')->from('proyecto_horarios')->where('proyecto_horarios.periodo_id', $periodo->id);
-        })
-        ->get();
+            ->whereNOTIn('proyecto_equipos.id', function ($query) {
+                $periodo = Periodo::where('activo', 1)->first();
+                $query->select('proyecto_horarios.equipo_id')->from('proyecto_horarios')->where('proyecto_horarios.periodo_id', $periodo->id);
+            })
+            ->get();
         return $equipos;
+    });
+
+    Route::get('horarios/{aulaId}/{diaId}/horas', function ($aulaId,$diaId) {
+        $periodo = Periodo::where('activo', 1)->first();
+        $horas = ProyectoHorario::where('periodo_id', $periodo->id)
+            ->where('aula_id', $aulaId)
+            ->where('dia_id', $diaId)
+            ->get();
+        return $horas;
     });
 });
 

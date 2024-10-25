@@ -1,7 +1,8 @@
 <x-app-layout>
     <br>
     <div class="major container">
-        <h2>Registrar Equipo</h2>
+        <h3 class="text-center">Registrar Equipo</h3>
+        <h5 class="text-center">
         {{ $grupo->grado }}°
         @switch($grupo->grupo)
             @case(1)
@@ -30,8 +31,8 @@
                 Vespertino
             @break
         @endswitch
-        - {{ $grupo->carrera->nombre }}
-        <br><br>
+        - {{ $grupo->carrera->nombre }}</h5>
+        <br>
         <form action="{{ route('equipos.store',  $grupo) }}" method="post" class="needs-validation" novalidate>
             @csrf
             @include('equipos.form-fields')
@@ -59,7 +60,7 @@
                     </tbody>
                 </table>
             </div>
-            <div style="margin: 10px;">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="submit" class="btn btn-primary">Registrar</button>
                 <a href="{{ route('equipos.index', Auth::user()) }}" class="btn btn-secondary">Regresar</a>
             </div>
