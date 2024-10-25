@@ -21,7 +21,7 @@
                     @case(4)
                         D
                     @break
-                @endswitch - {{ $equipo->nombre }} </h3><br> <h5>{{ $equipo->proyecto->nombre }}</h5>
+                @endswitch - {{ $equipo->nombre }} </h3><h5>{{ $equipo->proyecto->nombre }}</h5>
             Entregables
             <hr>
             <div class="table-responsive">
