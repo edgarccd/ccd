@@ -130,7 +130,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/horarios/index/{usuario}', [HorarioController::class, 'index'])->name('horarios.index');
     Route::get('/horarios/create/{usuario}', [HorarioController::class, 'create'])->name('horarios.create');
     Route::post('/horarios/store/{usuario}', [HorarioController::class, 'store'])->name('horarios.store');
-
+    Route::get('/horarios/show/{usuario}', [horarioController::class, 'show'])->name('horarios.show');
+    
     Route::get('horarios/{id}/grupos', function ($id) {
         $carrera = Carrera::find($id);
         $periodo = Periodo::where('activo', 1)->first();
@@ -158,6 +159,9 @@ Route::middleware('auth')->group(function () {
             ->get();
         return $horas;
     });
+
+
+    
 });
 
 Route::middleware('auth')->group(function () {
