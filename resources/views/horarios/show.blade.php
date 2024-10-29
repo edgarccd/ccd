@@ -30,7 +30,7 @@
                             <!-- ------------------------------------------------------------ -->
                             <div style="display:flex;">
                                 @foreach ($horarios9 as $horario)
-                                    @if ($horario->dia_id==1&&$horario->hora_id == '9')
+                                    @if ($horario->dia_id == 1 && $horario->hora_id == '1')
                                         <div class="card col-2 m-3">
                                             <div class="card-header">
                                                 Lunes
@@ -52,7 +52,139 @@
                                         </div>
                                     @endif
 
-                                    @if ($horario->dia_id==2&&$horario->hora_id == '9')
+                                    @if ($horario->dia_id == 2 && $horario->hora_id == '1')
+                                        <div class="card col-2 m-3">
+                                            <div class="card-header">
+                                                Martes
+                                            </div>
+                                            <div class="card-body">
+                                                <div>
+                                                    <h5 class="card-title">Equipo</h5>
+                                                    <p class="card-text">Proyecto</p>
+                                                </div>
+                                                <div>
+                                                    <form action="#" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger">Eliminar</button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if ($horario->dia_id == 3 && $horario->hora_id == '1')
+                                        <div class="card col-2 m-3">
+                                            <div class="card-header">
+                                                Miercoles
+                                            </div>
+                                            <div class="card-body">
+                                                <div>
+                                                    <h5 class="card-title">Equipo</h5>
+                                                    <p class="card-text">Proyecto</p>
+                                                </div>
+                                                <div>
+                                                    <form action="#" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger">Eliminar</button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if ($horario->dia_id == 4 && $horario->hora_id == '1')
+                                        <div class="card col-2 m-3">
+                                            <div class="card-header">
+                                                Jueves
+                                            </div>
+                                            <div class="card-body">
+                                                <div>
+                                                    <h5 class="card-title">Equipo</h5>
+                                                    <p class="card-text">Proyecto </p>
+                                                </div>
+                                                <div>
+                                                    <form action="#" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger">Eliminar</button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if ($horario->dia_id == 5 && $horario->hora_id == '1')
+                                        <div class="card col-2 m-3">
+                                            <div class="card-header">
+                                                Viernes
+                                            </div>
+                                            <div class="card-body">
+                                                <div>
+                                                    <h5 class="card-title">Equipo</h5>
+                                                    <p class="card-text">Proyecto</p>
+                                                </div>
+                                                <div>
+                                                    <form action="#" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger">Eliminar</button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                            <!-- ------------------------------------------------------------ -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Fin 9:00 hrs -->
+
+
+                <!-- Inicia 9:30 hrs -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                            aria-controls="panelsStayOpen-collapseTwo">
+                            9:30 hrs
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                            <!-- ------------------------------------------------------------ -->
+                            <div style="display:flex;">
+                                @foreach ($horarios9 as $horario)
+                                    @if ($horario->dia_id == 1 && $horario->hora_id == '2')
+                                        <div class="card col-2 m-3">
+                                            <div class="card-header">
+                                                Lunes
+                                            </div>
+                                            <div class="card-body">
+                                                <div>
+                                                    <h5 class="card-title">Equipo</h5>
+                                                    <p class="card-text">Proyecto</p>
+                                                </div>
+                                                <div>
+                                                    <form action="#" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button type="submit"
+                                                            class="btn btn-outline-danger">Eliminar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if ($horario->dia_id == 2 && $horario->hora_id == '2')
                                     <div class="card col-2 m-3">
                                         <div class="card-header">
                                             Martes
@@ -74,7 +206,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if ($horario->dia_id==3&&$horario->hora_id == '9')
+                                    @if ($horario->dia_id == 3 && $horario->hora_id == '2')
                                     <div class="card col-2 m-3">
                                         <div class="card-header">
                                             Miercoles
@@ -91,12 +223,11 @@
                                                     <button type="submit"
                                                         class="btn btn-outline-danger">Eliminar</button>
                                                 </form>
-
                                             </div>
                                         </div>
                                     </div>
                                     @endif
-                                    @if ($horario->dia_id==4&&$horario->hora_id == '9')
+                                    @if ($horario->dia_id == 4 && $horario->hora_id == '2')
                                     <div class="card col-2 m-3">
                                         <div class="card-header">
                                             Jueves
@@ -113,12 +244,11 @@
                                                     <button type="submit"
                                                         class="btn btn-outline-danger">Eliminar</button>
                                                 </form>
-
                                             </div>
                                         </div>
                                     </div>
                                     @endif
-                                    @if ($horario->dia_id==5&&$horario->hora_id == '9')
+                                    @if ($horario->dia_id == 5 && $horario->hora_id == '2')
                                     <div class="card col-2 m-3">
                                         <div class="card-header">
                                             Viernes
@@ -135,129 +265,12 @@
                                                     <button type="submit"
                                                         class="btn btn-outline-danger">Eliminar</button>
                                                 </form>
-
                                             </div>
                                         </div>
                                     </div>
                                     @endif
-                                @endforeach
-                            </div>
-
-                            <!-- ------------------------------------------------------------ -->
-                        </div>
-                    </div>
-                </div>
-                <!-- Fin 9:00 hrs -->
-
-
-                <!-- Inicia 9:30 hrs -->
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                            aria-controls="panelsStayOpen-collapseTwo">
-                            9:30 hrs
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <!-- ------------------------------------------------------------ -->
-                            <div style="display:flex;">
-                                <div class="card col-2 m-3">
-                                    <div class="card-header">
-                                        Lunes
-                                    </div>
-                                    <div class="card-body">
-                                        <div>
-                                            <h5 class="card-title">Equipo</h5>
-                                            <p class="card-text">Proyecto</p>
-                                        </div>
-                                        <div>
-                                            <form action="#" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-outline-danger">Eliminar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card col-2 m-3">
-                                    <div class="card-header">
-                                        Martes
-                                    </div>
-                                    <div class="card-body">
-                                        <div>
-                                            <h5 class="card-title">Equipo</h5>
-                                            <p class="card-text">Proyecto</p>
-                                        </div>
-                                        <div>
-                                            <form action="#" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-outline-danger">Eliminar</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card col-2 m-3">
-                                    <div class="card-header">
-                                        Miercoles
-                                    </div>
-                                    <div class="card-body">
-                                        <div>
-                                            <h5 class="card-title">Equipo</h5>
-                                            <p class="card-text">Proyecto</p>
-                                        </div>
-                                        <div>
-                                            <form action="#" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit"
-                                                    class="btn btn-outline-danger">Eliminar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card col-2 m-3">
-                                    <div class="card-header">
-                                        Jueves
-                                    </div>
-                                    <div class="card-body">
-                                        <div>
-                                            <h5 class="card-title">Equipo</h5>
-                                            <p class="card-text">Proyecto </p>
-                                        </div>
-                                        <div>
-                                            <form action="#" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit"
-                                                    class="btn btn-outline-danger">Eliminar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card col-2 m-3">
-                                    <div class="card-header">
-                                        Viernes
-                                    </div>
-                                    <div class="card-body">
-                                        <div>
-                                            <h5 class="card-title">Equipo</h5>
-                                            <p class="card-text">Proyecto</p>
-                                        </div>
-                                        <div>
-                                            <form action="#" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit"
-                                                    class="btn btn-outline-danger">Eliminar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                              @endforeach      
+                            </div>                            
                             <!-- ------------------------------------------------------------ -->
                         </div>
                     </div>
