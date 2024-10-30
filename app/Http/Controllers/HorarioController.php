@@ -24,7 +24,7 @@ class HorarioController extends Controller
         } else {
             $carreras = 0;
         }
-        $aulas = Aula::where('tipo', 1)->orderBy('nombre','asc')->get();
+        $aulas = Aula::where('tipo', 1)->orderBy('nombre', 'asc')->get();
         return view('horarios.index', ['carreras' => $carreras, 'turnos' => $turnos, 'aulas' => $aulas]);
     }
 
@@ -39,7 +39,7 @@ class HorarioController extends Controller
         }
         $grupos = new Grupo;
         $equipos = new ProyectoEquipo;
-        $aulas = Aula::where('tipo', 1)->orderBy('nombre','asc')->get();
+        $aulas = Aula::where('tipo', 1)->orderBy('nombre', 'asc')->get();
         return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas, 'turno' => $coordinador->turno_id]);
     }
 
@@ -74,12 +74,14 @@ class HorarioController extends Controller
             })
             ->get();
 
-        $aulas = Aula::where('tipo', 1)->orderBy('nombre','asc')->get();
+        $aulas = Aula::where('tipo', 1)->orderBy('nombre', 'asc')->get();
         return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas, 'turno' => $coordinador->turno_id]);
     }
 
     public function show(User $usuario, Request $request)
     {
+        $aula = Aula::where('id', $request->input('aula_id'))->first();
+
         if ($request->input('turno_id') == 1) {
 
             $horarios9 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 1)->get();
@@ -95,7 +97,7 @@ class HorarioController extends Controller
 
             return view('horarios.show', ['horarios9' => $horarios9, 'horarios93' => $horarios93, 'horarios10' => $horarios10,
                 'horarios103' => $horarios103, 'horarios11' => $horarios11, 'horarios113' => $horarios113, 'horarios12' => $horarios123,
-                'horarios13' => $horarios13, 'horarios133' => $horarios133]);
+                'horarios13' => $horarios13, 'horarios133' => $horarios133, 'aula' => $aula]);
         }
 
     }
