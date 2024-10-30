@@ -46,7 +46,7 @@
                      </ul>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/interactic2023" target="blank">InteracTIC</a>
+            <a class="nav-link" href="/pdf/interactic2024.pdf" target="blank">InteracTIC</a>
           </li>
 <!--
           <li class="nav-item">
