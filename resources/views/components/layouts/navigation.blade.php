@@ -34,7 +34,7 @@
             <li><a class="dropdown-item" href="/proyecto/soporte">Soporte Técnico</a></li>
             <li><a class="dropdown-item" href="/proyecto/medica">Red Médica</a></li>
             <li><a class="dropdown-item" href="/proyecto/canchas">Futbol</a></li>-->
-            <li><a class="dropdown-item" href="/pdf/horarios2024B.pdf" target="_blank">Horarios</a></li>
+            <li><a class="dropdown-item" href="/pdf/horarios2024C.pdf" target="_blank">Horarios</a></li>
             <li><a class="dropdown-item" href="/pdf/normativa.pdf" target="_blank">Normativa</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
