@@ -50,7 +50,7 @@ class EjeController extends Controller
                 ->get();
         }
 
-        return view('ejes.create', ['grupos' => $grupos, 'carrera' => $carrera, 'maestros' => $maestros, 'turno' => $request->turno_id]);
+        return view('ejes.create', ['grupos' => $grupos, 'carrera' => $carrera, 'maestros' => $maestros, 'turno' => $request->turno_id])->with('status', 'Profesores Eje asignados correctamente');
     }
 
     public function store(User $usuario, Carrera $carrera, $turno, Request $request)
@@ -73,7 +73,9 @@ class EjeController extends Controller
             $grupo->maestro_eje_id = $request->input($name);
             $grupo->save();
         }
-        return view('ejes.create', ['grupos' => $grupos, 'carrera' => $carrera, 'maestros' => $maestros, 'turno' => $turno])->with('status', 'Profesores Eje asignados correctamente');
+        
+        session()->flash('status','Profesores Asignados Correctamente');
+        return view('ejes.create', ['grupos' => $grupos, 'carrera' => $carrera, 'maestros' => $maestros, 'turno' => $turno]);
 
     }
 }
