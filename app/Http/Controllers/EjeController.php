@@ -40,6 +40,7 @@ class EjeController extends Controller
             ->orderBy('personas.apellido_mat', 'asc')
             ->orderBy('personas.nombre', 'asc')
             ->get();
+            
         if (isset($request->carrera_id)) {
             $carrera = Carrera::where('id', $request->carrera_id)->get()->first();
             $grupos = Grupo::where('carrera_id', $request->carrera_id)

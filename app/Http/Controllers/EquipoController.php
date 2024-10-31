@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Alumno;
 use App\Models\Coordinador;
 use App\Models\Grupo;
+use App\Models\Carrera;
 use App\Models\Periodo;
 use App\Models\Proyecto;
 use App\Models\ProyectoAlumno;
@@ -358,7 +359,16 @@ class EquipoController extends Controller
             ->get();
         }
 
-        return view('equipos.registrados-mostrar', ['equipos' => $equipos]);
+        if (isset($request->carrera_id)) {
+            $carrera = Carrera::where('id', $request->carrera_id)->get()->first();
+            $grupos = Grupo::where('carrera_id', $request->carrera_id)
+                ->where('periodo_id', $periodo->id)
+                ->where('turno_id', $request->turno_id)
+                ->orderBy('grado')
+                ->get();
+        }
+
+        return view('equipos.registrados-mostrar', ['carrera' => $carrera,'equipos' => $equipos]);
     }
 
     public function registradosIntegrantes(ProyectoEquipo $equipo)
