@@ -45,17 +45,27 @@ class HorarioController extends Controller
 
     public function store(Request $request, User $usuario)
     {
-
         $periodo = Periodo::where('activo', 1)->first();
 
-        ProyectoHorario::create([
-            'dia_id' => $request->input('dia_id'),
-            'hora_id' => $request->input('hora_id'),
-            'aula_id' => $request->input('aula_id'),
-            'equipo_id' => $request->input('equipo_id'),
-            'periodo_id' => $periodo->id,
-            'persona_id' => $usuario->persona->id,
-        ]);
+        $horario = ProyectoHorario::where('periodo_id', $periodo->id)
+            ->where('dia_id', $request->input('dia_id'))
+            ->where('hora_id', $request->input('hora_id'))
+            ->where('aula_id', $request->input('aula_id'))           
+            ->first();
+
+        if ($horario == null) {
+            ProyectoHorario::create([
+                'dia_id' => $request->input('dia_id'),
+                'hora_id' => $request->input('hora_id'),
+                'aula_id' => $request->input('aula_id'),
+                'equipo_id' => $request->input('equipo_id'),
+                'periodo_id' => $periodo->id,
+                'persona_id' => $usuario->persona->id,
+            ]);
+            session()->flash('status', 'Registrado Correctamente');
+        } else {
+            session()->flash('status', 'Existe un equipo registrado en el horario seleccionado');
+        }
 
         $coordinador = Coordinador::where('periodo_id', $periodo->id)->where('maestro_id', $usuario->persona->maestro->id)->first();
         if ($coordinador != null) {
@@ -76,7 +86,8 @@ class HorarioController extends Controller
 
         $aulas = Aula::where('tipo', 1)->orderBy('nombre', 'asc')->get();
         return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas, 'turno' => $coordinador->turno_id]);
-    }
+
+        }
 
     public function show(User $usuario, Request $request)
     {
