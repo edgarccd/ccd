@@ -107,7 +107,7 @@ class HorarioController extends Controller
 
             return view('horarios.show', ['horarios9' => $horarios9, 'horarios93' => $horarios93, 'horarios10' => $horarios10,
                 'horarios103' => $horarios103, 'horarios11' => $horarios11, 'horarios113' => $horarios113,'horarios12' => $horarios12,
-                 'horarios123' => $horarios123,'horarios13' => $horarios13, 'horarios133' => $horarios133, 'aula' => $aula]);
+                 'horarios123' => $horarios123,'horarios13' => $horarios13, 'horarios133' => $horarios133, 'aula' => $aula,'turno'=>$request->input('turno_id')]);
         }
         if ($request->input('turno_id') == 2) {
             $horarios17 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 11)->get();
@@ -120,7 +120,7 @@ class HorarioController extends Controller
             $horarios203 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 18)->get();        
 
             return view('horarios.show', ['horarios17' => $horarios17, 'horarios173' => $horarios173, 'horarios18' => $horarios18,
-                'horarios183' => $horarios183, 'horarios19' => $horarios193, 'horarios20' => $horarios20, 'horarios203' => $horarios203,'aula' => $aula]);
+                'horarios183' => $horarios183, 'horarios19' => $horarios193, 'horarios20' => $horarios20, 'horarios203' => $horarios203,'aula' => $aula,'turno'=>$request->input('turno_id')]);
         }
 
     }
