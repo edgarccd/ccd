@@ -106,9 +106,10 @@ class HorarioController extends Controller
             $horarios133 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 10)->get();
 
             return view('horarios.show', ['horarios9' => $horarios9, 'horarios93' => $horarios93, 'horarios10' => $horarios10,
-                'horarios103' => $horarios103, 'horarios11' => $horarios11, 'horarios113' => $horarios113,'horarios12' => $horarios12,
-                 'horarios123' => $horarios123,'horarios13' => $horarios13, 'horarios133' => $horarios133, 'aula' => $aula,'turno'=>$request->input('turno_id')]);
+                'horarios103' => $horarios103, 'horarios11' => $horarios11, 'horarios113' => $horarios113, 'horarios12' => $horarios12,
+                'horarios123' => $horarios123, 'horarios13' => $horarios13, 'horarios133' => $horarios133, 'aula' => $aula, 'turno' => $request->input('turno_id')]);
         }
+
         if ($request->input('turno_id') == 2) {
             $horarios17 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 11)->get();
             $horarios173 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 12)->get();
@@ -117,10 +118,10 @@ class HorarioController extends Controller
             $horarios19 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 15)->get();
             $horarios193 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 16)->get();
             $horarios20 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 17)->get();
-            $horarios203 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 18)->get();        
+            $horarios203 = ProyectoHorario::where('aula_id', $request->input('aula_id'))->where('hora_id', 18)->get();
 
             return view('horarios.show', ['horarios17' => $horarios17, 'horarios173' => $horarios173, 'horarios18' => $horarios18,
-                'horarios183' => $horarios183, 'horarios19' => $horarios193, 'horarios20' => $horarios20, 'horarios203' => $horarios203,'aula' => $aula,'turno'=>$request->input('turno_id')]);
+                'horarios183' => $horarios183, 'horarios19' => $horarios193, 'horarios20' => $horarios20, 'horarios203' => $horarios203, 'aula' => $aula, 'turno' => $request->input('turno_id')]);
         }
 
     }
