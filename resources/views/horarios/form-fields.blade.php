@@ -1,4 +1,5 @@
-<label for="carrera_id">Carrera</label>
+<label for="carrera_id">
+    Carrera</label>
 <select name="carrera_id" id="carrera_id" class="form-select" onchange="cargarGrupos(this);" required>
     <option selected disabled value="">-- Seleccionar --</option>
     @if ($carreras != null)
@@ -71,21 +72,12 @@
         <label for="dia_id">Día</label>
         <select name="dia_id" id="dia_id" class="form-select" required>
             <option selected disabled value="">-- Seleccionar --</option>
-            <option value="1"
-                @if (isset($_POST['dia_id'])) {{ old('dia_id', 1) == $_POST['dia_id'] ? 'selected' : '' }} @endif>
-                Lunes</option>
-            <option value="2"
-                @if (isset($_POST['dia_id'])) {{ old('dia_id', 2) == $_POST['dia_id'] ? 'selected' : '' }} @endif>
-                Martes</option>
-            <option value="3"
-                @if (isset($_POST['dia_id'])) {{ old('dia_id', 3) == $_POST['dia_id'] ? 'selected' : '' }} @endif>
-                Miercoles</option>
-            <option value="4"
-                @if (isset($_POST['dia_id'])) {{ old('dia_id', 4) == $_POST['dia_id'] ? 'selected' : '' }} @endif>
-                Jueves</option>
-            <option value="5"
-                @if (isset($_POST['dia_id'])) {{ old('dia_id', 5) == $_POST['dia_id'] ? 'selected' : '' }} @endif>
-                Viernes</option>
+            @foreach ($dias as $dia)
+                <option value="{{ $dia->id }}"
+                    @if (isset($_POST['dia_id'])) {{ old('dia_id', $dia->id) == $_POST['dia_id'] ? 'selected' : '' }} @endif>
+                    {{$dia->dia}}
+                </option>
+            @endforeach
         </select>
     </div>
 
