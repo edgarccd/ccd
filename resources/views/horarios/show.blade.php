@@ -25,18 +25,42 @@
                     <!-- Inicia acordeon -->
                     <div class="accordion" id="accordionPanelsStayOpenExample">
                         @foreach ($dias as $dia)
-                        <!-- Inicia dia -->
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapse{{$dia->id}}" aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapse{{$dia->id}}">
-                                    {{$dia->dia}}
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapse{{$dia->id}}" class="accordion-collapse collapse">
-                                <div class="accordion-body">
-                                   
+                            <!-- Inicia dia -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapse{{ $dia->id }}"
+                                        aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapse{{ $dia->id }}">
+
+                                        @switch(Carbon\Carbon::parse($dia->dia)->format('N'))
+                                            @case(1)
+                                                Lunes
+                                            @break
+
+                                            @case(2)
+                                                Martes
+                                            @break
+
+                                            @case(3)
+                                                Miercoles
+                                            @break
+
+                                            @case(4)
+                                                Jueves
+                                            @break
+
+                                            @case(5)
+                                                Viernes
+                                            @break
+                                        @endswitch
+
+                                        {{Carbon\Carbon::parse($dia->dia)->format('d')}}
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapse{{ $dia->id }}"
+                                    class="accordion-collapse collapse">
+                                    <div class="accordion-body">
                                         <!-- ------------------------------------------------------------ -->
                                         <div style="display:flex;">
                                             @foreach ($hlun as $horario)
@@ -109,11 +133,10 @@
                                             @endforeach
                                         </div>
                                         <!-- ------------------------------------------------------------ -->
-                                    
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Fin Dia -->
+                            <!-- Fin Dia -->
                         @endforeach
                     </div>
                     <!-- Finaliza acordeon -->

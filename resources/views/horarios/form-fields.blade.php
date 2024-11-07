@@ -75,7 +75,28 @@
             @foreach ($dias as $dia)
                 <option value="{{ $dia->id }}"
                     @if (isset($_POST['dia_id'])) {{ old('dia_id', $dia->id) == $_POST['dia_id'] ? 'selected' : '' }} @endif>
-                    {{$dia->dia}}
+                    @switch(Carbon\Carbon::parse($dia->dia)->format('N'))
+                        @case(1)
+                            Lunes
+                        @break
+
+                        @case(2)
+                            Martes
+                        @break
+
+                        @case(3)
+                            Miercoles
+                        @break
+
+                        @case(4)
+                            Jueves
+                        @break
+
+                        @case(5)
+                            Viernes
+                        @break
+                    @endswitch
+                    {{ Carbon\Carbon::parse($dia->dia)->format('d') }}
                 </option>
             @endforeach
         </select>
