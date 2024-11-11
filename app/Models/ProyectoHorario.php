@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProyectoHorario extends Model
 {
@@ -18,4 +19,11 @@ class ProyectoHorario extends Model
         'persona_id',
     ];
 
+    public function proyectoSemana():BelongsTo{
+        return $this->belongsTo(ProyectoSemana::class,'dia_id');
+    }
+
+    public function proyectoEquipo():BelongsTo{
+        return $this->belongsTo(ProyectoEquipo::class,'equipo_id');
+    }
 }
