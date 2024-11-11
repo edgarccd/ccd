@@ -140,8 +140,8 @@
                                                             </div>
                                                         </div>
                                                         <div class="card-body">
-                                                            <h5>
-                                                                {{ $horario->proyectoEquipo->grupo->grado }} -
+                                                            <h5 class="text-center">
+                                                                {{ $horario->proyectoEquipo->grupo->grado }} °
                                                                 @switch($horario->proyectoEquipo->grupo->grupo)
                                                                     @case(1)
                                                                         A
