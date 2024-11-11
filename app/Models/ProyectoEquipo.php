@@ -20,7 +20,7 @@ class ProyectoEquipo extends Model
 
     public function proyecto(): BelongsTo
     {
-        return $this->belongsTo(Proyecto::class);
+        return $this->belongsTo(Proyecto::class,'proyecto_id');
     }
 
     public function grupo(): BelongsTo

@@ -26,4 +26,6 @@ class ProyectoHorario extends Model
     public function proyectoEquipo():BelongsTo{
         return $this->belongsTo(ProyectoEquipo::class,'equipo_id');
     }
+
+
 }
