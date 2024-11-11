@@ -133,11 +133,23 @@ class HorarioController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(ProyectoHorario $horario,$aula,$turno)    
     {
-        //
+        
+       $horario->delete();
+       $aula = Aula::where('id', $aula)->first();
+       $periodo = Periodo::where('activo', 1)->first();
+       $dias = ProyectoSemana::where('periodo_id', $periodo->id)->where('turno_id', $turno)->get();
+
+       if ($turno == 1) {
+           $horarios = ProyectoHorario::where('aula_id', $aula->id)
+               ->where('dia_id', 1)
+               ->where('periodo_id', $periodo->id)
+               ->orderBy('hora_id', 'asc')
+               ->get();
+
+           return view('horarios.show', ['horarios' => $horarios, 'aula' => $aula, 'turno' => $turno, 'dias' => $dias]);
+       }      
+
     }
 }

@@ -131,6 +131,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/horarios/create/{usuario}', [HorarioController::class, 'create'])->name('horarios.create');
     Route::post('/horarios/store/{usuario}', [HorarioController::class, 'store'])->name('horarios.store');
     Route::get('/horarios/show/{usuario}', [horarioController::class, 'show'])->name('horarios.show');
+    Route::delete('/horarios/destroy/{horario}/{aula}/{turno}', [HorarioController::class, 'destroy'])->name('horarios.destroy');
     
     Route::get('horarios/{id}/grupos', function ($id) {
         $carrera = Carrera::find($id);
