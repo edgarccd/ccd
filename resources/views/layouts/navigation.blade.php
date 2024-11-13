@@ -58,6 +58,8 @@
                     </li>
                 @endif
 
+                
+
                 @if (Auth::user()->tipo_id == 3)
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -96,6 +98,12 @@
                                       </svg> Concentrado de Equipos</a></li>
                         </ul>
                     </li>
+                @endif
+
+                @if (Auth::user()->tipo_id == 8)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('maestros.index') }}">Maestros</a>
+                </li>
                 @endif
 
                 <li class="nav-item">
