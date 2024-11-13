@@ -21,7 +21,8 @@
                 @foreach ($grupos as $grupo)
                     <option
                         value={{ $grupo->id }}@if (isset($_POST['grupo_id'])) {{ old('grupo_id', $grupo->id) == $_POST['grupo_id'] ? 'selected' : '' }} @endif>
-                        {{ $grupo->grado }}°@switch($grupo->grupo)
+                        {{ $grupo->grado }}°
+                        @switch($grupo->grupo)
                             @case(1)
                                 A
                             @break
@@ -38,6 +39,7 @@
                                 D
                             @break
                         @endswitch
+                        
                     </option>
                 @endforeach
             @endif
@@ -146,6 +148,18 @@
 
     function llenarGrupos(jsonGrupos) {
         var grupoSelect = document.getElementById('grupo_id');
+
+        var length = grupoSelect.length;
+        for (var i = 0; i < length; i++) {
+            grupoSelect.remove(i);
+        }
+        grupoSelect.remove(0);
+        
+        var opcionEtiqueta = document.createElement('option');
+        opcionEtiqueta.value = '';
+        opcionEtiqueta.innerHTML = '-- Seleccionar--';
+        grupoSelect.append(opcionEtiqueta);
+
         jsonGrupos.forEach(function(grupo) {
             var opcionEtiqueta = document.createElement('option');
             opcionEtiqueta.value = grupo.id;

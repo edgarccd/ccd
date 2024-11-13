@@ -36,19 +36,33 @@ class HorarioController extends Controller
     public function create(User $usuario)
     {
         $periodo = Periodo::where('activo', 1)->first();
-        $coordinador = Coordinador::where('periodo_id', $periodo->id)->where('maestro_id', $usuario->persona->maestro->id)->first();
-        if ($coordinador != null) {
-            $carreras = Carrera::where('id', $coordinador->carrera_id)->get();
-        } else {
-            $carreras = 0;
-        }
-        $grupos = new Grupo;
-        $equipos = new ProyectoEquipo;
-        $aulas = Aula::where('tipo', 1)->orderBy('nombre', 'asc')->get();
-        $dias = ProyectoSemana::where('periodo_id', $periodo->id)->where('turno_id', $coordinador->turno_id)->get();
 
-        return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas,
-            'turno' => $coordinador->turno_id, 'dias' => $dias]);
+        $carreras = Carrera::whereIn('carreras.id', function ($query) {
+            $periodo = Periodo::where('activo', 1)->first();
+            $query->select('coordinadors.carrera_id')
+                ->from('coordinadors')
+                ->where('coordinadors.periodo_id', $periodo->id)
+                ->where('maestro_id',auth()->user()->persona->maestro->id)
+                ->groupBy('coordinadors.carrera_id');
+        })
+            ->get();
+
+       
+       
+    $coordinador = Coordinador::where('periodo_id', $periodo->id)->where('maestro_id', $usuario->persona->maestro->id)->first();
+    
+
+    if ($carreras == null) {
+    $carreras = 0;
+    }
+
+    $grupos = new Grupo;
+    $equipos = new ProyectoEquipo;
+    $aulas = Aula::where('tipo', 1)->orderBy('nombre', 'asc')->get();
+    $dias = ProyectoSemana::where('periodo_id', $periodo->id)->where('turno_id', $coordinador->turno_id)->get();
+
+    return view('horarios.create', ['carreras' => $carreras, 'grupos' => $grupos, 'equipos' => $equipos, 'aulas' => $aulas,
+    'turno' => $coordinador->turno_id, 'dias' => $dias]);
     }
 
     public function store(Request $request, User $usuario)
@@ -76,14 +90,24 @@ class HorarioController extends Controller
         }
 
         $coordinador = Coordinador::where('periodo_id', $periodo->id)->where('maestro_id', $usuario->persona->maestro->id)->first();
-        if ($coordinador != null) {
-            $carreras = Carrera::where('id', $coordinador->carrera_id)->get();
-            $turno = $coordinador->turno_id;
-        } else {
-            $carreras = 0;
-            $turno = 0;
-        }
+        $turno = $coordinador->turno_id;
 
+        $carreras = Carrera::whereIn('carreras.id', function ($query) {
+            $periodo = Periodo::where('activo', 1)->first();
+            $query->select('coordinadors.carrera_id')
+                ->from('coordinadors')
+                ->where('coordinadors.periodo_id', $periodo->id)
+                ->where('maestro_id',auth()->user()->persona->maestro->id)
+                ->groupBy('coordinadors.carrera_id');
+        })
+            ->get();
+
+
+            if ($carreras == null) {
+                $carreras = 0;
+                $turno=0;
+                }
+            
         $grupos = Grupo::where('carrera_id', $request->input('carrera_id'))->where('turno_id', $turno)->get();
         $equipos = ProyectoEquipo::where('grupo_id', $request->input('grupo_id'))
             ->whereNOTIn('proyecto_equipos.id', function ($query) {
@@ -105,14 +129,14 @@ class HorarioController extends Controller
         $aula = Aula::where('id', $request->input('aula_id'))->first();
         $periodo = Periodo::where('activo', 1)->first();
         $dias = ProyectoSemana::where('periodo_id', $periodo->id)->where('turno_id', $request->input('turno_id'))->get();
-       
-            $horarios = ProyectoHorario::where('aula_id', $request->input('aula_id'))
-              
-                ->where('periodo_id', $periodo->id)
-                ->orderBy('hora_id', 'asc')
-                ->get();
 
-            return view('horarios.show', ['horarios' => $horarios, 'aula' => $aula, 'turno' => $request->input('turno_id'), 'dias' => $dias]);           
+        $horarios = ProyectoHorario::where('aula_id', $request->input('aula_id'))
+
+            ->where('periodo_id', $periodo->id)
+            ->orderBy('hora_id', 'asc')
+            ->get();
+
+        return view('horarios.show', ['horarios' => $horarios, 'aula' => $aula, 'turno' => $request->input('turno_id'), 'dias' => $dias]);
     }
 
     /**
@@ -131,22 +155,20 @@ class HorarioController extends Controller
         //
     }
 
-    public function destroy(ProyectoHorario $horario,$aula,$turno)    
+    public function destroy(ProyectoHorario $horario, $aula, $turno)
     {
-        
-       $horario->delete();
-       $aula = Aula::where('id', $aula)->first();
-       $periodo = Periodo::where('activo', 1)->first();
-       $dias = ProyectoSemana::where('periodo_id', $periodo->id)->where('turno_id', $turno)->get();
 
-   
-           $horarios = ProyectoHorario::where('aula_id', $aula->id)
-               ->where('periodo_id', $periodo->id)
-               ->orderBy('hora_id', 'asc')
-               ->get();
+        $horario->delete();
+        $aula = Aula::where('id', $aula)->first();
+        $periodo = Periodo::where('activo', 1)->first();
+        $dias = ProyectoSemana::where('periodo_id', $periodo->id)->where('turno_id', $turno)->get();
 
-           return view('horarios.show', ['horarios' => $horarios, 'aula' => $aula, 'turno' => $turno, 'dias' => $dias]);
-      
+        $horarios = ProyectoHorario::where('aula_id', $aula->id)
+            ->where('periodo_id', $periodo->id)
+            ->orderBy('hora_id', 'asc')
+            ->get();
+
+        return view('horarios.show', ['horarios' => $horarios, 'aula' => $aula, 'turno' => $turno, 'dias' => $dias]);
 
     }
 }
