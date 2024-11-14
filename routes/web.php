@@ -175,7 +175,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/grupos/{grupo}', [GrupoController::class, 'update'])->name('grupos.update');
     Route::delete('/grupos/{grupo}', [GrupoController::class, 'destroy'])->name('grupos.destroy');
     Route::get('/grupos/{grupo}', [GrupoController::class, 'showMaterias'])->name('grupos.showMaterias');
-    Route::get('/grupos/showGrupos/{id},{turno}', [GrupoController::class, 'showGrupos'])->name('grupos.showGrupos');
+    Route::get('/grupos/showGrupos/{id}/{turno}', [GrupoController::class, 'showGrupos'])->name('grupos.showGrupos');
 });
 
 Route::middleware('auth')->group(function () {
@@ -201,6 +201,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/maestros/{maestro}', [MaestroController::class, 'destroy'])->name('maestros.destroy');
     Route::get('/maestros/{persona}/edit', [MaestroController::class, 'edit'])->name('maestros.edit');
     Route::patch('/maestros/{persona}', [MaestroController::class, 'update'])->name('maestros.update');
+    Route::get('/maestros/show/{maestro}', [MaestroController::class, 'show'])->name('maestros.show');
+    Route::get('/maestros/search', [MaestroController::class, 'search'])->name('maestros.search');
 });
 
 Route::middleware('auth')->group(function () {

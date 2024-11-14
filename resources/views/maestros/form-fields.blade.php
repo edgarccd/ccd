@@ -49,4 +49,3 @@
         aria-describedby="inputGroup-sizing-default" value="{{old('nomina',$maestro->nomina)}}">
 </div>
 
-<x-checkbox-activo />
