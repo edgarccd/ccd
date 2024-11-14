@@ -16,7 +16,7 @@
         </div>
     </x-slot>
     <br>
-    <div class="major container">
+    <div class="major container col-8">
         <h3 class="text-center">Resultados de la busqueda</h3>
         <table class="table table-striped">
             <thead>
