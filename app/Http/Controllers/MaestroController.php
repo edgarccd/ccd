@@ -61,7 +61,7 @@ class MaestroController extends Controller
             'email' => $persona->correo,
             'password' => Hash::make($persona->correo),
             'persona_id' => $persona->id,
-            'tipo_id' => 4,
+            'tipo_id' => 7,
         ]);
 
         session()->flash('status', 'Maestro Registrado con exito');
