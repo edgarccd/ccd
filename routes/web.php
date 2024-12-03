@@ -22,6 +22,7 @@ use App\Models\Grupo;
 use App\Models\Periodo;
 use App\Models\ProyectoEquipo;
 use App\Models\ProyectoHorario;
+use App\Models\GrupoMateria;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('welcome');
@@ -132,7 +133,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/horarios/store/{usuario}', [HorarioController::class, 'store'])->name('horarios.store');
     Route::get('/horarios/show/{usuario}', [horarioController::class, 'show'])->name('horarios.show');
     Route::delete('/horarios/destroy/{horario}/{aula}/{turno}', [HorarioController::class, 'destroy'])->name('horarios.destroy');
-    
+
     Route::get('horarios/{id}/grupos', function ($id) {
         $carrera = Carrera::find($id);
         $periodo = Periodo::where('activo', 1)->first();
@@ -152,7 +153,7 @@ Route::middleware('auth')->group(function () {
         return $equipos;
     });
 
-    Route::get('horarios/{aulaId}/{diaId}/horas', function ($aulaId,$diaId) {
+    Route::get('horarios/{aulaId}/{diaId}/horas', function ($aulaId, $diaId) {
         $periodo = Periodo::where('activo', 1)->first();
         $horas = ProyectoHorario::where('periodo_id', $periodo->id)
             ->where('aula_id', $aulaId)
@@ -161,8 +162,6 @@ Route::middleware('auth')->group(function () {
         return $horas;
     });
 
-
-    
 });
 
 Route::middleware('auth')->group(function () {
@@ -203,6 +202,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/maestros/{persona}', [MaestroController::class, 'update'])->name('maestros.update');
     Route::get('/maestros/show/{maestro}', [MaestroController::class, 'show'])->name('maestros.show');
     Route::get('/maestros/search', [MaestroController::class, 'search'])->name('maestros.search');
+    Route::get('maestros/eliminar/{maestro}', function ($maestroId) {
+        $periodo = Periodo::where('activo', 1)->first();
+        $gm = GrupoMateria::where('maestro_id', $maestroId)->get();
+        if ($gm != null) {
+            return true;
+        } else {
+            return false;
+        }
+    })->name('maestros.eliminar');
 });
 
 Route::middleware('auth')->group(function () {

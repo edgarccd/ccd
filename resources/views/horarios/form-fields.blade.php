@@ -39,7 +39,7 @@
                                 D
                             @break
                         @endswitch
-                        
+
                     </option>
                 @endforeach
             @endif
@@ -154,7 +154,7 @@
             grupoSelect.remove(i);
         }
         grupoSelect.remove(0);
-        
+
         var opcionEtiqueta = document.createElement('option');
         opcionEtiqueta.value = '';
         opcionEtiqueta.innerHTML = '-- Seleccionar--';

@@ -390,4 +390,5 @@ class EquipoController extends Controller
         return view('equipos.registrados-entregables', ['equipo' => $equipo, 'files' => $files]);
 
     }
+    
 }

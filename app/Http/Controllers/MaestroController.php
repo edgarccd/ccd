@@ -16,6 +16,7 @@ class MaestroController extends Controller
     {
         $maestros = DB::table('maestros')
             ->join('personas', 'maestros.persona_id', '=', 'personas.id')
+            
             ->orderBy('personas.apellido_pat', 'asc')
             ->orderBy('personas.apellido_mat', 'asc')
             ->orderBy('personas.nombre', 'asc')
