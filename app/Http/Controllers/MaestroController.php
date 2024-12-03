@@ -102,6 +102,11 @@ class MaestroController extends Controller
         $persona->telefono = $request->input('telefono');
         $persona->save();
 
+        $usuario = User::where('persona_id',$id)->get()->first();
+        $usuario->name = strtoupper($request->input('nombre'))." ".strtoupper($request->input('apellido_pat'))." ".strtoupper($request->input('apellido_mat'));
+        $usuario->email = $request->input('correo');
+        $usuario->save();
+
         return to_route('maestros.index')->with('status', 'Maestro actualizado con exito');
     }
 
