@@ -27,11 +27,9 @@
             <div class="table-responsive">
                 <table class="table">
                     <thead>
-                        <tr>
-                            
+                        <tr>                            
                             <th scope="col">Nombre</th>
                             <th scope="col">Ver</th>
-
                         </tr>
                     </thead>
                     <tbody>
