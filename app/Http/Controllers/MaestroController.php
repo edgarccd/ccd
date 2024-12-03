@@ -16,7 +16,6 @@ class MaestroController extends Controller
     {
         $maestros = DB::table('maestros')
             ->join('personas', 'maestros.persona_id', '=', 'personas.id')
-            
             ->orderBy('personas.apellido_pat', 'asc')
             ->orderBy('personas.apellido_mat', 'asc')
             ->orderBy('personas.nombre', 'asc')
@@ -102,10 +101,20 @@ class MaestroController extends Controller
         $persona->telefono = $request->input('telefono');
         $persona->save();
 
-        $usuario = User::where('persona_id',$id)->first();
-        $usuario->name = strtoupper($request->input('nombre'))." ".strtoupper($request->input('apellido_pat'))." ".strtoupper($request->input('apellido_mat'));
-        $usuario->email = $request->input('correo');
-        $usuario->save();
+        $usuario = User::where('persona_id', $id)->first();
+        if ($usuario != null) {
+            $usuario->name = strtoupper($request->input('nombre')) . " " . strtoupper($request->input('apellido_pat')) . " " . strtoupper($request->input('apellido_mat'));
+            $usuario->email = $request->input('correo');
+            $usuario->save();
+        } else {
+            User::create([
+                'name' => $persona->nombre . " " . $persona->apellido_pat . " " . $persona->apellido_mat,
+                'email' => $persona->correo,
+                'password' => Hash::make('12345678'),
+                'persona_id' => $persona->id,
+                'tipo_id' => 7,
+            ]);
+        }
 
         return to_route('maestros.index')->with('status', 'Maestro actualizado con exito');
     }
@@ -151,7 +160,7 @@ class MaestroController extends Controller
                 ->orderBy('personas.nombre', 'asc')
                 ->get();
         }
-        
-        return view('maestros.search', ['maestros' => $maestros]);       
+
+        return view('maestros.search', ['maestros' => $maestros]);
     }
 }
