@@ -59,7 +59,7 @@ class MaestroController extends Controller
         User::create([
             'name' => $persona->nombre . " " . $persona->apellido_pat . " " . $persona->apellido_mat,
             'email' => $persona->correo,
-            'password' => Hash::make($persona->correo),
+            'password' => Hash::make('12345678'),
             'persona_id' => $persona->id,
             'tipo_id' => 7,
         ]);
@@ -88,11 +88,11 @@ class MaestroController extends Controller
             'apellido_mat' => ['required', 'max:255'],
         ]);
 
-        $maestro = Maestro::where('persona_id', $id)->get()->first();
+        $maestro = Maestro::where('persona_id', $id)->first();
         $maestro->nomina = $request->input('nomina');
         $maestro->save();
 
-        $persona = Persona::where('id', $maestro->persona_id)->get()->first();
+        $persona = Persona::where('id', $maestro->persona_id)->first();
         $persona->nombre = strtoupper($request->input('nombre'));
         $persona->apellido_pat = strtoupper($request->input('apellido_pat'));
         $persona->apellido_mat = strtoupper($request->input('apellido_mat'));
@@ -102,7 +102,7 @@ class MaestroController extends Controller
         $persona->telefono = $request->input('telefono');
         $persona->save();
 
-        $usuario = User::where('persona_id',$id)->get()->first();
+        $usuario = User::where('persona_id',$id)->first();
         $usuario->name = strtoupper($request->input('nombre'))." ".strtoupper($request->input('apellido_pat'))." ".strtoupper($request->input('apellido_mat'));
         $usuario->email = $request->input('correo');
         $usuario->save();

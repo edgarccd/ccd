@@ -28,16 +28,17 @@
                 <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" />
             </div>
             <br>
+
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <x-primary-button>{{ __('Actualizar') }}</x-primary-button>
+                <div style="width: 400px; margin:auto; text-align:center;">
+
+                    @if (session('status'))
+                        <div class="text-center"> {{ session('status') }}</div>
+                    @endif
+                </div>
+                <div><x-primary-button>{{ __('Actualizar') }}</x-primary-button></div>
             </div>
         </form>
     </div>
-    <div style="width: 400px; margin:auto; text-align:center;">
-        <br>
-        @if (session('status') === 'password-updated')
-            <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 3000)">
-                {{ __(' Contraseña cambiada') }}</p>
-        @endif
-    </div>
+
 </section>
