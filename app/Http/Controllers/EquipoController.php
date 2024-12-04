@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
+use App\Models\Carrera;
 use App\Models\Coordinador;
 use App\Models\Grupo;
-use App\Models\Carrera;
 use App\Models\Periodo;
 use App\Models\Proyecto;
 use App\Models\ProyectoAlumno;
@@ -21,7 +21,7 @@ class EquipoController extends Controller
 
     public function index(User $usuario)
     {
-        $periodo = Periodo::where('activo', 1)->first();
+        $periodo = Periodo::where('activo', 1)->get();
         $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
         if ($grupo != null) {
             $equipos = ProyectoEquipo::where('grupo_id', $grupo->id)->get();
@@ -29,7 +29,7 @@ class EquipoController extends Controller
             $grupo = 0;
             $equipos = 0;
         }
-        return view('equipos.index', ['grupo' => $grupo, 'equipos' => $equipos]);
+        return view('equipos.index', ['grupo' => $grupo, 'equipos' => $equipos, 'periodos' => $periodos]);
 
     }
 
@@ -109,13 +109,13 @@ class EquipoController extends Controller
     {
         $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
             ->get();
-            $proyectos = Proyecto::whereNOTIn('id', function ($query) {
-                $periodo = Periodo::where('activo', 1)->first();
-                $query->select('proyecto_equipos.proyecto_id')
-                    ->from('proyecto_equipos')
-                    ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
-                    ->where('grupos.periodo_id', $periodo->id);
-            })->orderBy('nombre')->get();
+        $proyectos = Proyecto::whereNOTIn('id', function ($query) {
+            $periodo = Periodo::where('activo', 1)->first();
+            $query->select('proyecto_equipos.proyecto_id')
+                ->from('proyecto_equipos')
+                ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
+                ->where('grupos.periodo_id', $periodo->id);
+        })->orderBy('nombre')->get();
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $equipo, 'proyectos' => $proyectos]);
     }
 
@@ -126,13 +126,13 @@ class EquipoController extends Controller
         $palumno->delete();
         $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
             ->get();
-            $proyectos = Proyecto::whereNOTIn('id', function ($query) {
-                $periodo = Periodo::where('activo', 1)->first();
-                $query->select('proyecto_equipos.proyecto_id')
-                    ->from('proyecto_equipos')
-                    ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
-                    ->where('grupos.periodo_id', $periodo->id);
-            })->orderBy('nombre')->get();
+        $proyectos = Proyecto::whereNOTIn('id', function ($query) {
+            $periodo = Periodo::where('activo', 1)->first();
+            $query->select('proyecto_equipos.proyecto_id')
+                ->from('proyecto_equipos')
+                ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
+                ->where('grupos.periodo_id', $periodo->id);
+        })->orderBy('nombre')->get();
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $equipo, 'proyectos' => $proyectos]);
     }
 
@@ -244,13 +244,13 @@ class EquipoController extends Controller
         $alumnos = ProyectoAlumno::where('equipo_id', $pequipo->id)
             ->get();
 
-            $proyectos = Proyecto::whereNOTIn('id', function ($query) {
-                $periodo = Periodo::where('activo', 1)->first();
-                $query->select('proyecto_equipos.proyecto_id')
-                    ->from('proyecto_equipos')
-                    ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
-                    ->where('grupos.periodo_id', $periodo->id);
-            })->orderBy('nombre')->get();
+        $proyectos = Proyecto::whereNOTIn('id', function ($query) {
+            $periodo = Periodo::where('activo', 1)->first();
+            $query->select('proyecto_equipos.proyecto_id')
+                ->from('proyecto_equipos')
+                ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
+                ->where('grupos.periodo_id', $periodo->id);
+        })->orderBy('nombre')->get();
 
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $pequipo, 'proyectos' => $proyectos]);
     }
@@ -315,6 +315,8 @@ class EquipoController extends Controller
     public function registrados(User $usuario)
     {
         $periodo = Periodo::where('activo', 1)->first();
+        $periodos = Periodo::where('id', '>', 3)
+            ->orderBy('activo', 'desc')->get();
         $turnos = Coordinador::select('turno_id')->where('maestro_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->groupBy('turno_id')->get();
         $carreras = DB::table('carreras')
             ->select('carrera_id', 'nombre')
@@ -324,39 +326,39 @@ class EquipoController extends Controller
             ->groupBy('carrera_id', 'nombre')
             ->get();
 
-        return view('equipos.registrados', ['carreras' => $carreras, 'turnos' => $turnos]);
+        return view('equipos.registrados', ['carreras' => $carreras, 'turnos' => $turnos, 'periodos' => $periodos]);
     }
 
-    public function showRegistrados(User $usuario, $carrera_id, $turno_id, Request $request)
+    public function showRegistrados(User $usuario, $carrera_id, $turno_id, $periodo_id, Request $request)
     {
         $periodo = Periodo::where('activo', 1)->first();
 
-        if($request->input('carrera_id')!=null){
-        $equipos = DB::table('proyecto_equipos')
-            ->select('proyecto_equipos.id', 'proyecto_equipos.nombre as nom', 'proyectos.nombre as proy', 'grupos.grado', 'grupos.grupo', 'proyecto_equipos.proyecto_id', 'carreras.acronimo')
-            ->join('grupos', 'proyecto_equipos.grupo_id', '=', 'grupos.id')
-            ->join('proyectos', 'proyecto_equipos.proyecto_id', '=', 'proyectos.id')
-            ->join('carreras', 'grupos.carrera_id', '=', 'carreras.id')
-            ->where('grupos.periodo_id', $periodo->id)
-            ->where('grupos.carrera_id', $request->input('carrera_id'))
-            ->where('grupos.turno_id', $request->input('turno_id'))
-            ->orderBy('grupos.grado', 'asc')
-            ->orderBy('grupos.grupo', 'asc')
-            ->orderBy('proyecto_equipos.nombre', 'asc')
-            ->get();
-        }else{
+        if ($request->input('carrera_id') != null) {
             $equipos = DB::table('proyecto_equipos')
-            ->select('proyecto_equipos.id', 'proyecto_equipos.nombre as nom', 'proyectos.nombre as proy', 'grupos.grado', 'grupos.grupo', 'proyecto_equipos.proyecto_id', 'carreras.acronimo')
-            ->join('grupos', 'proyecto_equipos.grupo_id', '=', 'grupos.id')
-            ->join('proyectos', 'proyecto_equipos.proyecto_id', '=', 'proyectos.id')
-            ->join('carreras', 'grupos.carrera_id', '=', 'carreras.id')
-            ->where('grupos.periodo_id', $periodo->id)
-            ->where('grupos.carrera_id', $carrera_id)
-            ->where('grupos.turno_id', $turno_id)
-            ->orderBy('grupos.grado', 'asc')
-            ->orderBy('grupos.grupo', 'asc')
-            ->orderBy('proyecto_equipos.nombre', 'asc')
-            ->get();
+                ->select('proyecto_equipos.id', 'proyecto_equipos.nombre as nom', 'proyectos.nombre as proy', 'grupos.grado', 'grupos.grupo', 'proyecto_equipos.proyecto_id', 'carreras.acronimo')
+                ->join('grupos', 'proyecto_equipos.grupo_id', '=', 'grupos.id')
+                ->join('proyectos', 'proyecto_equipos.proyecto_id', '=', 'proyectos.id')
+                ->join('carreras', 'grupos.carrera_id', '=', 'carreras.id')
+                ->where('grupos.periodo_id', $request->input('periodo_id'))
+                ->where('grupos.carrera_id', $request->input('carrera_id'))
+                ->where('grupos.turno_id', $request->input('turno_id'))
+                ->orderBy('grupos.grado', 'asc')
+                ->orderBy('grupos.grupo', 'asc')
+                ->orderBy('proyecto_equipos.nombre', 'asc')
+                ->get();
+        } else {
+            $equipos = DB::table('proyecto_equipos')
+                ->select('proyecto_equipos.id', 'proyecto_equipos.nombre as nom', 'proyectos.nombre as proy', 'grupos.grado', 'grupos.grupo', 'proyecto_equipos.proyecto_id', 'carreras.acronimo')
+                ->join('grupos', 'proyecto_equipos.grupo_id', '=', 'grupos.id')
+                ->join('proyectos', 'proyecto_equipos.proyecto_id', '=', 'proyectos.id')
+                ->join('carreras', 'grupos.carrera_id', '=', 'carreras.id')
+                ->where('grupos.periodo_id', $periodo_id)
+                ->where('grupos.carrera_id', $carrera_id)
+                ->where('grupos.turno_id', $turno_id)
+                ->orderBy('grupos.grado', 'asc')
+                ->orderBy('grupos.grupo', 'asc')
+                ->orderBy('proyecto_equipos.nombre', 'asc')
+                ->get();
         }
 
         if (isset($request->carrera_id)) {
@@ -368,7 +370,7 @@ class EquipoController extends Controller
                 ->get();
         }
 
-        return view('equipos.registrados-mostrar', ['carrera' => $carrera,'equipos' => $equipos]);
+        return view('equipos.registrados-mostrar', ['carrera' => $carrera, 'equipos' => $equipos]);
     }
 
     public function registradosIntegrantes(ProyectoEquipo $equipo)
@@ -379,16 +381,17 @@ class EquipoController extends Controller
         return view('equipos.registrados-integrantes', ['alumnos' => $alumnos, 'equipo' => $equipo]);
     }
 
-    public function registradosEntregables(ProyectoEquipo $equipo){
+    public function registradosEntregables(ProyectoEquipo $equipo)
+    {
 
-        $periodo = Periodo::where('activo', 1)->first();       
+        $periodo = Periodo::where('activo', 1)->first();
 
-        $files = ProyectoEntregable::where('periodo_id', $periodo->id)          
+        $files = ProyectoEntregable::where('periodo_id', $periodo->id)
             ->where('equipo_id', $equipo->id)
             ->get();
 
         return view('equipos.registrados-entregables', ['equipo' => $equipo, 'files' => $files]);
 
     }
-    
+
 }

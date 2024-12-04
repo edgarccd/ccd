@@ -122,7 +122,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/equipos/upload/{pequipo}/{usuario}', [EquipoController::class, 'storeEntregables'])->name('equipos.storeEntregables');
     Route::delete('/equipos/entregables/destroy/{id}/{usuario}/{pequipo}', [EquipoController::class, 'destroyEntregables'])->name('equipos.destroyEntregables');
     Route::get('/equipos/registrados/{usuario}', [EquipoController::class, 'registrados'])->name('equipos.registrados');
-    Route::get('/equipos/registrados-mostrar/{usuario}/{carrera_id}/{turno_id}', [EquipoController::class, 'showRegistrados'])->name('equipos.showRegistrados');
+    Route::get('/equipos/registrados-mostrar/{usuario}/{carrera_id}/{turno_id}/{periodo_id}', [EquipoController::class, 'showRegistrados'])->name('equipos.showRegistrados');
     Route::get('/equipos/registrados-integrantes/{equipo}', [EquipoController::class, 'registradosIntegrantes'])->name('equipos.registradosIntegrantes');
     Route::get('/equipos/registrados-entregables/{equipo}', [EquipoController::class, 'registradosEntregables'])->name('equipos.registradosEntregables');
 });

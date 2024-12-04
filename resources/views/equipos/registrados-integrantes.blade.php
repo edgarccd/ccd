@@ -49,7 +49,7 @@
             </div>
             <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="{{ route('equipos.showRegistrados', [Auth::user(), $equipo->grupo->carrera_id, $equipo->grupo->turno_id]) }}"
+                <a href="{{ route('equipos.showRegistrados', [Auth::user(), $equipo->grupo->carrera_id, $equipo->grupo->turno_id,$equipo->grupo->periodo->id]) }}"
                     class="btn btn-secondary">Regresar</a>
             </div>
         </div>
