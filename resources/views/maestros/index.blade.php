@@ -40,8 +40,7 @@
                             <th>Apellido Paterno</th>
                             <th>Apellido Materno</th>
                             <th>Nombre</th>
-                            <th></th>
-                            
+                            <th></th>                            
                         </tr>
                     </thead>
                     <tbody>
@@ -61,8 +60,7 @@
                                 <td>{{ $maestro->apellido_mat }}</td>
                                 <td>{{ $maestro->nombre }}</td>
                                 <td> <a href="{{ route('maestros.edit', $maestro->id) }}"
-                                        class="btn btn-outline-primary">Editar</a></td>
-                                
+                                        class="btn btn-outline-primary">Editar</a></td>                                
                             </tr>
                         @endforeach
                     </tbody>

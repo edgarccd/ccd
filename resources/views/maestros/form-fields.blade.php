@@ -33,19 +33,19 @@
 
 <div class="input-group mb-3">
     <span class="input-group-text" id="inputGroup-sizing-default">Dirección</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" name="direccion"
+    <input type="text" class="form-control" aria-label="Sizing example input" name="direccion" required
         aria-describedby="inputGroup-sizing-default" value="{{old('direccion',$persona->direccion)}}">
 </div>
 
 <div class="input-group mb-3">
     <span class="input-group-text" id="inputGroup-sizing-default">Telefono</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" name="telefono"
+    <input type="text" class="form-control" aria-label="Sizing example input" name="telefono" required
         aria-describedby="inputGroup-sizing-default" value="{{old('telefono',$persona->telefono)}}">
 </div>
 
 <div class="input-group mb-3">
     <span class="input-group-text" id="inputGroup-sizing-default">Nomina</span>
-    <input type="text" class="form-control" aria-label="Sizing example input" name="nomina"
+    <input type="text" class="form-control" aria-label="Sizing example input" name="nomina" required
         aria-describedby="inputGroup-sizing-default" value="{{old('nomina',$maestro->nomina)}}">
 </div>
 
