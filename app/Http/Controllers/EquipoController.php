@@ -21,7 +21,7 @@ class EquipoController extends Controller
 
     public function index(User $usuario)
     {
-        $periodo = Periodo::where('activo', 1)->get();
+        $periodo = Periodo::where('activo', 1)->first();
         $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
         if ($grupo != null) {
             $equipos = ProyectoEquipo::where('grupo_id', $grupo->id)->get();
@@ -29,7 +29,7 @@ class EquipoController extends Controller
             $grupo = 0;
             $equipos = 0;
         }
-        return view('equipos.index', ['grupo' => $grupo, 'equipos' => $equipos, 'periodos' => $periodos]);
+        return view('equipos.index', ['grupo' => $grupo, 'equipos' => $equipos]);
 
     }
 
