@@ -14,6 +14,5 @@
     <option value="10">10mo</option>
     <option value="11">11vo</option>
 </select>
-
 <x-select-grupo />
 <x-select-turno />

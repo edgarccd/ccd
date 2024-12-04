@@ -131,6 +131,27 @@ class MaestroController extends Controller
         return to_route('maestros.index')->with('status', 'Maestro eliminado');
 
     }
+
+    public function activar($id)
+    {
+        $maestro = Maestro::where('persona_id', $id)->first();
+        if ($maestro->activo == 1) {
+            $maestro->activo = 0;
+        } else {
+            $maestro->activo = 1;
+        }
+        $maestro->save();
+
+        $maestros = DB::table('maestros')
+            ->join('personas', 'maestros.persona_id', '=', 'personas.id')
+            ->orderBy('personas.apellido_pat', 'asc')
+            ->orderBy('personas.apellido_mat', 'asc')
+            ->orderBy('personas.nombre', 'asc')
+            ->get();
+
+        return view('maestros.index', ['maestros' => $maestros]);
+    }
+
     public function search(Request $request)
     {
         if ($request->input('busqueda') == "nombre") {

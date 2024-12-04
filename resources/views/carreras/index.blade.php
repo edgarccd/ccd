@@ -33,7 +33,7 @@
                                 <td>{{ $carrera->acronimo }}</td>
                                 <td>{{ $carrera->activo }}</td>
                                 <td>
-                                    <a href="{{ route('carreras.activar', $carrera) }}" class="btn btn-outline-dark">
+                                    <a href="{{ route('carreras.activar', $carrera) }}" class="btn btn-outline-secondary">
                                         @switch($carrera->activo)
                                             @case(0)
                                                 Activar

@@ -202,7 +202,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/maestros/{persona}', [MaestroController::class, 'update'])->name('maestros.update');
     Route::get('/maestros/show/{maestro}', [MaestroController::class, 'show'])->name('maestros.show');
     Route::get('/maestros/search', [MaestroController::class, 'search'])->name('maestros.search');
-    Route::get('maestros/eliminar/{maestro}', function ($maestroId) {
+    Route::get('/maestros/activar/{maestro}', [MaestroController::class, 'activar'])->name('maestros.activar');
+    Route::get('/maestros/eliminar/{maestro}', function ($maestroId) {
         $periodo = Periodo::where('activo', 1)->first();
         $gm = GrupoMateria::where('maestro_id', $maestroId)->get();
         if ($gm != null) {

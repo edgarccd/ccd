@@ -35,6 +35,7 @@ class EjeController extends Controller
 
         $maestros = DB::table('maestros')
             ->select('maestros.id', 'personas.apellido_pat', 'personas.apellido_mat', 'personas.nombre')
+            ->where('activo',1)
             ->join('personas', 'maestros.persona_id', '=', 'personas.id')
             ->orderBy('personas.apellido_pat', 'asc')
             ->orderBy('personas.apellido_mat', 'asc')
