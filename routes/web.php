@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/proyectos/{proyecto}', [ProyectoController::class, 'destroy'])->name('proyectos.destroy');
     Route::get('/proyectos/eje/catalogo', [ProyectoController::class, 'catalogo'])->name('proyectos.catalogo');
     Route::get('/proyectos/coordinador/catalogo', [ProyectoController::class, 'catalogoCompleto'])->name('proyectos.catalogoCompleto');
+    Route::get('/proyectos/evaluar/{usuario}', [ProyectoController::class, 'evaluar'])->name('proyectos.evaluar');
+    Route::get('/proyectos/evaluacion-proyecto/{equipo}', [ProyectoController::class, 'evaluacionProyecto'])->name('proyectos.evaluacionProyecto');
 });
 
 Route::middleware('auth')->group(function () {

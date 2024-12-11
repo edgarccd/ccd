@@ -35,7 +35,7 @@ class EquipoController extends Controller
 
     public function create(Grupo $grupo)
     {
-        $alumnos = $carreras = DB::table('alumnos')
+        $alumnos = DB::table('alumnos')
             ->join('personas', 'personas.id', '=', 'alumnos.persona_id')
             ->join('grupo_alumnos', 'grupo_alumnos.alumno_id', '=', 'alumnos.id')
             ->where('grupo_alumnos.grupo_id', $grupo->id)
@@ -260,7 +260,7 @@ class EquipoController extends Controller
         $periodo = Periodo::where('activo', 1)->first();
         $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
         $files = ProyectoEntregable::where('periodo_id', $periodo->id)
-            ->where('persona_id', $usuario->persona->id)
+           
             ->where('grupo_id', $grupo->id)
             ->where('equipo_id', $pequipo->id)
             ->get();

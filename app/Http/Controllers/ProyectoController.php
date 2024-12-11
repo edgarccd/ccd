@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Proyecto;
 use App\Models\Periodo;
+use App\Models\Proyecto;
+use App\Models\ProyectoEquipo;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -94,13 +96,74 @@ class ProyectoController extends Controller
                 ->where('grupos.periodo_id', $periodo->id);
         })->orderBy('nombre')->get();
 
-    return view('proyectos.eje.catalogo', ['proyectos' => $proyectos]);
+        return view('proyectos.eje.catalogo', ['proyectos' => $proyectos]);
     }
 
     public function catalogoCompleto(Request $request)
     {
         $proyectos = Proyecto::orderBy('nombre')->get();
 
-    return view('proyectos.coordinador.catalogo', ['proyectos' => $proyectos]);
+        return view('proyectos.coordinador.catalogo', ['proyectos' => $proyectos]);
+    }
+
+    public function evaluar(User $usuario)
+    {
+        $periodo = Periodo::where('activo', 1)->first();
+
+        $grupos = DB::table('grupos')
+            ->join('grupo_materias', 'grupo_materias.grupo_id', '=', 'grupos.id')
+            ->join('materias', 'materias.id', '=', 'grupo_materias.materia_id')
+            ->join('carreras', 'carreras.id', '=', 'grupos.carrera_id')
+            ->where('grupos.periodo_id', $periodo->id)
+            ->where('grupo_materias.maestro_id', $usuario->persona->maestro->id)
+            ->orderBy('grupos.carrera_id', 'asc')
+            ->orderBy('grupos.grado', 'asc')
+            ->orderBy('grupos.grupo', 'asc')
+            ->get();
+
+        $equipos = DB::table('grupos')
+            ->join('grupo_materias', 'grupo_materias.grupo_id', '=', 'grupos.id')
+            ->join('materias', 'materias.id', '=', 'grupo_materias.materia_id')
+            ->join('carreras', 'carreras.id', '=', 'grupos.carrera_id')
+            ->join('proyecto_equipos', 'proyecto_equipos.grupo_id', '=', 'grupos.id')
+            ->where('grupos.periodo_id', $periodo->id)
+            ->where('grupo_materias.maestro_id', $usuario->persona->maestro->id)
+            ->orderBy('grupos.carrera_id', 'asc')
+            ->orderBy('grupos.grado', 'asc')
+            ->orderBy('grupos.grupo', 'asc')
+            ->get();
+
+        return view('proyectos.evaluar', ['grupos' => $grupos, 'equipos' => $equipos]);
+    }
+
+    public function evaluacionProyecto(ProyectoEquipo $equipo)
+    {
+
+        $periodo = Periodo::where('activo', 1)->first();
+
+        $grupos = DB::table('grupos')
+            ->join('grupo_materias', 'grupo_materias.grupo_id', '=', 'grupos.id')
+            ->join('materias', 'materias.id', '=', 'grupo_materias.materia_id')
+            ->join('carreras', 'carreras.id', '=', 'grupos.carrera_id')
+            ->where('grupos.periodo_id', $periodo->id)
+            ->where('grupo_materias.maestro_id', $usuario->persona->maestro->id)
+            ->orderBy('grupos.carrera_id', 'asc')
+            ->orderBy('grupos.grado', 'asc')
+            ->orderBy('grupos.grupo', 'asc')
+            ->get();
+
+        $equipos = DB::table('grupos')
+            ->join('grupo_materias', 'grupo_materias.grupo_id', '=', 'grupos.id')
+            ->join('materias', 'materias.id', '=', 'grupo_materias.materia_id')
+            ->join('carreras', 'carreras.id', '=', 'grupos.carrera_id')
+            ->join('proyecto_equipos', 'proyecto_equipos.grupo_id', '=', 'grupos.id')
+            ->where('grupos.periodo_id', $periodo->id)
+            ->where('grupo_materias.maestro_id', $usuario->persona->maestro->id)
+            ->orderBy('grupos.carrera_id', 'asc')
+            ->orderBy('grupos.grado', 'asc')
+            ->orderBy('grupos.grupo', 'asc')
+            ->get();
+
+        return view('proyectos.evaluacionProyecto', ['equipo' => $equipo,'grupos' => $grupos, 'equipos' => $equipos]);
     }
 }
