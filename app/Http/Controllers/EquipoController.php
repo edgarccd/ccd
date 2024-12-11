@@ -260,7 +260,7 @@ class EquipoController extends Controller
         $periodo = Periodo::where('activo', 1)->first();
         $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
         $files = ProyectoEntregable::where('periodo_id', $periodo->id)
-           
+            ->where('persona_id', $usuario->persona->id)
             ->where('grupo_id', $grupo->id)
             ->where('equipo_id', $pequipo->id)
             ->get();
@@ -386,8 +386,7 @@ class EquipoController extends Controller
 
         $periodo = Periodo::where('activo', 1)->first();
 
-        $files = ProyectoEntregable::where('periodo_id', $periodo->id)
-            ->where('equipo_id', $equipo->id)
+        $files = ProyectoEntregable::where('equipo_id', $equipo->id)
             ->get();
 
         return view('equipos.registrados-entregables', ['equipo' => $equipo, 'files' => $files]);
