@@ -44,7 +44,7 @@
                                 </td>
                                 <td>{{ $equipo->nom }}</td>
                                 <td>{{ $equipo->proy }}</td>
-                                <td><a href="../../../../proyecto/catalogo/{{ $equipo->proyecto_id }}.pdf" target="_blank"
+                                <td><a href="../../../../../proyecto/catalogo/{{ $equipo->proyecto_id }}.pdf" target="_blank"
                                         class="btn btn-outline-secondary">Proyecto</a></td>
                                 <td><a href="{{ route('equipos.registradosIntegrantes', $equipo->id) }}"
                                         class="btn btn-outline-primary">Integrantes</a></td>
