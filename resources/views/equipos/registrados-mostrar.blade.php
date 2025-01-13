@@ -48,7 +48,6 @@
                                         class="btn btn-outline-secondary">Proyecto</a></td>
                                 <td><a href="{{ route('equipos.registradosIntegrantes', $equipo->id) }}"
                                         class="btn btn-outline-primary">Integrantes</a></td>
-
                                 <td> <a href="{{ route('equipos.registradosEntregables', $equipo->id) }}"
                                         class="btn btn-outline-dark">Entregables</a></td>
                             </tr>
