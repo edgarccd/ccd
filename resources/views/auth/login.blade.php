@@ -25,12 +25,15 @@
         </div>
 
         <div>
+            
             @if (Route::has('password.request'))
                 <a class="form-text" href="{{ route('password.request') }}">
-                    {{ __('¿Olvidaste tu Contraseña?') }}
+                    {{ __('') }}
                 </a>
             @endif
             &nbsp; &nbsp; &nbsp;
+
+           
             <x-primary-button>
                 {{ __('Ingresar') }}
             </x-primary-button>
