@@ -50,7 +50,7 @@
             <div style="display:flex;flex-flow:row wrap;">
                 @foreach ($equipos as $equipo)
                     <div class="card"
-                        style="margin: 10px; margin: 10px;width: 411px; height: 250px;box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);">
+                        style="margin: 10px; margin: 10px;width: 411px; height: 200px;box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.3);">
                         <div class="card-header">
                             <a href="{{ route('equipos.show', $equipo) }}"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
                                 <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4m4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5M9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8m1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5"/>
@@ -58,22 +58,18 @@
                               </svg></a>
                         </div>
                         <div class="card-body">
-                            <div style="height:50%;">
+                            <div>
                                 <h5 class="card-title">{{ $equipo->nombre }}</h5>
                                 <p class="card-text">{{ $equipo->proyecto->nombre }} </p>
                             </div>
-                            <div style="display:flex;flex-flow: row wrap; align-items:center;height:50%;">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <a href="{{ route('equipos.edit', $equipo) }}"
-                                    class="btn btn-outline-primary">Editar</a>&nbsp; &nbsp;&nbsp;
+                                    class="btn btn-outline-primary">Editar</a>
                                 <form action="{{ route('equipos.destroy', $equipo) }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-outline-danger">Eliminar</button>
-                                </form>&nbsp; &nbsp;&nbsp;
-                                <a href="../proyecto/catalogo/{{$equipo->proyecto->id}}.pdf" target="_blank"
-                                    class="btn btn-outline-secondary">PDF</a>&nbsp; &nbsp;&nbsp;
-                                <a href="{{ route('equipos.entregables', [$equipo,Auth::user()]) }}"
-                                    class="btn btn-outline-dark">Entregables</a>
+                                </form>
                             </div>
                         </div>
                     </div>

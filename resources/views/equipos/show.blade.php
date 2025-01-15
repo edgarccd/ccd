@@ -2,31 +2,8 @@
     <br>
     <div class="major container col-7">
         <h4> {{ $equipo->nombre }} </h4>
-        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            {{ $equipo->proyecto->nombre }}
-        </button>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel"> <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                            <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
-                            <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
-                          </svg> &nbsp;{{ $equipo->proyecto->nombre }}</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        {{ $equipo->proyecto->descripcion }}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <br>
-        Integrantes:
+        {{ $equipo->proyecto->nombre }}
+        <h1>Integrantes:</h1>
         <hr>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -41,8 +18,8 @@
                 <tbody>
                     @foreach ($alumnos as $alumno)
                         <tr>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                                    fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="30"
+                                    height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                                     <path
                                         d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                                 </svg></td>
@@ -55,6 +32,10 @@
             </table>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="../../proyecto/catalogo/{{ $equipo->proyecto->id }}.pdf" target="_blank"
+                class="btn btn-primary">PDF</a>
+            <a href="{{ route('equipos.entregables', [$equipo, Auth::user()]) }}"
+                class="btn btn-dark">Entregables</a>
             <a href="{{ route('equipos.index', Auth::user()) }}" class="btn btn-secondary">Regresar</a>
         </div>
     </div>

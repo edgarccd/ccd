@@ -18,7 +18,7 @@
                     <input type="file" name="files[]" id="files[]" multiple class="form-control" required>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button type="submit" class="mt-4 btn btn-primary ">Cargar</button>
-                    <a href="{{ route('equipos.index', Auth::user()) }}" class="mt-4 btn btn-secondary">Regresar</a>
+                    <a href="{{ route('equipos.show', $equipo) }}" class="mt-4 btn btn-secondary">Regresar</a>
                 </div>
                 </form>                
             </div>
@@ -49,7 +49,8 @@
                     @else
                         <h3> NO tiene grupos asignados</h3>
                     @endif
-                </b>
+                </b> <br>
+                {{ $equipo->proyecto->nombre }}
             </div>
             <div class="card-body">
                 <h5 class="card-title">
