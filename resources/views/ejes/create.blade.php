@@ -43,6 +43,9 @@
                                             @case(4)
                                                 D
                                             @break
+
+                                            @default
+                                                *
                                         @endswitch
                                     </td>
                                     <td>
@@ -71,7 +74,7 @@
                 </div>
             </form>
             @if (session('status'))
-                <div class="text-center">  {{ session('status') }}</div>
+                <div class="text-center"> {{ session('status') }}</div>
             @endif
         </div>
 
