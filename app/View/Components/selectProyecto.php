@@ -7,6 +7,7 @@ use App\Models\Proyecto;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\DB;
 
 class selectProyecto extends Component
 {
@@ -23,14 +24,8 @@ class selectProyecto extends Component
      */
     public function render(): View | Closure | string
     {
+         $proyectos = DB::table('proyectos')->orderBy('nombre')->get();
 
-        $proyectos = Proyecto::whereNOTIn('id', function ($query) {
-            $periodo = Periodo::where('activo', 1)->first();
-            $query->select('proyecto_equipos.proyecto_id')
-                ->from('proyecto_equipos')
-                ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
-                ->where('grupos.periodo_id', $periodo->id);
-        })->orderBy('nombre')->get();
         return view('components.select-proyecto', ['proyectos' => $proyectos]);
 
     }
