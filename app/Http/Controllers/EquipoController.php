@@ -133,7 +133,7 @@ class EquipoController extends Controller
 
     public function update(Request $request, ProyectoEquipo $equipo)
     {
-        $equipo->nombre      = $request->input('nombre');
+        $equipo->nombre      = strtoupper($request->input('nombre'));
         $equipo->comentarios = $request->input('comentarios');
         $equipo->proyecto_id = $request->input('proyecto_id');
         $equipo->updated_at  = now();

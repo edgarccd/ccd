@@ -11,7 +11,7 @@
             <div class="form-floating mb-3">
                 <input type="text" class="form-control text-uppercase" id="nombre" name="nombre" placeholder="Nombre"
                     value="{{ old('nombre', $equipo->nombre) }}" required>
-                <label for="nombre">Nombre</label>
+                <label for="nombre">Nombre del Equipo</label>
             </div>
 
             <div class="form-floating mb-3">
