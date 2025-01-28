@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
@@ -22,11 +21,11 @@ class EquipoController extends Controller
     public function index(User $usuario)
     {
         $periodo = Periodo::where('activo', 1)->first();
-        $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
+        $grupo   = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
         if ($grupo != null) {
             $equipos = ProyectoEquipo::where('grupo_id', $grupo->id)->get();
         } else {
-            $grupo = 0;
+            $grupo   = 0;
             $equipos = 0;
         }
         return view('equipos.index', ['grupo' => $grupo, 'equipos' => $equipos]);
@@ -57,10 +56,10 @@ class EquipoController extends Controller
         $periodo = Periodo::where('activo', 1)->first();
 
         ProyectoEquipo::create([
-            'nombre' => strtoupper($request->input('nombre')),
+            'nombre'      => strtoupper($request->input('nombre')),
             'comentarios' => $request->input('comentarios'),
             'proyecto_id' => $request->input('proyecto_id'),
-            'grupo_id' => $grupo->id,
+            'grupo_id'    => $grupo->id,
         ]);
 
         $equipo = ProyectoEquipo::latest('id')->first();
@@ -84,8 +83,8 @@ class EquipoController extends Controller
 
                 ProyectoAlumno::create([
                     'periodo_id' => $periodo->id,
-                    'equipo_id' => $equipo->id,
-                    'alumno_id' => $alumno->alumno_id,
+                    'equipo_id'  => $equipo->id,
+                    'alumno_id'  => $alumno->alumno_id,
                 ]);
 
             }
@@ -109,20 +108,16 @@ class EquipoController extends Controller
     {
         $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
             ->get();
-        $proyectos = Proyecto::whereNOTIn('id', function ($query) {
-            $periodo = Periodo::where('activo', 1)->first();
-            $query->select('proyecto_equipos.proyecto_id')
-                ->from('proyecto_equipos')
-                ->join('grupos', 'grupos.id', '=', 'proyecto_equipos.grupo_id')
-                ->where('grupos.periodo_id', $periodo->id);
-        })->orderBy('nombre')->get();
+            
+        $proyectos = DB::table('proyectos')->orderBy('nombre')->get();
+
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $equipo, 'proyectos' => $proyectos]);
     }
 
     public function deleteAlumno(ProyectoAlumno $palumno)
     {
         $periodo = Periodo::where('activo', 1)->first();
-        $equipo = ProyectoEquipo::where('id', $palumno->equipo_id)->first();
+        $equipo  = ProyectoEquipo::where('id', $palumno->equipo_id)->first();
         $palumno->delete();
         $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
             ->get();
@@ -138,10 +133,10 @@ class EquipoController extends Controller
 
     public function update(Request $request, ProyectoEquipo $equipo)
     {
-        $equipo->nombre = $request->input('nombre');
+        $equipo->nombre      = $request->input('nombre');
         $equipo->comentarios = $request->input('comentarios');
         $equipo->proyecto_id = $request->input('proyecto_id');
-        $equipo->updated_at = now();
+        $equipo->updated_at  = now();
         $equipo->save();
 
         $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
@@ -218,7 +213,7 @@ class EquipoController extends Controller
 
     public function destroy(ProyectoEquipo $pequipo)
     {
-        $grupo = Grupo::where('id', $pequipo->grupo_id)->first();
+        $grupo   = Grupo::where('id', $pequipo->grupo_id)->first();
         $periodo = Periodo::where('activo', 1)->first();
         $alumnos = ProyectoAlumno::where('equipo_id', $pequipo->id)
             ->where('periodo_id', $periodo->id)
@@ -237,8 +232,8 @@ class EquipoController extends Controller
 
         ProyectoAlumno::create([
             'periodo_id' => $periodo->id,
-            'equipo_id' => $pequipo->id,
-            'alumno_id' => $alumno->id,
+            'equipo_id'  => $pequipo->id,
+            'alumno_id'  => $alumno->id,
         ]);
 
         $alumnos = ProyectoAlumno::where('equipo_id', $pequipo->id)
@@ -258,8 +253,8 @@ class EquipoController extends Controller
     public function entregables(ProyectoEquipo $pequipo, User $usuario)
     {
         $periodo = Periodo::where('activo', 1)->first();
-        $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
-        $files = ProyectoEntregable::where('periodo_id', $periodo->id)
+        $grupo   = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
+        $files   = ProyectoEntregable::where('periodo_id', $periodo->id)
             ->where('persona_id', $usuario->persona->id)
             ->where('grupo_id', $grupo->id)
             ->where('equipo_id', $pequipo->id)
@@ -270,17 +265,17 @@ class EquipoController extends Controller
 
     public function storeEntregables(Request $request, ProyectoEquipo $pequipo, User $usuario)
     {
-        $periodo = Periodo::where('activo', 1)->first();
-        $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
+        $periodo  = Periodo::where('activo', 1)->first();
+        $grupo    = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
         $max_size = (int) ini_get('upload_max_filesize') * 10240;
-        $files = $request->file('files');
+        $files    = $request->file('files');
         foreach ($files as $file) {
             if (Storage::putFileAs('/public/' . $periodo->ciclo . '/' . $grupo->carrera->acronimo . '/' . $grupo->id . '/' . $pequipo->id . '/', $file, $file->getClientOriginalName())) {
                 ProyectoEntregable::create([
-                    'nombre' => $file->getClientOriginalName(),
+                    'nombre'     => $file->getClientOriginalName(),
                     'periodo_id' => $periodo->id,
-                    'equipo_id' => $pequipo->id,
-                    'grupo_id' => $grupo->id,
+                    'equipo_id'  => $pequipo->id,
+                    'grupo_id'   => $grupo->id,
                     'persona_id' => $usuario->persona->id,
                 ]);
             }
@@ -297,8 +292,8 @@ class EquipoController extends Controller
     public function destroyEntregables(Request $request, $id, User $usuario, ProyectoEquipo $pequipo)
     {
         $periodo = Periodo::where('activo', 1)->first();
-        $grupo = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
-        $file = ProyectoEntregable::where('id', $id)->firstOrFail();
+        $grupo   = Grupo::where('maestro_eje_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->first();
+        $file    = ProyectoEntregable::where('id', $id)->firstOrFail();
 
         unlink(public_path('storage/' . $periodo->ciclo . '/' . $grupo->carrera->acronimo . '/' . $grupo->id . '/' . $pequipo->id . '/' . $file->nombre));
         $file->delete();
@@ -314,10 +309,10 @@ class EquipoController extends Controller
 
     public function registrados(User $usuario)
     {
-        $periodo = Periodo::where('activo', 1)->first();
+        $periodo  = Periodo::where('activo', 1)->first();
         $periodos = Periodo::where('id', '>', 3)
             ->orderBy('activo', 'desc')->get();
-        $turnos = Coordinador::select('turno_id')->where('maestro_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->groupBy('turno_id')->get();
+        $turnos   = Coordinador::select('turno_id')->where('maestro_id', $usuario->persona->maestro->id)->where('periodo_id', $periodo->id)->groupBy('turno_id')->get();
         $carreras = DB::table('carreras')
             ->select('carrera_id', 'nombre')
             ->join('coordinadors', 'coordinadors.carrera_id', '=', 'carreras.id')
@@ -363,7 +358,7 @@ class EquipoController extends Controller
 
         if (isset($request->carrera_id)) {
             $carrera = Carrera::where('id', $request->carrera_id)->get()->first();
-            $grupos = Grupo::where('carrera_id', $request->carrera_id)
+            $grupos  = Grupo::where('carrera_id', $request->carrera_id)
                 ->where('periodo_id', $periodo->id)
                 ->where('turno_id', $request->turno_id)
                 ->orderBy('grado')
