@@ -42,6 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/proyectos/eje/catalogo', [ProyectoController::class, 'catalogo'])->name('proyectos.catalogo');
     Route::get('/proyectos/coordinador/catalogo', [ProyectoController::class, 'catalogoCompleto'])->name('proyectos.catalogoCompleto');
     Route::get('/proyectos/evaluar/{usuario}', [ProyectoController::class, 'evaluar'])->name('proyectos.evaluar');
+    Route::get('/proyectos/fechas/semana', [ProyectoController::class, 'fechas'])->name('proyectos.fechas');
+    Route::post('/proyectos/fechastore', [ProyectoController::class, 'fechaStore'])->name('proyectos.fechaStore');
+    Route::delete('/proyectos/eliminar/{dia}', [ProyectoController::class, 'fechaDestroy'])->name('proyectos.fechaDestroy');
     Route::get('/proyectos/evaluacion-proyecto/{equipo}', [ProyectoController::class, 'evaluacionProyecto'])->name('proyectos.evaluacionProyecto');
 });
 

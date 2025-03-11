@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Periodo;
 use App\Models\Proyecto;
 use App\Models\ProyectoEquipo;
+use App\Models\ProyectoSemana;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -27,18 +27,18 @@ class ProyectoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => ['required', 'min:4'],
+            'nombre'      => ['required', 'min:4'],
             'descripcion' => ['required'],
-            'ruta' => ['required'],
+            'ruta'        => ['required'],
 
         ]);
 
         Proyecto::create([
-            'nombre' => $request->input('nombre'),
+            'nombre'      => $request->input('nombre'),
             'descripcion' => $request->input('descripcion'),
-            'ruta' => $request->input('ruta'),
-            'tipo' => 1,
-            'activo' => 1,
+            'ruta'        => $request->input('ruta'),
+            'tipo'        => 1,
+            'activo'      => 1,
         ]);
 
         session()->flash('status', 'Proyecto Registrado con exito');
@@ -59,16 +59,16 @@ class ProyectoController extends Controller
     public function update(Request $request, $proyecto)
     {
         $request->validate([
-            'nombre' => ['required', 'min:4'],
+            'nombre'      => ['required', 'min:4'],
             'descripcion' => ['required'],
-            'ruta' => ['required'],
+            'ruta'        => ['required'],
         ]);
 
-        $proyecto = Proyecto::find($proyecto);
-        $proyecto->nombre = $request->input('nombre');
-        $proyecto->ruta = $request->input('ruta');
+        $proyecto              = Proyecto::find($proyecto);
+        $proyecto->nombre      = $request->input('nombre');
+        $proyecto->ruta        = $request->input('ruta');
         $proyecto->descripcion = $request->input('descripcion');
-        $proyecto->updated_at = now();
+        $proyecto->updated_at  = now();
         $proyecto->save();
 
         return to_route('proyectos.index')->with('status', 'Proyecto actualizado con exito');
@@ -164,6 +164,38 @@ class ProyectoController extends Controller
             ->orderBy('grupos.grupo', 'asc')
             ->get();
 
-        return view('proyectos.evaluacionProyecto', ['equipo' => $equipo,'grupos' => $grupos, 'equipos' => $equipos]);
+        return view('proyectos.evaluacionProyecto', ['equipo' => $equipo, 'grupos' => $grupos, 'equipos' => $equipos]);
+    }
+
+    public function fechas()
+    {
+        $periodo = Periodo::where('activo', 1)->first();
+        $dias = ProyectoSemana::where('periodo_id', $periodo->id)->get();
+        return view('proyectos.fechas', ['dias' => $dias]);
+    }
+
+    public function fechaStore(Request $request)
+    {
+        $periodo = Periodo::where('activo', 1)->first();
+
+        ProyectoSemana::create([
+            'dia'        => $request->input('dia_id'),
+            'aula_id'    => $request->input('aula_id'),
+            'periodo_id' => $periodo->id,
+            'turno_id'   => $request->input('turno_id'),
+        ]);
+
+        $dias = ProyectoSemana::where('periodo_id', $periodo->id)->get();
+
+        return view('proyectos.fechas', ['dias' => $dias]);
+    }
+
+    public function fechaDestroy(ProyectoSemana $dia)
+    {
+        $dia->delete();
+        $periodo = Periodo::where('activo', 1)->first();     
+        $dias = ProyectoSemana::where('periodo_id', $periodo->id)->get();
+        
+        return view('proyectos.fechas', ['dias' => $dias]);
     }
 }
