@@ -35,6 +35,7 @@
                             <li><a class="dropdown-item" href="{{ route('coordinadores.index') }}">Coordinadores</a>
                             <li><a class="dropdown-item" href="{{ route('grupos.index') }}">Grupos</a></li>
                             <li><a class="dropdown-item" href="{{ route('matricula.index') }}">Matricula</a></li>
+                            <li><a class="dropdown-item" href="{{ route('proyectos.fechas') }}">Semana de Proyectos</a></li>
                         </ul>
                     </li>
                 @endif
