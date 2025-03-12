@@ -26,7 +26,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <!-- <li><a class="dropdown-item" href="/proyecto/medica">Red Médica</a></li> -->
-                        <li><a class="dropdown-item" href="/pdf/2025A-Horarios.pdf" target="_blank"> <svg
+                        <li><a class="dropdown-item" href="/pdf/2025A-HorariosV2.pdf" target="_blank"> <svg
                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-calendar-week" viewBox="0 0 16 16">
                                     <path
