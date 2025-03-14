@@ -236,11 +236,13 @@ Route::get('/goole-auth/callback', function () {
     $user_google = Socialite::driver('google')->stateless()->user();
 
     $user = User::updateOrCreate([
-        'google_id' => $user_google->id,
+
+        'email' => $user_google->email,
         ], [
         'name'  => $user_google->name,
         'email' => $user_google->email,
-        'password'=> 0
+        'google_id' => $user_google->id,
+        'password' => $user_google->id,
         ]);
 
     Auth::login($user);
