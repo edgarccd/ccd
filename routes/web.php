@@ -24,6 +24,9 @@ use App\Models\ProyectoEquipo;
 use App\Models\ProyectoHorario;
 use App\Models\GrupoMateria;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 Route::view('/', 'welcome')->name('welcome');
 Route::view('/nosotros', 'nosotros')->name('nosotros');
@@ -224,6 +227,26 @@ Route::middleware('auth')->group(function () {
     Route::post('/cordinadores/store', [CoordinadorController::class, 'store'])->name('coordinadores.store');
     Route::delete('/coordinadores/{coordinador}', [CoordinadorController::class, 'destroy'])->name('coordinadores.destroy');
 });
+
+Route::get('/google-auth/redirect', function () {
+    return Socialite::driver('google')->redirect();
+})->name('google.redirect');
+
+Route::get('/goole-auth/callback', function () {
+    $user_google = Socialite::driver('google')->stateless()->user();
+
+    $user = User::updateOrCreate([
+        'google_id' => $user_google->id,
+        ], [
+        'name'  => $user_google->name,
+        'email' => $user_google->email,
+        'password'=> 0
+        ]);
+
+    Auth::login($user);
+
+    return redirect('/dashboard');
+})->name('google.callback');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
