@@ -117,7 +117,7 @@
                         target="_blank">Aviso de Privacidad</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">Ingresar</a>
+                    <a class="nav-link" href="{{ route('google.redirect') }}">Ingresar</a>
                 </li>
                 <!--
         <li class="nav-item">
