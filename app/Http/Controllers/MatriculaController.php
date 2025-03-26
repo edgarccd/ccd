@@ -11,6 +11,8 @@ use App\Models\Persona;
 use App\Models\Temporal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class MatriculaController extends Controller
 {
@@ -70,6 +72,15 @@ class MatriculaController extends Controller
                 'alumno_id' => $alumno->id,
                 'grupo_id' => $request->input('grupo_id'),
             ]);
+
+            User::create([
+                'name' => $temporal->nombre . " " . $temporal->apellido_pat . " " . $temporal->apellido_mat,
+                'email' => $temporal->correo,
+                'password' => Hash::make('12345678'),
+                'persona_id' => $persona->id,
+                'tipo_id' => 5,
+            ]);
+
         }
 
         Temporal::query()->delete();
@@ -162,6 +173,17 @@ class MatriculaController extends Controller
                     GrupoAlumno::create([                    
                     'alumno_id' => $alumno->alumno_id,
                     'grupo_id' => $request->input($name),
+                    ]);
+
+                    $alu = Alumno::where('id',$alumno->alumno_id)->first();
+                    $persona= Persona::where('id',$alu->persona_id)->first();
+
+                    User::create([
+                        'name' => $persona->nombre . " " . $persona->apellido_pat . " " . $persona->apellido_mat,
+                        'email' => $persona->correo,
+                        'password' => Hash::make('12345678'),
+                        'persona_id' => $alu->persona->id,
+                        'tipo_id' => 5,
                     ]);
                    
                 } 

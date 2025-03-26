@@ -133,6 +133,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/equipos/registrados-mostrar/{usuario}/{carrera_id}/{turno_id}/{periodo_id}', [EquipoController::class, 'showRegistrados'])->name('equipos.showRegistrados');
     Route::get('/equipos/registrados-integrantes/{equipo}', [EquipoController::class, 'registradosIntegrantes'])->name('equipos.registradosIntegrantes');
     Route::get('/equipos/registrados-entregables/{equipo}', [EquipoController::class, 'registradosEntregables'])->name('equipos.registradosEntregables');
+    Route::get('/equipo/alumno', [EquipoController::class, 'alumnoEquipo'])->name('equipos.alumno');
+    Route::get('/equipos/entregables/{pequipo}', [EquipoController::class, 'alumnoEntregables'])->name('equipos.alumnoEntregables');
 });
 
 Route::middleware('auth')->group(function () {

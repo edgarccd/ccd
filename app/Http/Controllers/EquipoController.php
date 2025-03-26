@@ -108,7 +108,7 @@ class EquipoController extends Controller
     {
         $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
             ->get();
-            
+
         $proyectos = DB::table('proyectos')->orderBy('nombre')->get();
 
         return view('equipos.edit', ['alumnos' => $alumnos, 'equipo' => $equipo, 'proyectos' => $proyectos]);
@@ -385,6 +385,44 @@ class EquipoController extends Controller
             ->get();
 
         return view('equipos.registrados-entregables', ['equipo' => $equipo, 'files' => $files]);
+
+    }
+
+    public function alumnoEquipo()
+    {
+
+        $periodo = Periodo::where('activo', 1)
+            ->first();
+
+        $alumno = ProyectoAlumno::where('alumno_id', auth()->user()->persona->alumno->id)
+            ->where('periodo_id', $periodo->id)
+            ->first();
+
+        if ($alumno == null) {
+
+            $equipo  = 0;
+            $alumnos = 0;
+            $grupo   = 0;
+            $files   = 0;
+
+        } else {
+
+            $equipo = ProyectoEquipo::where('id', $alumno->equipo_id)
+                ->first();
+
+            $alumnos = ProyectoAlumno::where('equipo_id', $equipo->id)
+                ->where('periodo_id', $periodo->id)
+                ->get();
+
+            $grupo = Grupo::where('id', $equipo->grupo_id)->first();
+
+            $files = ProyectoEntregable::where('periodo_id', $periodo->id)
+                ->where('grupo_id', $grupo->id)
+                ->where('equipo_id', $equipo->id)
+                ->get();
+        }
+
+        return view('equipos.alumno', ['alumnos' => $alumnos, 'equipo' => $equipo, 'grupo' => $grupo, 'files' => $files]);
 
     }
 

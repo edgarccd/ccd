@@ -35,8 +35,12 @@
                             <li><a class="dropdown-item" href="{{ route('coordinadores.index') }}">Coordinadores</a>
                             <li><a class="dropdown-item" href="{{ route('grupos.index') }}">Grupos</a></li>
                             <li><a class="dropdown-item" href="{{ route('matricula.index') }}">Matricula</a></li>
-                            <li><a class="dropdown-item" href="{{ route('proyectos.fechas') }}">Semana de Proyectos</a></li>
+                            <li><a class="dropdown-item" href="{{ route('proyectos.fechas') }}">Semana de Proyectos</a>
+                            </li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile.edit') }}">Perfil</a>
                     </li>
                 @endif
 
@@ -86,7 +90,7 @@
                                             d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
                                     </svg> Catálogo</a>
                             </li>
-                        
+
                             <li><a class="dropdown-item" href="{{ route('equipos.index', Auth::user()) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-person-gear" viewBox="0 0 16 16">
@@ -122,9 +126,11 @@
                     </li>
                 @endif
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile.edit') }}">Perfil</a>
-                </li>
+                @if (Auth::user()->tipo_id == 5)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('equipos.alumno') }}">Proyecto</a>
+                    </li>
+                @endif
 
                 <li class="nav-item">
                     <form method="POST" action="{{ route('logout') }}">
